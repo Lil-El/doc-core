@@ -51,7 +51,7 @@ const state = reactive({
 let editor = null;
 
 const editorRef = ref(null);
-
+let a = 123;
 onMounted(() => {
   updateCache();
 
@@ -82,18 +82,32 @@ onMounted(() => {
   // #endregion
 
   // 自定义主题
-  monaco.editor.defineTheme("mino-theme", {
+  monaco.editor.defineTheme("monokai", {
     base: "vs-dark",
     inherit: true,
-    rules: [],
+    rules: [
+      { token: "comment", fontStyle: "italic" },
+      { token: "number", foreground: "#ae81ff" },
+      { token: "type", foreground: "#ffffff" },
+      { token: "delimiter", foreground: "#ffffff" },
+      { token: "delimiter.html", foreground: "#ffffff" },
+      { token: "tag", foreground: "#f92672" },
+      { token: "attribute.name", foreground: "#a6e22e" },
+      { token: "attribute.value", foreground: "#e6db74" },
+      { token: "attribute.value.number.css", foreground: "#ae81f8" },
+      { token: "attribute.value.unit.css", foreground: "#de2822" },
+      { token: "string", foreground: "#e6db74" },
+      { token: "keyword", foreground: "#66d9ef" },
+      { token: "identifier", foreground: "#ffffff" },
+    ],
     colors: {},
   });
 
   // 创建编辑器实例
   editor = monaco.editor.create(editorRef.value, {
     language: state.language,
-    // theme: "mino-theme",
-    theme: "vs-dark",
+    theme: "monokai",
+    // theme: "vs-dark",
     fontFamily: "MapleMono",
     fontLigatures: true,
     automaticLayout: true, // 自动布局
@@ -105,6 +119,8 @@ onMounted(() => {
     },
     value: state.code,
   });
+
+  console.log(editor);
 
   // 自动格式化代码
   editor.getAction("editor.action.formatDocument").run();
