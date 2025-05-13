@@ -1,7 +1,7 @@
 const CACHE_NAME = "iframe-preview-cache";
 
 export function register() {
-  const swUrl = "/src/core/sw.js"; // TODO: 尝试这个
+  const swUrl = new URL("/sw.js", import.meta.url).href;
 
   // 是否已经注册；多 sw 时使用 getRegistrations 详细判断；
   if (!navigator.serviceWorker.controller) {
