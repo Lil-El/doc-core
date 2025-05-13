@@ -4,10 +4,8 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "app": "cd app & pnpm run dev --filter @lil-el/app",
     "codepen": "cd packages/codepen & pnpm run dev --filter @lil-el/codepen",
-    "markdown": "cd packages/markdown & pnpm run dev --filter @lil-el/markdown",
-    "deploy": "gh-pages -d dist"
+    "markdown": "cd packages/markdown & pnpm run dev --filter @lil-el/markdown"
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.3.1",
@@ -24,7 +22,7 @@
   },
   "author": "Mino",
   "homepage": "https://lil-el.github.io",
-  "description": "mino blog.",
+  "description": "packages: code editor; markdown previewer; rich editor;",
   "keywords": [],
   "repository": {
     "type": "git",
