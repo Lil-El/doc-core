@@ -120,8 +120,6 @@ onMounted(() => {
     value: state.code,
   });
 
-  console.log(editor);
-
   // 自动格式化代码
   editor.getAction("editor.action.formatDocument").run();
 

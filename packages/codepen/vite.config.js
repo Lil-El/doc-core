@@ -48,15 +48,12 @@ export default defineConfig({
     },
   ],
   build: {
-    minify: true,
     chunkSizeWarningLimit: 500,
+    minify: 'terser',
     terserOptions: {
       compress: {
         drop_console: true,
-        drop_debugger: true,
       },
-      mangle: true,
-      toplevel: true,
     },
     rollupOptions: {
       output: {
