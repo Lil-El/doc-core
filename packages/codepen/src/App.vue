@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="w-screen h-screen flex justify-center items-center">
     <code-pen />
   </div>
 </template>
@@ -41,13 +41,3 @@ const editors = reactive([
   },
 ]);
 </script>
-
-<style scoped>
-.container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100vw;
-  height: 100vh;
-}
-</style>

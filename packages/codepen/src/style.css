@@ -1,16 +1,12 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+@import "tailwindcss";
 
-@font-face {
-  font-family: 'MapleMono';
-  src: url('assets/MapleMono.ttf') format('truetype');
-}
+@layer base {
+  @font-face {
+    font-family: 'MapleMono';
+    src: url('assets/MapleMono.ttf') format('truetype');
+  }
 
-:root {}
-
-body {
-  margin: 0;
+  /* .test {
+    @apply bg-amber-50;
+  } */
 }

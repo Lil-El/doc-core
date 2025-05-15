@@ -1,11 +1,9 @@
 /*
 TODO: md 解析展示；
 组件 代码预览 组件；
-css @layer 使用
 MD解析移动新的package中，editor仅运行代码
-全局使用tailwindcss，网站首页使用termino.js，界面参考floating-ui.com
+网站首页使用termino.js，界面参考floating-ui.com
 Termino.js
-Console.log输出
 https://github.com/GeoffSelby/tailwind-highlightjs
 https://github.com/tailwindlabs/tailwindcss-typography
 */

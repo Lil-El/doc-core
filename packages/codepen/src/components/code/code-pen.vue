@@ -25,7 +25,7 @@
               </template>
               <template v-else>
                 <pane min-size="3" style="display: flex">
-                  <el-row type="flex" style="width: 100%">
+                  <div class="flex w-full">
                     <editor
                       v-for="(e, i) in configs"
                       :key="e.id"
@@ -44,7 +44,7 @@
                         >
                       </template>
                     </editor>
-                  </el-row>
+                  </div>
                 </pane>
               </template>
             </splitpanes>
