@@ -15,6 +15,7 @@
     "@tailwindcss/vite": "^4.1.6",
     "@vitejs/plugin-vue": "^5.2.2",
     "gh-pages": "^6.3.0",
+    "tailwind-scrollbar-hide": "^2.0.0",
     "tailwindcss": "^4.1.6",
     "unplugin-auto-import": "^19.1.2",
     "vite": "^6.3.1"
@@ -28,5 +29,8 @@
     "url": "https://github.com/Lil-El/Lil-El.github.io"
   },
   "license": "ISC",
-  "packageManager": "pnpm@10.10.0"
+  "packageManager": "pnpm@10.10.0",
+  "engines": {
+    "node": ">=18.0.0"
+  }
 }

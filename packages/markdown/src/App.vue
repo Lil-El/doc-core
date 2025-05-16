@@ -1,30 +1,32 @@
 <template>
-  <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
+  <div class="w-screen h-screen overflow-auto p-10 bg-green-200 sm:bg-pink-100 md:bg-amber-100 xl:bg-blue-100">
+    <m-markdown :data="mdStr"></m-markdown>
   </div>
-  <HelloWorld msg="Vite + Vue" />
 </template>
 
 <script setup>
-import HelloWorld from "./components/HelloWorld.vue";
-</script>
+/*
+TODO: md 解析展示；
+组件 代码预览 组件；
+网站首页使用termino.js，界面参考floating-ui.com
+Termino.js
+https://github.com/GeoffSelby/tailwind-highlightjs
+https://github.com/tailwindlabs/tailwindcss-typography
+*/
+import { readonly } from "vue";
+import MMarkdown from "./components/markdown/index.vue";
 
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
-}
-</style>
+const mdStr = readonly(`#Heading
+
+---
+
+## Heading2
+> 这是一个文档 By \`Mino\`
+
+## Heading3
+
+- md-content: **文档内容**
+- md-toc: *文档大纲*
+
+`);
+</script>

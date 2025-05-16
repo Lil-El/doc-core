@@ -1,12 +1,3 @@
-/*
-TODO: md 解析展示；
-组件 代码预览 组件；
-MD解析移动新的package中，editor仅运行代码
-网站首页使用termino.js，界面参考floating-ui.com
-Termino.js
-https://github.com/GeoffSelby/tailwind-highlightjs
-https://github.com/tailwindlabs/tailwindcss-typography
-*/
 import { parseVue3, parseReact, btoaUtf8 } from "@/core/parse";
 import { register, putCache } from "@/core/service";
 
