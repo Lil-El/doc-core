@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 @utility scrollbar-hidden {
   &::-webkit-scrollbar {
@@ -12,7 +13,7 @@
   }
 
   &::-webkit-scrollbar-thumb {
-    @apply rounded-full bg-[#ffffffcc];
+    @apply rounded-full bg-[#00000011];
   }
 
   &::-webkit-scrollbar-track {
