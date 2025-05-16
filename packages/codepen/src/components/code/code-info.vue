@@ -1,5 +1,5 @@
 <template>
-  <div class="header-left">
+  <div class="flex items-center gap-3.5">
     <svg
       t="1746282283426"
       class="icon"
@@ -26,9 +26,9 @@
         class="selected"
       ></path>
     </svg>
-    <div class="code-info">
-      <div class="title">{{ title }}</div>
-      <div class="info">
+    <div class="flex flex-col gap-1">
+      <div class="text-base text-white">{{ title }}</div>
+      <div class="text-xs flex gap-2 text-gray-500">
         <span
           >By <span style="color: var(--theme-color)">{{ author }}</span></span
         >
@@ -45,33 +45,3 @@ defineProps({
   date: String,
 });
 </script>
-
-<style scoped>
-.header-left {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
-
-.header-right {
-  justify-content: right;
-}
-
-.code-info {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-
-  .title {
-    font-size: 16px;
-    color: #ffffff;
-  }
-
-  .info {
-    font-size: 12px;
-    color: #999999;
-    display: flex;
-    gap: 8px;
-  }
-}
-</style>

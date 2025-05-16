@@ -1,12 +1,15 @@
 <template>
-  <div class="header-right">
+  <div class="flex justify-end items-center gap-3.5">
     <m-select type="cell" icon="theme" popup="bottom" v-model="theme" @change="setTheme">
       <m-select-option v-for="t in getAllThemes()" :key="t.value" :value="t.value">
-        <div class="color-cell" :style="{ backgroundColor: t.color }"></div>
+        <div
+          :style="{ '--cell-bg-color': t.color }"
+          class="color-cell w-[30px] h-[30px] text-sm/7 rounded-sm text-center bg-(--cell-bg-color)"
+        ></div>
       </m-select-option>
     </m-select>
     <m-select
-      class="header-right__layout"
+      v-show="showOpt"
       type="cell"
       icon="layout"
       popup="bottom"
@@ -84,11 +87,17 @@
         </svg>
       </m-select-option>
     </m-select>
-    <div class="code-button" @click="emit('reset')">
+    <div
+      class="flex justify-center items-center gap-1 w-[68px] h-9 text-base text-[#ffffffe6] rounded-sm bg-[#ffffff14] hover:bg-[#ffffff1f] cursor-pointer"
+      @click="emit('reset')"
+    >
       <img :src="getSVG('refresh')" width="18" draggable="false" />
       <span>重置</span>
     </div>
-    <div class="code-button" @click="emit('run')">
+    <div
+      class="flex justify-center items-center gap-1 w-[68px] h-9 text-base text-[#ffffffe6] rounded-sm bg-[#ffffff14] hover:bg-[#ffffff1f] cursor-pointer"
+      @click="emit('run')"
+    >
       <img :src="getSVG('run')" draggable="false" />
       <span>运行</span>
     </div>
@@ -101,6 +110,7 @@ import { getSVG, Select as MSelect, SelectOption as MSelectOption } from "@lil-e
 import useTheme from "@/hooks/useTheme";
 
 const props = defineProps({
+  showOpt: Boolean,
   layout: Boolean,
 });
 
@@ -112,40 +122,6 @@ const { theme, setTheme, getAllThemes } = useTheme();
 </script>
 
 <style scoped>
-.header-right {
-  display: flex;
-  justify-content: right;
-  align-items: center;
-  gap: 14px;
-}
-
-.code-button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 4px;
-  width: 68px;
-  height: 36px;
-  color: #ffffffe6;
-  font-size: 16px;
-  border-radius: 4px;
-  background-color: hsla(0, 0%, 100%, 0.08);
-  cursor: pointer;
-
-  &:hover {
-    background-color: hsla(0, 0%, 100%, 0.12);
-  }
-}
-
-.color-cell {
-  width: 30px;
-  height: 30px;
-  font-size: 14px;
-  border-radius: 4px;
-  text-align: center;
-  line-height: 28px;
-}
-
 :deep() {
   .select-option:hover {
     .arco-icon .normal {

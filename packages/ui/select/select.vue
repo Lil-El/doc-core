@@ -1,5 +1,9 @@
 <template>
-  <div class="select" ref="selectRef" @click.stop="toggle">
+  <div
+    class="select flex justify-center items-center size-9 cursor-pointer hover:rounded-sm hover:bg-[#ffffff1f]"
+    ref="selectRef"
+    @click.stop="toggle"
+  >
     <img :src="getSVG(icon)" alt="" />
 
     <transition
@@ -8,11 +12,8 @@
     >
       <div
         v-show="active"
-        class="select__options"
-        :class="{
-          cell: type === 'cell',
-          list: type === 'list',
-        }"
+        class="select__options absolute flex top-14 p-1.5 rounded-sm bg-[#555] z-10 text-sm border border-gray-500"
+        :class="[type === 'cell' ? 'cell items-center gap-2' : 'list size-max flex-col gap-1']"
         ref="optionsRef"
         :style="{ left: left + 'px', top: top + 'px' }"
       >
@@ -120,38 +121,6 @@ onUnmounted(() => {
 
 <style scoped>
 .select {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 36px;
-  height: 36px;
-  cursor: pointer;
-
-  .select__options {
-    position: absolute;
-    top: 54px;
-    height: 40px;
-    padding: 6px;
-    border-radius: 4px;
-    background-color: #555555;
-    z-index: 10;
-    font-size: 14px;
-
-    &.cell {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    &.list {
-      width: max-content;
-      height: max-content;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-  }
-
   .select__options.list :deep(.select-option) {
     border-radius: 4px;
     padding: 2px 4px;
@@ -166,11 +135,6 @@ onUnmounted(() => {
       background-color: #1e1f1c;
     }
   }
-}
-
-.select:hover {
-  background-color: hsla(0, 0%, 100%, 0.12);
-  border-radius: 4px;
 }
 
 .select-animate-bottom__enter {

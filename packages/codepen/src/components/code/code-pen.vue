@@ -1,8 +1,9 @@
 <template>
-  <div class="code-pen" :class="{ 'is-pure': pure, 'is-mobile': mobile }">
-    <header class="code-pen-header">
+  <div class="code-pen size-full flex flex-col bg-[#1e1f1c] select-none">
+    <header class="w-full h-16 shrink-0 bg-[#1e1f1c] flex justify-between items-center px-4 border-b border-[#666666]">
       <code-info :title="title" :author="author" :date="date" />
       <code-opt
+        :show-opt="!pure && !mobile"
         v-model:layout="layout"
         @run="run"
         @reset="
@@ -11,10 +12,9 @@
         "
       />
     </header>
-    <main class="code-pen-body">
-      <code-sidebar :init="!editors?.length" @change="handleCodeChange" />
-
-      <div class="code-pen-main" id="code-pen-main">
+    <main class="w-full flex h-[calc(100%-64px)]">
+      <code-sidebar :class="{ hidden: pure }" :init="!editors?.length" @change="handleCodeChange" />
+      <div class="flex flex-col bg-[#333] p-2" :class="[pure ? 'w-full' : 'w-[calc(100%-48px)]']" id="code-pen-main">
         <splitpanes :key="layout" class="default-theme" :horizontal="layout" :vertical="!layout">
           <pane min-size="3">
             <splitpanes :key="configs[0]?.id" class="default-theme" :horizontal="!layout" :vertical="layout">
@@ -25,7 +25,7 @@
               </template>
               <template v-else>
                 <pane min-size="3" style="display: flex">
-                  <div class="flex w-full">
+                  <div class="flex w-full flex-wrap">
                     <editor
                       v-for="(e, i) in configs"
                       :key="e.id"
@@ -50,7 +50,14 @@
             </splitpanes>
           </pane>
           <pane>
-            <div class="code-pen-view" v-loading="loading" element-loading-text="加载中...">
+            <div
+              class="size-full border border-[#666] rounded-sm bg-white relative"
+              :class="[
+                loading
+                  ? `after:flex after:items-center after:justify-center after:text-(--theme-color) after:content-['加载中...'] after:size-full after:bg-neutral-700 after:absolute after:z-10 after:top-0 after:left-0`
+                  : '',
+              ]"
+            >
               <iframe id="preview" style="width: 100%; height: 100%; border: none" />
             </div>
           </pane>
@@ -105,77 +112,19 @@ function handleCodeChange(data) {
 </script>
 
 <style scoped>
-.code-pen {
-  width: 100%;
-  height: 100%;
-  background-color: #1e1f1c;
-  user-select: none;
-
-  .code-pen-header {
-    width: 100%;
-    height: 64px;
-    background-color: #1e1f1c;
-    border-bottom: 1px solid #666666;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 20px;
+:deep() {
+  .splitpanes.default-theme .splitpanes__splitter {
+    background-color: transparent;
+    border: transparent;
   }
 
-  .code-pen-body {
-    display: flex;
-    width: 100%;
-    height: calc(100% - 64px);
-
-    .code-pen-main {
-      width: calc(100% - 48px);
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      background-color: #333333;
-      padding: 8px;
-
-      .code-pen-view {
-        width: 100%;
-        height: 100%;
-        border: 1px solid #666666;
-        border-radius: 4px;
-        background-color: #ffffff;
-        position: relative;
-      }
-    }
+  .splitpanes.default-theme .splitpanes__splitter:before,
+  .splitpanes.default-theme .splitpanes__splitter:after {
+    background-color: #666666;
   }
 
-  :deep() {
-    .splitpanes.default-theme .splitpanes__splitter {
-      background-color: transparent;
-      border: transparent;
-    }
-
-    .splitpanes.default-theme .splitpanes__splitter:before,
-    .splitpanes.default-theme .splitpanes__splitter:after {
-      background-color: #666666;
-    }
-
-    .splitpanes.default-theme .splitpanes__pane {
-      background-color: transparent;
-    }
-  }
-}
-
-.is-pure :deep() {
-  .header-right__layout,
-  .code-pen-sidebar {
-    display: none !important;
-  }
-  .code-pen-main {
-    width: 100%;
-  }
-}
-
-.is-mobile :deep() {
-  .header-right__layout {
-    display: none;
+  .splitpanes.default-theme .splitpanes__pane {
+    background-color: transparent;
   }
 }
 </style>

@@ -27,8 +27,6 @@ export function register() {
        // 最终 installing 会变为 null，所以要设置 newWorker，可以一直拿到 sw 实例对象；
        const newWorker = registration.installing;
        newWorker.addEventListener("statechange", (e) => {
-          console.log("old state:", e.target.state, !!registration.installing, !!registration.waiting, !!registration.active);
-
           if (newWorker.state === "installed") {
             // 初次安装waiting和active不会同时存在
             if (registration.waiting && registration.active) {

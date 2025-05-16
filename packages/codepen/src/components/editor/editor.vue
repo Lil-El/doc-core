@@ -1,13 +1,13 @@
 <template>
-  <div class="editor" v-bind="attrs">
-    <div class="editor-header">
-      <div class="header-left" :title="state.name">
+  <div class="size-full bg-[#555] box-border text-white text-sm" v-bind="attrs">
+    <div class="w-full h-7.5 flex justify-between items-center px-3.5 leading-7.5 border-b border-[#666]">
+      <div class="flex items-center gap-3.5" :title="state.name">
         <slot name="header" v-bind="state">
           <img :src="getSVG(state.icon)" width="16" draggable="false" />
           <span>{{ state.name }}</span>
         </slot>
       </div>
-      <div class="header-right">
+      <div class="flex items-center gap-2 cursor-pointer">
         <img
           v-show="cache"
           :src="getSVG('refresh')"
@@ -21,8 +21,8 @@
         />
       </div>
     </div>
-    <div class="editor-body">
-      <div ref="editorRef" class="editor-panel"></div>
+    <div class="w-full h-[calc(100%-30px)] bg-[#1e1f1c] p-2 box-border relative">
+      <div ref="editorRef" class="size-full"></div>
     </div>
   </div>
 </template>
@@ -186,51 +186,3 @@ defineExpose({
   updateCache,
 });
 </script>
-
-<style scoped>
-.editor {
-  width: 100%;
-  height: 100%;
-  background-color: #555555;
-  box-sizing: border-box;
-  color: white;
-  font-size: 14px;
-
-  .editor-header {
-    width: 100%;
-    height: 30px;
-    line-height: 30px;
-    padding: 0 13px;
-    border-bottom: 1px solid #666666;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    .header-left,
-    .header-right {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-
-    .header-right {
-      cursor: pointer;
-      gap: 8px;
-    }
-  }
-
-  .editor-body {
-    width: 100%;
-    height: calc(100% - 30px);
-    background-color: #1e1f1c;
-    padding: 8px;
-    box-sizing: border-box;
-    position: relative;
-
-    .editor-panel {
-      width: 100%;
-      height: 100%;
-    }
-  }
-}
-</style>

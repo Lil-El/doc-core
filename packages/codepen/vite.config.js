@@ -56,6 +56,9 @@ export default defineConfig({
       },
     },
   ],
+  optimizeDeps: {
+    include: ["vue", "@lil-el/ui"],
+  },
   build: {
     chunkSizeWarningLimit: 500,
     minify: "terser",
@@ -65,6 +68,7 @@ export default defineConfig({
       },
     },
     rollupOptions: {
+      external: ["vue"],
       output: {
         manualChunks: {
           vue: ["vue"],

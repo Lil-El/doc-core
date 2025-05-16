@@ -1,5 +1,6 @@
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
+import tailwindcss from "@tailwindcss/vite";
 import autoImport from "unplugin-auto-import/vite";
 import { resolve } from "path";
 
@@ -8,6 +9,9 @@ export default defineConfig({
     vue(),
     autoImport({
       imports: ["vue"],
+    }),
+    tailwindcss({
+      config: "../../tailwind.config.js",
     }),
   ],
   build: {
