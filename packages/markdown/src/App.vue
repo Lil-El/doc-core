@@ -39,9 +39,9 @@ const mdStr = readonly(`# Heading
 ## Heading4
 
 \`\`\`js
-function hello() {
+function hello() { // [!code ++]
   console.log('hello world'); // [!code highlight]
-  return 'hello world';
+  return 'hello world'; // [!code --]
 }
 \`\`\`
 

@@ -15,10 +15,8 @@ import { unified } from "unified";
 import remarkParse from "remark-parse";
 import remarkRehype from "remark-rehype";
 import rehypeStringify from "rehype-stringify";
-// import rehypeVue from "rehype-vue";
 import rehypeShiki from "@shikijs/rehype";
-import { transformerNotationDiff } from "@shikijs/transformers";
-import { codeToHtml } from "shiki";
+// import rehypeVue from "rehype-vue";
 
 const { mdText: markdownText } = defineProps({
   mdText: String,
@@ -38,7 +36,6 @@ onMounted(async () => {
     .use(remarkParse)
     .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypeShiki, {
-      inline: "tailing-curly-colon",
       themes: {
         light: "monokai",
       },
@@ -46,16 +43,8 @@ onMounted(async () => {
     .use(rehypeStringify, { allowDangerousHtml: true });
 
   const parsed = await processor.process(markdownText);
-  console.log(parsed);
   content.value = parsed.value;
 
-  // https://shiki.tmrs.site/packages/transformers
-  // const code = `console.log('hello')`;
-  // const html = await codeToHtml(code, {
-  //   lang: "ts",
-  //   theme: "nord",
-  //   transformers: [transformerNotationDiff()],
-  // });
-  // console.log(html);
+  // https://unifiedjs.com/explore/project/rehypejs/
 });
 </script>
