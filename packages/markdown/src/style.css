@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
+@config "../tailwind.config.js";
 
 @utility scrollbar-hidden {
   &::-webkit-scrollbar {
@@ -7,16 +8,98 @@
   }
 }
 
-@utility scrollbar-transparent {
+@utility scrollbar-gray-transparent {
   &::-webkit-scrollbar {
     @apply w-2 bg-transparent;
   }
 
   &::-webkit-scrollbar-thumb {
-    @apply rounded-full bg-[#00000011];
+    @apply rounded-full bg-[#00000012];
   }
 
   &::-webkit-scrollbar-track {
     @apply bg-transparent;
+  }
+}
+
+@utility scrollbar-white-transparent {
+  &::-webkit-scrollbar {
+    @apply w-2 bg-transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    @apply rounded-full bg-[#ffffff30];
+  }
+
+  &::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+}
+
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+@layer base {
+
+  /*
+    斜体：MapleMono
+    常规：monospace
+   */
+  @font-face {
+    font-family: 'MapleMono';
+    src: url('assets/MapleMono-Italic.woff2') format('woff2');
+  }
+}
+
+#app {
+  @apply bg-white dark:bg-black;
+}
+
+:not([data-theme='dark']) .prose figure pre {
+  @apply py-4 px-5 text-(--shiki-light) bg-(--shiki-light-bg);
+
+  & code span {
+    @apply text-(--shiki-light);
+    font-style: var(--shiki-light-font-style);
+  }
+}
+
+[data-theme='dark'] .prose figure pre {
+  @apply py-4 px-5 text-(--shiki-dark) bg-(--shiki-dark-bg);
+
+  & code span {
+    @apply text-(--shiki-dark);
+    font-style: var(--shiki-dark-font-style);
+  }
+}
+
+.prose {
+  figure>pre {
+    &::before {
+      @apply content-none absolute block top-0 right-0 font-black px-1 py-0.5 text-[11px] leading-[11px] rounded-bl-md;
+    }
+
+    &:where([data-language='javascript'], [data-language='js'])::before {
+      @apply content-['JS'] text-black bg-[#ffe936];
+    }
+
+    &:where([data-language='typescript'], [data-language='ts'])::before {
+      @apply content-['TS'] text-white bg-[#007acc];
+    }
+
+    &:where([data-language='bash'])::before {
+      @apply content-['BASH'] text-white bg-[#575969];
+    }
+
+    &:where([data-language='html'])::before {
+      @apply content-['HTML'] text-white bg-[#e34c26];
+    }
+
+    &:where([data-language='css'])::before {
+      @apply content-['CSS'] text-white bg-[#264de4];
+    }
+
+    &:where([data-language='vue'])::before {
+      @apply content-['VUE'] text-black bg-[#6fedb6];
+    }
   }
 }

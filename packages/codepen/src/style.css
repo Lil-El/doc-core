@@ -1,12 +1,12 @@
 @import "tailwindcss";
 
 @layer base {
+  /*
+    斜体：MapleMono
+    常规：monospace
+   */
   @font-face {
     font-family: 'MapleMono';
-    src: url('assets/MapleMono.ttf') format('truetype');
+    src: url('assets/MapleMono-Italic.woff2') format('woff2');
   }
-
-  /* .test {
-    @apply bg-amber-50;
-  } */
 }

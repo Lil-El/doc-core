@@ -15,8 +15,6 @@ export default defineConfig({
     autoImport({
       imports: ["vue"],
     }),
-    tailwindcss({
-      config: "../../tailwind.config.js",
-    }),
+    tailwindcss(),
   ],
 });
