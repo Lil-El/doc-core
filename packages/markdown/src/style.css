@@ -102,4 +102,12 @@
       @apply content-['VUE'] text-black bg-[#6fedb6];
     }
   }
+
+  blockquote {
+    background-color: var(--tw-prose-blockquote-bg-color);
+  }
+}
+
+.md-toc-item__active {
+  @apply border-(--toc-color) text-black dark:text-white font-bold;
 }

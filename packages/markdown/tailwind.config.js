@@ -1,8 +1,7 @@
 export default {
-  content: ["./**/*.{vue,js,html}"],
+  content: ["./src/**/*.{vue,js,html}"],
   theme: {
     extend: {
-      // https://github.com/tailwindlabs/tailwindcss-typography/blob/main/src/styles.js#L19
       typography: () => ({
         DEFAULT: {
           css: [
@@ -24,6 +23,7 @@ export default {
                 },
               },
               code: {
+                color: "var(--tw-prose-code)!important",
                 "&::before, &::after": {
                   display: "none",
                 },
@@ -47,29 +47,14 @@ export default {
             },
           ],
         },
+        // 静态class,配置不同主题样式;但是v4不支持safelist,所以主题无法设置为动态的class(prose-${name})
+        // 所以改为style中设置css变量
         "yellow-green": {
           css: [
             {
-              "--tw-prose-hr": "#99cd32",
-              "--tw-prose-code": "#99cd32",
-              "--tw-prose-bullets": "#99cd32",
-              "--tw-prose-links": "#99cd32",
-              "--tw-prose-quote-borders": "#99cd32",
-              blockquote: {
-                "background-color": "#99cd3230",
-              },
-            },
-            {
-              "[data-theme='dark'] &, [data-theme=dark] *, .dark &": {
-                "--tw-prose-hr": "#99cd32",
-                "--tw-prose-code": "#99cd32",
-                "--tw-prose-bullets": "#99cd32",
-                "--tw-prose-links": "#99cd32",
-                "--tw-prose-quote-borders": "#99cd32",
-                blockquote: {
-                  "background-color": "#99cd3230",
-                },
-              },
+              // "h1 a": {
+              //   color: "red!important",
+              // },
             },
           ],
         },
