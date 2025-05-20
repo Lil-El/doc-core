@@ -1,26 +1,42 @@
-# Heading
+# Markdown
 
 ---
 
-## Heading2
+## 使用
 
-> 这是一个<span style="color: yellowgreen;">文档</span> By `呵呵`
+> 这是一个默认 [<span style="color: yellowgreen;">Markdown 文档</span>][1] 的解析示例 By `Mino`
 
-这是一个[<span style="color: yellowgreen;">文档</span>][1] By `a Hello Mino !== \\ <= #{ -> ~@ |>`
+文档正文默认使用 `MapleMono` 字体，默认开启字符连体：`a Hello !== \\ <= #{ -> ~@ |>`
 
-## Heading3
+## 组件
 
 - md-content: **文档内容**
 - md-toc: _文档大纲_
 
-## Heading4
+## 代码
 
 ```js
-function hello() {
-  // [!code ++]
-  console.log("hello world"); // [!code highlight]
-  return "hello world"; // [!code --]
+function hello() { // [!code ++]
+  alert("hello world"); // [!code highlight]
 }
+```
+
+```vue
+<template>
+  <div @click="hello">Hello World</div>
+</template>
+
+<script setup>
+function hello() {
+  alert("hello world");
+}
+</script>
+```
+
+### 运行效果
+
+```runner
+  TODO: Demo Component
 ```
 
 # Vue 3 + Vite

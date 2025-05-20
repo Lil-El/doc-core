@@ -109,5 +109,5 @@
 }
 
 .md-toc-item__active {
-  @apply border-(--toc-color) text-black dark:text-white font-bold;
+  @apply border-(--toc-color) text-(--toc-color) font-bold;
 }

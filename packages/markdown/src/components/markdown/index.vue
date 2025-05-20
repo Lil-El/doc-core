@@ -10,7 +10,7 @@
           '--tw-prose-bullets': theme.color,
           '--tw-prose-links': theme.color,
           '--tw-prose-quote-borders': theme.color,
-          '--tw-prose-blockquote-bg-color': `${theme.color}30`
+          '--tw-prose-blockquote-bg-color': `${theme.color}30`,
         }"
         v-html="content"
       ></article>
@@ -66,6 +66,9 @@ onMounted(async () => {
         const headings = [];
         visit(tree, "element", (node) => {
           if (["h1", "h2", "h3", "h4", "h5", "h6"].includes(node.tagName)) {
+            visit(node, "text", (textNode) => {
+              node.properties["data-text"] = textNode.value;
+            });
             headings.push(node);
           }
         });
@@ -102,7 +105,7 @@ function buildHeadingTree(headings) {
       stack.pop();
     }
 
-    const newNode = { title: heading.properties.id, children: [] };
+    const newNode = { id: heading.properties.id, title: heading.properties["data-text"], children: [] };
 
     const parent = stack[stack.length - 1];
     parent.node.children.push(newNode);
