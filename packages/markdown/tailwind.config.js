@@ -35,12 +35,12 @@ export default {
                   "box-shadow": "0 1px 3px rgb(0 0 0 / 0.15)",
                 },
               },
-              ":not(:where(h1, h2, h3)) a": {
+              ":not(:where(h1, h2, h3, h4, h5, h6)) a": {
                 "&:hover": {
                   "text-decoration-thickness": "2px",
                 },
               },
-              ":where(h1, h2, h3) a": {
+              ":where(h1, h2, h3, h4, h5, h6) a": {
                 "text-decoration": "none",
                 "font-weight": "bold",
               },

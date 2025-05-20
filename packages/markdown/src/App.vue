@@ -4,7 +4,7 @@
     <option v-for="theme in colorsProxy" :key="theme.name" :value="theme.color">{{ theme.name }}</option>
   </select>
   <div class="p-10">
-    <m-markdown :md-text="mdStr"></m-markdown>
+    <m-markdown v-model="mdStr"></m-markdown>
   </div>
 </template>
 
@@ -17,9 +17,10 @@ monaco editor
 Termino.js
 以后打包的时候，应该直接把对应docs下的md转成html文件，然后直接引入
 包放在-D 和没有-D尝试
+app 读取目录生成左侧目录，点击目录跳转对应md文件
 */
 import MMarkdown from "./components/markdown/index.vue";
-import testMdText from "./doc/test.md?raw";
+import demoMdText from "./doc/demo.md?raw";
 import colors from "./utils/color.js";
 
 const colorsProxy = readonly(Object.entries(colors).map((i) => ({ name: i[0], color: i[1] })));
@@ -30,7 +31,7 @@ const colorTheme = reactive({
 });
 provide("color-theme", colorTheme);
 
-const mdStr = testMdText;
+const mdStr = demoMdText;
 
 function toggle() {
   const curr = document.documentElement.getAttribute("data-theme");
