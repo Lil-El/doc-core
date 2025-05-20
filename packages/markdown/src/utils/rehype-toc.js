@@ -1,4 +1,5 @@
 import { visit } from "unist-util-visit";
+import { heading } from "hast-util-heading";
 
 const TocHideReg = /\[!toc hide\]$/;
 
@@ -7,7 +8,7 @@ export default function (options) {
     const headings = [];
 
     visit(tree, "element", (node) => {
-      if (["h1", "h2", "h3", "h4", "h5", "h6"].includes(node.tagName)) {
+      if (heading(node)) {
         let innerText = "";
 
         visit(node, "text", (textNode) => {

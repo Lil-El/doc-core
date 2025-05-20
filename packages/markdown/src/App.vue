@@ -18,6 +18,7 @@ Termino.js
 以后打包的时候，应该直接把对应docs下的md转成html文件，然后直接引入
 包放在-D 和没有-D尝试
 app 读取目录生成左侧目录，点击目录跳转对应md文件
+图片预览功能
 */
 import MMarkdown from "./components/markdown/index.vue";
 import demoMdText from "./doc/demo.md?raw";
