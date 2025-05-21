@@ -51,7 +51,7 @@ const state = reactive({
 let editor = null;
 
 const editorRef = ref(null);
-let a = 123;
+
 onMounted(() => {
   updateCache();
 
@@ -177,7 +177,7 @@ function updateCache() {
 }
 
 onUnmounted(() => {
-  editor.dispose();
+  editor?.dispose();
 });
 
 defineExpose({
