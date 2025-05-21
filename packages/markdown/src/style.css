@@ -106,6 +106,10 @@
   blockquote {
     background-color: var(--tw-prose-blockquote-bg-color);
   }
+
+  img {
+    @apply mx-auto;
+  }
 }
 
 .md-toc-item__active {

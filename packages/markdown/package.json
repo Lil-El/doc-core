@@ -11,6 +11,7 @@
   "dependencies": {
     "@rehype-pretty/transformers": "^0.13.2",
     "hast-util-heading": "^3.0.0",
+    "monaco-editor": "^0.52.2",
     "rehype-autolink-headings": "^7.1.0",
     "rehype-pretty-code": "^0.14.1",
     "rehype-slug": "^6.0.0",
@@ -21,7 +22,8 @@
     "unist-util-visit": "^5.0.0"
   },
   "devDependencies": {
-    "@tailwindcss/typography": "^0.5.16"
+    "@tailwindcss/typography": "^0.5.16",
+    "vite-plugin-monaco-editor": "^1.1.0"
   },
   "peerDependencies": {
     "@tailwindcss/vite": "^4.1.6",

@@ -1,11 +1,15 @@
 <template>
-  <div class="@container flex size-full py-10">
-    <md-content :data="content" />
-    <md-toc class="hidden @4xl:flex" :data="toc" />
+  <div class="flex h-screen overflow-hidden">
+    <md-editor v-if="editable" v-model="copyText" />
+
+    <md-content :content="content">
+      <md-toc v-if="!editable" class="hidden @4xl:flex" :data="toc" />
+    </md-content>
   </div>
 </template>
 
 <script setup>
+import MdEditor from "./md-editor.vue";
 import MdContent from "./md-content.vue";
 import mdToc from "./md-toc.vue";
 import MyComponent from "../HelloWorld.vue";
@@ -20,16 +24,23 @@ import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import { transformerCopyButton } from "@rehype-pretty/transformers";
 import rehypeToc from "@/utils/rehype-toc";
 import rehypeVue from "@/utils/rehype-vue";
+import { onMounted } from "vue";
 
-const { modelValue: markdownText } = defineProps({
-  modelValue: String,
+const { text: markdownText } = defineProps({
+  editable: {
+    type: Boolean,
+    default: false,
+  },
+  text: String,
 });
+
+const copyText = ref(markdownText);
 
 const content = ref("");
 
 const toc = ref([]);
 
-onMounted(async () => {
+watchEffect(async () => {
   const processor = unified()
     .data("settings", { fragment: true })
     .use(remarkParse)
@@ -53,7 +64,7 @@ onMounted(async () => {
     })
     .use(rehypeStringify, { allowDangerousHtml: true });
 
-  const parsed = await processor.process(markdownText);
+  const parsed = await processor.process(copyText.value);
   content.value = parsed.value;
 });
 </script>

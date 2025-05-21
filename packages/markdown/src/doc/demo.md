@@ -2,6 +2,8 @@
 
 这是一个描述
 
+<!-- ![图片](http://192.168.40.114:52080/img/login_logo.O-WQCFIO..png) -->
+
 ```vue
 <template>
   <div @click="hello">Hello World</div>

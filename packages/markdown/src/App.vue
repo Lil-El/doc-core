@@ -3,8 +3,9 @@
   <select class="absolute left-16 bg-amber-200" @change="change">
     <option v-for="theme in colorsProxy" :key="theme.name" :value="theme.color">{{ theme.name }}</option>
   </select>
-  <div class="p-10">
-    <m-markdown v-model="mdStr"></m-markdown>
+
+  <div>
+    <m-markdown :editable="!false" :text="mdStr"></m-markdown>
   </div>
 </template>
 
@@ -12,13 +13,12 @@
 /*
 组件 代码预览 组件；
 lil-el/ui 设置 ui 前缀 tailwind
-monaco editor
+左右同步滚动
 首页使用termino.js，界面参考floating-ui.com
 Termino.js
 以后打包的时候，应该直接把对应docs下的md转成html文件，然后直接引入
 包放在-D 和没有-D尝试
-app 读取目录生成左侧目录，点击目录跳转对应md文件
-图片预览功能
+app 读取目录生成左侧目录，点击目录跳转对应md文件，左侧目录做面包屑，添加目录层级进入、退出的切换动画效果
 */
 import MMarkdown from "./components/markdown/index.vue";
 import demoMdText from "./doc/demo.md?raw";
@@ -26,25 +26,22 @@ import colors from "./utils/color.js";
 
 const colorsProxy = readonly(Object.entries(colors).map((i) => ({ name: i[0], color: i[1] })));
 
-const colorTheme = reactive({
+const theme = reactive({
+  mode: "light",
   name: colorsProxy[0].name,
   color: colorsProxy[0].color,
 });
-provide("color-theme", colorTheme);
+provide("color-theme", theme);
 
 const mdStr = demoMdText;
 
 function toggle() {
-  const curr = document.documentElement.getAttribute("data-theme");
-  if (curr === "dark") {
-    document.documentElement.setAttribute("data-theme", "light");
-  } else {
-    document.documentElement.setAttribute("data-theme", "dark");
-  }
+  theme.mode = theme.mode === "light" ? "dark" : "light";
+  document.documentElement.setAttribute("data-theme", theme.mode);
 }
 
 function change(e) {
-  colorTheme.name = colorsProxy.find((c) => c.color === e.target.value).name;
-  colorTheme.color = e.target.value;
+  theme.name = colorsProxy.find((c) => c.color === e.target.value).name;
+  theme.color = e.target.value;
 }
 </script>
