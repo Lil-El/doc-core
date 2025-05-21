@@ -3,11 +3,12 @@ import { heading } from "hast-util-heading";
 
 const TocHideReg = /\[!toc hide\]$/;
 
-export default function (options) {
-  return function (tree) {
+export default function (options, done) {
+  let result = [];
+  return function (ast, file) {
     const headings = [];
 
-    visit(tree, "element", (node) => {
+    visit(ast, "element", (node) => {
       if (heading(node)) {
         let innerText = "";
 
@@ -26,7 +27,7 @@ export default function (options) {
       }
     });
 
-    options.target.value = buildHeadingTree(headings);
+    done(buildHeadingTree(headings));
   };
 }
 

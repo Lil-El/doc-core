@@ -5,7 +5,7 @@
   </select>
 
   <div>
-    <m-markdown :editable="!false" :text="mdStr"></m-markdown>
+    <m-markdown :editable="false" :text="mdStr"></m-markdown>
   </div>
 </template>
 

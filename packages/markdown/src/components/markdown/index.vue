@@ -3,7 +3,9 @@
     <md-editor v-if="editable" v-model="copyText" />
 
     <md-content :content="content">
-      <md-toc v-if="!editable" class="hidden @4xl:flex" :data="toc" />
+      <template v-slot="{ scroller }">
+        <md-toc v-if="!editable" class="hidden @4xl:flex" :toc="toc" :scroller="scroller" />
+      </template>
     </md-content>
   </div>
 </template>
@@ -24,7 +26,6 @@ import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import { transformerCopyButton } from "@rehype-pretty/transformers";
 import rehypeToc from "@/utils/rehype-toc";
 import rehypeVue from "@/utils/rehype-vue";
-import { onMounted } from "vue";
 
 const { text: markdownText } = defineProps({
   editable: {
@@ -47,8 +48,10 @@ watchEffect(async () => {
     .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypeSlug)
     .use(rehypeAutolinkHeadings, { behavior: "wrap" })
-    .use(rehypeToc, { target: toc })
-    .use(rehypeVue, {})
+    .use(rehypeToc, null, (result) => {
+      toc.value = result;
+    })
+    // .use(rehypeVue, {})
     .use(rehypePrettyCode, {
       bypassInlineCode: !true,
       transformers: [

@@ -1,5 +1,5 @@
 <template>
-  <div class="@container flex flex-1/2 size-full py-10 overflow-y-auto">
+  <div ref="scrollRef" class="@container flex flex-1/2 size-full py-10 overflow-y-auto">
     <div class="@container h-max flex-1/2 break-words px-10 overflow-y-auto">
       <div class="m-auto @3xl:w-[740px]">
         <!-- 静态class: prose-yellow-green -->
@@ -19,14 +19,84 @@
       </div>
     </div>
 
-    <slot></slot>
+    <slot :scroller="{ active, scrollToTop, age: 456 }"></slot>
   </div>
 </template>
 
 <script setup>
-const props = defineProps({
+defineProps({
   content: String,
 });
 
 const theme = inject("color-theme");
+
+const scrollRef = ref(null);
+
+let timer = null;
+
+const hash = location.hash.match(/^#(.*?)$/)?.[1] || "";
+
+const disable = ref(!!hash);
+
+const active = ref(hash);
+
+provide("active-toc", active);
+
+provide("handleTOCClick", handleTOCClick);
+
+onMounted(() => {
+  if (active.value) {
+    let tmpTimer = setInterval(() => {
+      if (scrollRef.value.querySelector(`#${active.value}`)) {
+        handleTOCClick(active.value);
+        clearInterval(tmpTimer);
+      }
+    }, 50);
+  }
+
+  scrollRef.value.addEventListener("scroll", handleScroll);
+});
+
+onBeforeUnmount(() => {
+  clearTimeout(timer);
+  scrollRef.value.removeEventListener("scroll", handleScroll);
+});
+
+function handleTOCClick(ID) {
+  disable.value = true;
+
+  active.value = ID;
+
+  scrollRef.value.querySelector(`#${ID}`).scrollIntoView({
+    behavior: "smooth",
+  });
+
+  history.pushState(null, "", `#${ID}`);
+}
+
+function handleScroll() {
+  if (disable.value) {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      disable.value = false;
+    }, 100);
+    return void 0;
+  }
+
+  const headings = scrollRef.value.querySelectorAll("h1, h2, h3, h4, h5, h6");
+
+  headings.forEach((heading) => {
+    const rect = heading.getBoundingClientRect();
+    if (rect.top <= 50) {
+      active.value = heading.id;
+    }
+  });
+}
+
+function scrollToTop() {
+  scrollRef.value.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  });
+}
 </script>
