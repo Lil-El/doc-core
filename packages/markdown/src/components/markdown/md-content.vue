@@ -19,7 +19,7 @@
       </div>
     </div>
 
-    <slot :scroller="{ active, scrollToTop, age: 456 }"></slot>
+    <slot :scrollToTop="scrollToTop"></slot>
   </div>
 </template>
 
@@ -38,7 +38,7 @@ const hash = location.hash.match(/^#(.*?)$/)?.[1] || "";
 
 const disable = ref(!!hash);
 
-const active = ref(hash);
+const active = ref(decodeURIComponent(hash));
 
 provide("active-toc", active);
 

@@ -3,8 +3,8 @@
     <md-editor v-if="editable" v-model="copyText" />
 
     <md-content :content="content">
-      <template v-slot="{ scroller }">
-        <md-toc v-if="!editable" class="hidden @4xl:flex" :toc="toc" :scroller="scroller" />
+      <template v-slot="{ scrollToTop }">
+        <md-toc v-if="!editable" class="hidden @4xl:flex" :toc="toc" :scrollToTop="scrollToTop" />
       </template>
     </md-content>
   </div>
@@ -41,33 +41,34 @@ const content = ref("");
 
 const toc = ref([]);
 
-watchEffect(async () => {
-  const processor = unified()
-    .data("settings", { fragment: true })
-    .use(remarkParse)
-    .use(remarkRehype, { allowDangerousHtml: true })
-    .use(rehypeSlug)
-    .use(rehypeAutolinkHeadings, { behavior: "wrap" })
-    .use(rehypeToc, null, (result) => {
-      toc.value = result;
-    })
-    // .use(rehypeVue, {})
-    .use(rehypePrettyCode, {
-      bypassInlineCode: !true,
-      transformers: [
-        transformerCopyButton({
-          visibility: "hover",
-          feedbackDuration: 3_000,
-        }),
-      ],
-      theme: {
-        light: "snazzy-light",
-        dark: "monokai",
-      },
-    })
-    .use(rehypeStringify, { allowDangerousHtml: true });
+const processor = unified()
+  .data("settings", { fragment: true })
+  .use(remarkParse)
+  .use(remarkRehype, { allowDangerousHtml: true })
+  .use(rehypeSlug)
+  .use(rehypeAutolinkHeadings, { behavior: "wrap" })
+  .use(rehypeToc, (result) => {
+    toc.value = result;
+  })
+  .use(rehypeVue)
+  .use(rehypePrettyCode, {
+    bypassInlineCode: !true,
+    transformers: [
+      transformerCopyButton({
+        visibility: "hover",
+        feedbackDuration: 3_000,
+      }),
+    ],
+    theme: {
+      light: "snazzy-light",
+      dark: "monokai",
+    },
+  })
+  .use(rehypeStringify, { allowDangerousHtml: true });
 
-  const parsed = await processor.process(copyText.value);
-  content.value = parsed.value;
+watchEffect(() => {
+  processor.process(copyText.value).then(({ value }) => {
+    content.value = value;
+  });
 });
 </script>

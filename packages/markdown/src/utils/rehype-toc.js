@@ -3,8 +3,7 @@ import { heading } from "hast-util-heading";
 
 const TocHideReg = /\[!toc hide\]$/;
 
-export default function (options, done) {
-  let result = [];
+export default function (done) {
   return function (ast, file) {
     const headings = [];
 

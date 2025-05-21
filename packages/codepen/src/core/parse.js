@@ -6,12 +6,12 @@ export function parseVue3(code) {
     filename: "App.vue",
   });
 
-  const scopedId = descriptor.styles.some((c) => c.scoped) ? Math.random().toString(36).substring(2, 10) : undefined;
+  const scopeId = descriptor.styles.some((c) => c.scoped) ? Math.random().toString(36).substring(2, 10) : undefined;
 
   const styles = descriptor.styles.map((style) => {
-    if (scopedId)
+    if (scopeId)
       return compileStyle({
-        id: scopedId,
+        id: scopeId,
         source: style.content,
         scoped: !!style.scoped,
         sourceMap: false,
@@ -21,7 +21,7 @@ export function parseVue3(code) {
   });
 
   const { content: App } = compileScript(descriptor, {
-    id: scopedId,
+    id: scopeId,
     genDefaultAs: false,
     inlineTemplate: !!descriptor.scriptSetup,
     transformAssetUrls: true,
@@ -32,10 +32,10 @@ export function parseVue3(code) {
   let render = null;
   if (!descriptor.scriptSetup) {
     render = compileTemplate({
-      id: scopedId,
+      id: scopeId,
       filename: descriptor.filename,
       source: descriptor.template.content,
-      scoped: !!scopedId,
+      scoped: !!scopeId,
       slotted: descriptor.slotted,
       isProd: true,
     }).code;
@@ -43,7 +43,7 @@ export function parseVue3(code) {
 
   return {
     __filename: descriptor.filename,
-    __scopeId: scopedId,
+    __scopeId: scopeId,
     App: App,
     render: render ? render : null,
     styles,

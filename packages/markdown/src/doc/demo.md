@@ -4,18 +4,6 @@
 
 <!-- ![图片](http://192.168.40.114:52080/img/login_logo.O-WQCFIO..png) -->
 
-```vue
-<template>
-  <div @click="hello">Hello World</div>
-</template>
-
-<script setup>
-function hello() {
-  alert("hello world");
-}
-</script>
-```
-
 ---
 
 # Markdown
@@ -49,8 +37,11 @@ function hello() {
 
 ## 运行效果
 
-```runner
-<div onclick="alert('hello world.')">Hello World</div>
+```json HelloWorld [!code run]
+{
+  msg: "Hello Mino...",
+  style: "color: red;"
+}
 ```
 
 # Vue 3 + Vite
