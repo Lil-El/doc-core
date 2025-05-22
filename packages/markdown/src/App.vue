@@ -11,7 +11,6 @@
 
 <script setup>
 /*
-lil-el/ui 设置 ui 前缀 tailwind
 md tip warning success
 左右同步滚动
 首页使用termino.js，界面参考floating-ui.com

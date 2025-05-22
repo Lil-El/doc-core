@@ -14,18 +14,20 @@
 import MdEditor from "./md-editor.vue";
 import MdContent from "./md-content.vue";
 import mdToc from "./md-toc.vue";
-import MyComponent from "../HelloWorld.vue";
 
 import { unified } from "unified";
 import remarkParse from "remark-parse";
+import remarkGfm from "remark-gfm";
 import remarkRehype from "remark-rehype";
-import rehypeStringify from "rehype-stringify";
-import rehypePrettyCode from "rehype-pretty-code";
 import rehypeSlug from "rehype-slug";
+import rehypePrettyCode from "rehype-pretty-code";
+import rehypeStringify from "rehype-stringify";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import { transformerCopyButton } from "@rehype-pretty/transformers";
 import rehypeToc from "@/utils/rehype-toc";
 import rehypeVue from "@/utils/rehype-vue";
+import rehypeTip from "@/utils/rehype-tip";
+import rehypePatchFootnote from "@/utils/rehype-patch-footnote";
 
 const { text: markdownText } = defineProps({
   editable: {
@@ -44,13 +46,16 @@ const toc = ref([]);
 const processor = unified()
   .data("settings", { fragment: true })
   .use(remarkParse)
+  .use(remarkGfm)
   .use(remarkRehype, { allowDangerousHtml: true })
   .use(rehypeSlug)
   .use(rehypeAutolinkHeadings, { behavior: "wrap" })
+  .use(rehypePatchFootnote)
   .use(rehypeToc, (result) => {
     toc.value = result;
   })
   .use(rehypeVue)
+  .use(rehypeTip)
   .use(rehypePrettyCode, {
     bypassInlineCode: !true,
     transformers: [

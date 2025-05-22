@@ -1,7 +1,7 @@
 import { visit } from "unist-util-visit";
 import { h, render } from "vue";
 
-const compNameReg = /^\[!code run:(.*)\]$/;
+const compNameReg = /^\[!vue:(.*)\]$/;
 
 export default function (options) {
   return function (ast, file) {
@@ -11,14 +11,16 @@ export default function (options) {
       const scopeId = Math.random().toString(36).substring(2, 10);
 
       node.tagName = "figure";
+      const compName = node.properties.compName;
       const objString = node.children[0].children[0].value;
       const params = JSON.parse(objString);
+      delete node.properties.compName;
 
       node.children = [
         {
           type: "element",
           tagName: "div",
-          properties: { className: "code-runner", "data-scope-id": scopeId },
+          properties: { "data-scope-id": scopeId },
           children: [],
         },
       ];
@@ -27,7 +29,7 @@ export default function (options) {
         if (document.querySelector(`[data-scope-id="${scopeId}"]`)) {
           handleCompile(document.querySelector(`[data-scope-id="${scopeId}"]`), {
             params,
-            name: node.properties.compName,
+            name: compName,
           });
           clearInterval(tmpTimer);
         }
@@ -52,7 +54,7 @@ function getAllRunningCodeNode(ast) {
       compNameReg.test(node.children[0].data?.meta)
     ) {
       const [, compName] = node.children[0].data?.meta?.match(compNameReg);
-      node.properties.compName = compName;
+      node.properties.compName = compName.toLowerCase();
 
       nodes.push(node);
     }

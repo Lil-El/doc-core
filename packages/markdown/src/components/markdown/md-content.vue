@@ -47,7 +47,7 @@ provide("handleTOCClick", handleTOCClick);
 onMounted(() => {
   if (active.value) {
     let tmpTimer = setInterval(() => {
-      if (scrollRef.value.querySelector(`#${active.value}`)) {
+      if (document.getElementById(`${active.value}`)) {
         handleTOCClick(active.value);
         clearInterval(tmpTimer);
       }
@@ -67,7 +67,7 @@ function handleTOCClick(ID) {
 
   active.value = ID;
 
-  scrollRef.value.querySelector(`#${ID}`).scrollIntoView({
+  document.getElementById(`${ID}`).scrollIntoView({
     behavior: "smooth",
   });
 
