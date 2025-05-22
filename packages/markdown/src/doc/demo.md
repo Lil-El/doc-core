@@ -18,17 +18,12 @@
   - 有序列表：使用 `1. 2. 3.` 创建有序列表；
   - 无序列表：使用 `-、*、+` 创建列表；
 - 链接
-
   - 使用 `[text](url)` 创建链接；
-
-    例如：[marxi](https://marxi.co)
-
-  - 或者 `[text][id]`，需要定义参考式链接（`[marxi]: https://marxi.co`）;例如：[marxi][marxi]
+  - 或者 `[text][id]`，需要定义参考式链接（`[marxi]: https://marxi.co`）;
   - 如果不需要文字代替，可以直接写 **url** 会自动创建链接，例如：https://marxi.co/
-
 - 图片：使用 `![text](url)` 创建图片；
 - 引用：使用 `>` 创建引用；
-- 代码块：使用 ` ``` ` 创建代码块，支持 `vue`;
+- 代码块：使用 ` ``` ` 创建代码块，额外支持 `vue`、`ts` 等;
 - 文字
   - 粗体：使用 `**text**` 或 `__text__`；例如：**text**
   - 斜体：使用 `*text*` 或 `_text_`；例如：_text_
@@ -57,9 +52,9 @@
    # 标题 [!toc hide]
    ```
 
-2. `tip` 提示块：使用 `tip(type, title) { content }` 创建提示块；
+2. `tip` 提示块：使用 `[!tip:type]` 创建提示块；
 
-3. `vue` 组件：使用 `vue(name) { return params }` 调用内置组件(**name** 不区分大小写)；目前的内置组件有：
+3. `vue` 组件：使用 `[!vue:name]` 调用内置组件(**name** 不区分大小写)；目前的内置组件有：
    - helloworld：示例组件
    - codepen：在线代码编辑器
 
