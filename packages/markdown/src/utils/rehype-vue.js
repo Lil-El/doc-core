@@ -1,5 +1,7 @@
 import { visit } from "unist-util-visit";
-import { createApp } from "vue";
+import { h, render } from "vue";
+
+const compNameReg = /^\[!code run:(.*)\]$/;
 
 export default function (options) {
   return function (ast, file) {
@@ -10,9 +12,7 @@ export default function (options) {
 
       node.tagName = "figure";
       const objString = node.children[0].children[0].value;
-      const obj = JSON.parse(objString)
-      console.log(obj);
-      // TODO: 获取参数等对象，然后渲染成组件
+      const params = JSON.parse(objString);
 
       node.children = [
         {
@@ -25,7 +25,10 @@ export default function (options) {
 
       let tmpTimer = setInterval(() => {
         if (document.querySelector(`[data-scope-id="${scopeId}"]`)) {
-          handleCompile(document.querySelector(`[data-scope-id="${scopeId}"]`));
+          handleCompile(document.querySelector(`[data-scope-id="${scopeId}"]`), {
+            params,
+            name: node.properties.compName,
+          });
           clearInterval(tmpTimer);
         }
       }, 50);
@@ -33,10 +36,9 @@ export default function (options) {
   };
 }
 
-function handleCompile(root) {
-  import("@/components/HelloWorld.vue").then((module) => {
-    const app = createApp(module.default);
-    app.mount(root);
+function handleCompile(root, component) {
+  import(`/src/components/${component.name}.vue`).then((module) => {
+    render(h(module.default, component.params), root);
   });
 }
 
@@ -47,9 +49,10 @@ function getAllRunningCodeNode(ast) {
     if (
       node.tagName === "pre" &&
       node.children[0].tagName === "code" &&
-      node.children[0].data?.meta === "[!code run]"
+      compNameReg.test(node.children[0].data?.meta)
     ) {
-      console.log(node);
+      const [, compName] = node.children[0].data?.meta?.match(compNameReg);
+      node.properties.compName = compName;
 
       nodes.push(node);
     }

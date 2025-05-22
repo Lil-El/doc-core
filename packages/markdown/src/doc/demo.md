@@ -37,10 +37,10 @@ function hello() {
 
 ## 运行效果
 
-```json HelloWorld [!code run]
+```json [!code run:HelloWorld]
 {
-  msg: "Hello Mino...",
-  style: "color: red;"
+  "msg": "Hello Mino...",
+  "style": "color: red;"
 }
 ```
 

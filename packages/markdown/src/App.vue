@@ -11,7 +11,6 @@
 
 <script setup>
 /*
-组件 代码预览 组件；
 lil-el/ui 设置 ui 前缀 tailwind
 md tip warning success
 左右同步滚动
