@@ -12,7 +12,6 @@
 <script setup>
 /*
 部落格
-md tip warning success
 左右同步滚动
 首页使用termino.js，界面参考floating-ui.com
 Termino.js

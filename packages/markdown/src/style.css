@@ -108,7 +108,7 @@
   }
 
   figure.tip {
-    @apply p-6 relative border border-transparent transition-all rounded-md bg-gray-100 dark:bg-stone-900;
+    @apply px-4 relative border border-transparent transition-all rounded-md bg-gray-100 dark:bg-stone-900;
 
     &.tip-warning {
       @apply hover:border-amber-500 bg-[#f6e1ac80] dark:bg-[#755e2d];
@@ -155,11 +155,20 @@
 
   :where(figure):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
     @apply my-4;
+
+    &>div[data-scope-id] {
+      @apply size-full;
+
+      &:empty {
+        @apply bg-neutral-200 after:content-['加载中...'] after:block after:leading-loose after:size-full after:text-center after:text-stone-500 dark:after:bg-neutral-600 dark:after:text-stone-300;
+      }
+    }
   }
 
   hr {
     @apply my-8;
   }
+
 }
 
 .md-toc-item__active {

@@ -1,5 +1,11 @@
 <template>
-  <div class="code-pen size-full flex flex-col bg-[#1e1f1c] select-none">
+  <div
+    class="code-pen size-full flex flex-col bg-[#1e1f1c] select-none overflow-hidden"
+    :style="{
+      height: pure ? '430px' : 'initial',
+      borderRadius: pure ? '8px' : '0',
+    }"
+  >
     <header
       class="w-full shrink-0 bg-[#1e1f1c] flex justify-between items-center px-4 border-b border-[#666666]"
       :style="{ height: pure ? '48px' : '64px' }"

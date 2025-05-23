@@ -6,14 +6,14 @@
         <article
           class="prose dark:prose-invert max-w-full"
           :style="{
-            '--tw-prose-custom-color': theme.color,
-            '--tw-prose-bullets': theme.color,
-            '--tw-prose-blockquote-bg-color': `${theme.color}30`,
+            '--tw-prose-custom-color': cssColorVar,
+            '--tw-prose-bullets': cssColorVar,
+            '--tw-prose-blockquote-bg-color': `${cssColorVar}30`,
             '--tw-prose-code': theme.color,
-            '--tw-prose-headings': theme.color,
-            '--tw-prose-hr': theme.color,
-            '--tw-prose-links': theme.color,
-            '--tw-prose-quote-borders': theme.color,
+            '--tw-prose-headings': cssColorVar,
+            '--tw-prose-hr': cssColorVar,
+            '--tw-prose-links': cssColorVar,
+            '--tw-prose-quote-borders': cssColorVar,
           }"
           v-html="content"
         ></article>
@@ -44,6 +44,10 @@ const active = ref(decodeURIComponent(hash));
 provide("active-toc", active);
 
 provide("handleTOCClick", handleTOCClick);
+
+const cssColorVar = computed(() => {
+  return theme.mode === "dark" && theme.name === "stone" ? "#ffffff" : theme.color;
+});
 
 onMounted(() => {
   if (active.value) {

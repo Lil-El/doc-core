@@ -2,8 +2,6 @@
 
 [![npm](https://img.shields.io/npm/v/vue.svg)](https://www.npmjs.com/package/vue) [![lil-el](https://github.com/vuejs/core/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/lil-el) [![Download](https://img.shields.io/npm/dm/vue)](https://www.npmjs.com/package/vue)
 
-> 使用 `MapleMono` 字体，默认开启字符连体，例如：`Hello !== \\ <= #{ -> ~@ |>`
-
 ---
 
 # Markdown
@@ -54,9 +52,14 @@
 
 2. `tip` 提示块：使用 `[!tip:type]` 创建提示块；
 
-3. `vue` 组件：使用 `[!vue:name]` 调用内置组件(**name** 不区分大小写)；目前的内置组件有：
+3. `vue` 组件：使用 `[!vue:name:height]` 调用内置组件；目前的内置组件有：
    - helloworld：示例组件
    - codepen：在线代码编辑器
+
+    > 组件名称不区分大小写，高度不是必须的。例如：
+    >
+    > - `[!vue:helloworld:300]`
+    > - `[!vue:HelloWorld]`
 
 # 演示
 
@@ -108,9 +111,11 @@ function hello() {
 
 ### 2. codepen
 
-```json [!vue:codepen]
+```json [!vue:codepen:430]
 {
-  "style": "width: 100%; height: 430px; border-radius: 8px; overflow: hidden;",
+  "title": "Hello Codepen",
+  "author": "Mino",
+  "date": "2025/5/23",
   "editors": [
     {
       "id": 1,
@@ -147,7 +152,7 @@ function hello() {
 **使用**
 
 ````markdown
-```markdown [!tip:warning]
+```markdown [!tip:primary]
 这是一个 `tip` 提示块
 
 [百度一下](https://www.baidu.com)
@@ -156,7 +161,7 @@ function hello() {
 
 **运行效果**
 
-```markdown [!tip:warning]
+```markdown [!tip:primary]
 这是一个 `tip` 提示块
 
 [百度一下](https://www.baidu.com)

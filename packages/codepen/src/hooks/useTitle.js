@@ -1,5 +1,5 @@
 export default function useTitle(data, pure) {
-  const title = ref(data.title ? `${data.title} - codepen` : "codepen");
+  const title = ref(data.title || "codepen");
   const author = ref(data.author || "-");
   const date = ref(data.date || "-");
 

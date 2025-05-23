@@ -1,7 +1,8 @@
 import { visit } from "unist-util-visit";
 import { h, render } from "vue";
 
-const compNameReg = /^\[!vue:(.*)\]$/;
+const reg = /^\[!vue:.*\]$/;
+const compNameReg = /\[!vue:(\w+)(?::(\d+))?\]/;
 
 export default function (options) {
   return function (ast, file) {
@@ -11,16 +12,18 @@ export default function (options) {
       const scopeId = Math.random().toString(36).substring(2, 10);
 
       node.tagName = "figure";
-      const compName = node.properties.compName;
+      const { compName, height } = node.properties;
       const objString = node.children[0].children[0].value;
       const params = JSON.parse(objString);
+
       delete node.properties.compName;
+      delete node.properties.height;
 
       node.children = [
         {
           type: "element",
           tagName: "div",
-          properties: { "data-scope-id": scopeId },
+          properties: { "data-scope-id": scopeId, style: height ? `height: ${height}px` : "" },
           children: [],
         },
       ];
@@ -48,13 +51,11 @@ function getAllRunningCodeNode(ast) {
   const nodes = [];
 
   visit(ast, "element", (node) => {
-    if (
-      node.tagName === "pre" &&
-      node.children[0].tagName === "code" &&
-      compNameReg.test(node.children[0].data?.meta)
-    ) {
-      const [, compName] = node.children[0].data?.meta?.match(compNameReg);
+    if (node.tagName === "pre" && node.children[0].tagName === "code" && reg.test(node.children[0].data?.meta)) {
+      const [, compName, height] = node.children[0].data?.meta?.match(compNameReg);
+
       node.properties.compName = compName.toLowerCase();
+      node.properties.height = height;
 
       nodes.push(node);
     }
