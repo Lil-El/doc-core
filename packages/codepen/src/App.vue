@@ -1,5 +1,10 @@
 <template>
-  <div class="w-screen h-screen flex justify-center items-center">
+  <div
+    class="w-screen h-screen flex justify-center items-center"
+    :style="{
+      '--tw-prose-custom-color': 'white',
+    }"
+  >
     <code-pen />
   </div>
 </template>

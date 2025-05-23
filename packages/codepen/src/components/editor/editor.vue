@@ -108,7 +108,7 @@ onMounted(() => {
     language: state.language,
     theme: "monokai",
     // theme: "vs-dark",
-    fontFamily: "MapleMono",
+    // fontFamily: "MapleMono",
     fontLigatures: true,
     automaticLayout: true, // 自动布局
     wordWrap: "on", // 自动换行

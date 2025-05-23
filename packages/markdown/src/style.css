@@ -132,7 +132,7 @@
   }
 
   blockquote {
-    background-color: var(--tw-prose-blockquote-bg-color);
+    @apply my-4 bg-(--tw-prose-blockquote-bg-color);
   }
 
   img {
@@ -147,6 +147,18 @@
     &>img {
       @apply block m-0 -mb-1;
     }
+  }
+
+  :where(p):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+    @apply my-4;
+  }
+
+  :where(figure):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+    @apply my-4;
+  }
+
+  hr {
+    @apply my-8;
   }
 }
 

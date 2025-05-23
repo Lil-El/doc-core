@@ -1,13 +1,5 @@
 <template>
   <div class="flex justify-end items-center gap-3.5">
-    <m-select type="cell" icon="theme" popup="bottom" v-model="theme" @change="setTheme">
-      <m-select-option v-for="t in getAllThemes()" :key="t.value" :value="t.value">
-        <div
-          :style="{ '--cell-bg-color': t.color }"
-          class="color-cell w-[30px] h-[30px] text-sm/7 rounded-sm text-center bg-(--cell-bg-color)"
-        ></div>
-      </m-select-option>
-    </m-select>
     <m-select
       v-show="showOpt"
       type="cell"
@@ -107,8 +99,6 @@
 <script setup>
 import { getSVG, Select as MSelect, SelectOption as MSelectOption } from "@lil-el/ui";
 
-import useTheme from "@/hooks/useTheme";
-
 const props = defineProps({
   showOpt: Boolean,
   layout: Boolean,
@@ -117,33 +107,23 @@ const props = defineProps({
 const emit = defineEmits(["update:layout", "run", "reset"]);
 
 const curLayout = ref(props.layout);
-
-const { theme, setTheme, getAllThemes } = useTheme();
 </script>
 
 <style scoped>
 :deep() {
   .select-option:hover {
     .arco-icon .normal {
-      fill: var(--theme-color) !important;
-    }
-
-    .color-cell::after {
-      content: "✔";
+      fill: var(--tw-prose-custom-color) !important;
     }
   }
 
   .select-option.active {
     .arco-icon {
-      fill: var(--theme-color);
+      fill: var(--tw-prose-custom-color);
 
       .normal {
         fill: transparent !important;
       }
-    }
-
-    .color-cell::after {
-      content: "✔";
     }
   }
 }

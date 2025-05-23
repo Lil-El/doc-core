@@ -1,4 +1,4 @@
-export default function useTitle(data) {
+export default function useTitle(data, pure) {
   const title = ref(data.title ? `${data.title} - codepen` : "codepen");
   const author = ref(data.author || "-");
   const date = ref(data.date || "-");
@@ -6,7 +6,7 @@ export default function useTitle(data) {
   watch(
     title,
     (newTitle) => {
-      document.title = `${newTitle} - codepen`;
+      if (!pure) document.title = `${newTitle} - codepen`;
     },
     {
       immediate: true,

@@ -5,6 +5,7 @@ import autoImport from "unplugin-auto-import/vite";
 import { readFileSync, writeFileSync } from "node:fs";
 import { transform } from "@babel/core";
 import { minify } from "terser";
+import { resolve } from "path";
 
 // 当 package.json 设置为 type module 时，无法下面引入，该插件只允许使用 commonjs 规范引入；
 // import monacoEditorPlugin from "vite-plugin-monaco-editor";
@@ -60,7 +61,11 @@ export default defineConfig({
     include: ["vue", "@lil-el/ui"],
   },
   build: {
-    chunkSizeWarningLimit: 500,
+    lib: {
+      entry: resolve(__dirname, "index.js"),
+      formats: ["es"],
+    },
+    outDir: "dist",
     minify: "terser",
     terserOptions: {
       compress: {
@@ -71,9 +76,9 @@ export default defineConfig({
       external: ["vue"],
       output: {
         manualChunks: {
-          vue: ["vue"],
           "@lil-el/ui": ["@lil-el/ui"],
         },
+        entryFileNames: "[name].js",
         chunkFileNames(assetInfo) {
           // 忽略以 _ 开头的文件：gh pages 对这类文件 404
           if (assetInfo.name.startsWith("_")) {

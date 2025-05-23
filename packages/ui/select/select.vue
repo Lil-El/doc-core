@@ -131,7 +131,7 @@ onUnmounted(() => {
     }
 
     &.active {
-      color: var(--theme-color);
+      color: var(--tw-prose-custom-color);
       background-color: #1e1f1c;
     }
   }

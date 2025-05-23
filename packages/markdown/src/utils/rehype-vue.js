@@ -39,8 +39,8 @@ export default function (options) {
 }
 
 function handleCompile(root, component) {
-  import(`/src/components/${component.name}.vue`).then((module) => {
-    render(h(module.default, component.params), root);
+  import(`/src/components/index.js`).then((module) => {
+    render(h(module[component.name], component.params), root);
   });
 }
 

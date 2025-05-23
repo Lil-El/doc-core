@@ -6,10 +6,9 @@ export default {
         DEFAULT: {
           css: [
             {
-              "--default-mono-font-family": "MapleMono",
+              "--default-mono-font-family": "MapleMono, monospace",
             },
             {
-              "font-family": "MapleMono",
               blockquote: {
                 "border-radius": "0 0.5rem 0.5rem 0",
                 "font-style": "normal",

@@ -2,7 +2,7 @@ import { parseVue3, parseReact, btoaUtf8 } from "@/core/parse";
 import { register, putCache } from "@/core/service";
 
 // 是否使用 ServiceWorker，否则使用 srcdoc 方式
-const enableSW = import.meta.env.MODE === "development" ? false : "serviceWorker" in navigator;
+const enableSW = false; // import.meta.env.MODE === "development" ? false : "serviceWorker" in navigator;
 const urlsToCache = {
   preview: "/preview?v=0",
   main: "/main.js?v=0",
@@ -116,7 +116,7 @@ function generateHTML(htmlStr, cssStr) {
   `;
 }
 
-export default function useEditors(previewID) {
+export default function useEditors(previewID, pure) {
   const editorRef = ref(null);
 
   const loading = ref(false);
@@ -144,6 +144,8 @@ export default function useEditors(previewID) {
     // });
     // }, 10000);
     // #endregion
+
+    if (pure) nextTick(run);
 
     const previewFrame = document.getElementById(previewID);
     previewFrame.onload = () => {

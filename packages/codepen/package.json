@@ -8,6 +8,15 @@
     "build": "vite build",
     "preview": "vite preview"
   },
+  "exports": {
+    ".": {
+      "import": "./dist/index.js"
+    },
+    "./css": "./dist/assets/css/codepen.css"
+  },
+  "files": [
+    "dist"
+  ],
   "dependencies": {
     "@babel/standalone": "^7.27.2",
     "@lil-el/ui": "workspace:*",

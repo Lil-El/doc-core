@@ -10,7 +10,7 @@
     ".": {
       "import": "./dist/index.js"
     },
-    "./assets/*": "./dist/assets/*"
+    "./css": "./dist/assets/css/ui.css"
   },
   "files": [
     "dist"

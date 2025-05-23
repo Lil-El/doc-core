@@ -85,6 +85,9 @@ importers:
 
   packages/markdown:
     dependencies:
+      '@lil-el/codepen':
+        specifier: workspace:^
+        version: link:../codepen
       '@rehype-pretty/transformers':
         specifier: ^0.13.2
         version: 0.13.2

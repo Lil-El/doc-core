@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@lil-el/codepen": "workspace:^",
     "@rehype-pretty/transformers": "^0.13.2",
     "hast-util-heading": "^3.0.0",
     "monaco-editor": "^0.52.2",

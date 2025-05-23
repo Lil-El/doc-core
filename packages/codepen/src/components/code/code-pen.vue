@@ -1,6 +1,9 @@
 <template>
   <div class="code-pen size-full flex flex-col bg-[#1e1f1c] select-none">
-    <header class="w-full h-16 shrink-0 bg-[#1e1f1c] flex justify-between items-center px-4 border-b border-[#666666]">
+    <header
+      class="w-full shrink-0 bg-[#1e1f1c] flex justify-between items-center px-4 border-b border-[#666666]"
+      :style="{ height: pure ? '48px' : '64px' }"
+    >
       <code-info :title="title" :author="author" :date="date" />
       <code-opt
         :show-opt="!pure && !mobile"
@@ -12,11 +15,16 @@
         "
       />
     </header>
-    <main class="w-full flex h-[calc(100%-64px)]">
-      <code-sidebar :class="{ hidden: pure }" :init="!editors?.length" @change="handleCodeChange" />
+    <main
+      class="w-full flex"
+      :style="{
+        height: pure ? 'calc(100% - 48px)' : 'calc(100% - 64px)',
+      }"
+    >
+      <code-sidebar v-if="!pure" :init="!editors?.length" @change="handleCodeChange" />
       <div class="flex flex-col bg-[#333] p-2" :class="[pure ? 'w-full' : 'w-[calc(100%-48px)]']" id="code-pen-main">
-        <splitpanes :key="layout" class="default-theme" :horizontal="layout" :vertical="!layout">
-          <pane min-size="3">
+        <splitpanes class="default-theme" :horizontal="layout" :vertical="!layout">
+          <pane :key="layout" min-size="3">
             <splitpanes :key="configs[0]?.id" class="default-theme" :horizontal="!layout" :vertical="layout">
               <template v-if="configs.length === 1 || !single">
                 <pane v-for="e in configs" :key="e.id" min-size="3">
@@ -38,7 +46,10 @@
                         <span
                           v-for="(h, j) in configs"
                           :key="h.name"
-                          :style="{ color: name === h.name ? `var(--theme-color)` : 'white', cursor: 'pointer' }"
+                          :style="{
+                            color: name === h.name ? `var(--tw-prose-custom-color)` : 'white',
+                            cursor: 'pointer',
+                          }"
                           @click="top = j"
                           >{{ h.name }}</span
                         >
@@ -51,10 +62,10 @@
           </pane>
           <pane>
             <div
-              class="size-full border border-[#666] rounded-sm bg-white relative"
+              class="size-full bg-white relative"
               :class="[
                 loading
-                  ? `after:flex after:items-center after:justify-center after:text-(--theme-color) after:content-['加载中...'] after:size-full after:bg-neutral-700 after:absolute after:z-10 after:top-0 after:left-0`
+                  ? `after:flex after:items-center after:justify-center after:text-(--tw-prose-custom-color) after:content-['加载中...'] after:size-full after:bg-neutral-700 after:absolute after:z-10 after:top-0 after:left-0`
                   : '',
               ]"
             >
@@ -94,9 +105,9 @@ const configs = toRef(props.editors || []);
 // single: 是否合并编辑器；pure 时必须合并；
 const { layout, single, top, mobile } = useLayout("code-pen-main", pure.value);
 
-const { title, author, date, setData } = useTitle(props);
+const { title, author, date, setData } = useTitle(props, pure.value);
 
-const { editorRef, reset, run, loading } = useEditors("preview");
+const { editorRef, reset, run, loading } = useEditors("preview", pure.value);
 
 function handleCodeChange(data) {
   if (!data) data = props;
@@ -118,8 +129,8 @@ function handleCodeChange(data) {
     border: transparent;
   }
 
-  .splitpanes.default-theme .splitpanes__splitter:before,
-  .splitpanes.default-theme .splitpanes__splitter:after {
+  .splitpanes.default-theme .splitpanes__splitter::before,
+  .splitpanes.default-theme .splitpanes__splitter::after {
     background-color: #666666;
   }
 

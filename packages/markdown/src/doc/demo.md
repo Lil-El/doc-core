@@ -62,7 +62,7 @@
 
 ## `vue` 组件
 
-### 1. `helloworld.vue`
+### 1. helloworld
 
 **代码**
 
@@ -103,6 +103,40 @@ function hello() {
 {
   "msg": "点我试试...",
   "style": "color: red; cursor: pointer;"
+}
+```
+
+### 2. codepen
+
+```json [!vue:codepen]
+{
+  "style": "width: 100%; height: 430px; border-radius: 8px; overflow: hidden;",
+  "editors": [
+    {
+      "id": 1,
+      "name": "HTML",
+      "icon": "html",
+      "suffix": "html",
+      "language": "html",
+      "code": "<div id='hello'>Hello world!</div>"
+    },
+    {
+      "id": 2,
+      "name": "CSS",
+      "icon": "css",
+      "suffix": "css",
+      "language": "css",
+      "code": "#hello { color: red; }"
+    },
+    {
+      "id": 3,
+      "name": "JS",
+      "icon": "javascript",
+      "suffix": "javascript",
+      "language": "javascript",
+      "code": "function hello() {  alert('Hello world!');}const ele = document.getElementById('hello');ele.addEventListener('click', hello);"
+    }
+  ]
 }
 ```
 
