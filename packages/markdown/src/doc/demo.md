@@ -1,6 +1,20 @@
 # Markdown 使用手册 [!toc hide]
 
-[![npm](https://img.shields.io/npm/v/vue.svg)](https://www.npmjs.com/package/vue) [![lil-el](https://github.com/vuejs/core/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/lil-el) [![Download](https://img.shields.io/npm/dm/vue)](https://www.npmjs.com/package/vue)
+```markdown [!tip:success]
+- 开发环境
+  [![Node.js](https://img.shields.io/badge/Node.js-18%2B-brightgreen?logo=node.js&logoColor=green)](https://nodejs.org/)
+  [![Vite](https://img.shields.io/badge/Vite-6%2B-646CFF?logo=vite&logoColor=white)](https://vitejs.dev/)
+  [![Vue](https://img.shields.io/badge/Vue-3%2B-4FC08D?logo=vue.js&logoColor=42b883)](https://vuejs.org/)
+
+- 核心工具
+  [![unified](https://img.shields.io/npm/v/unified?color=3498db&label=unified)](https://unifiedjs.com)
+  [![monaco](https://img.shields.io/npm/v/monaco-editor?color=0078d7&label=monaco)](https://microsoft.github.io/monaco-editor/)
+
+- Profile
+  [![GitHub](https://img.shields.io/badge/GitHub-lil--el-00bcff?logo=github)](https://github.com/lil-el)
+  [![Pages](https://img.shields.io/badge/GitHub%20Pages-lil--el.github.io-00bcff?logo=github)](https://lil-el.github.io)
+  [![CSDN](https://img.shields.io/badge/CSDN-Mino吖-f00?logo=csdn&logoColor=f2522f)](https://blog.csdn.net/qq_36157085)
+```
 
 ---
 
@@ -53,13 +67,14 @@
 2. `tip` 提示块：使用 `[!tip:type]` 创建提示块；
 
 3. `vue` 组件：使用 `[!vue:name:height]` 调用内置组件；目前的内置组件有：
+
    - helloworld：示例组件
    - codepen：在线代码编辑器
 
-    > 组件名称不区分大小写，高度不是必须的。例如：
-    >
-    > - `[!vue:helloworld:300]`
-    > - `[!vue:HelloWorld]`
+   > 组件名称不区分大小写，高度不是必须的。例如：
+   >
+   > - `[!vue:helloworld:300]`
+   > - `[!vue:HelloWorld]`
 
 # 演示
 
@@ -123,7 +138,7 @@ function hello() {
       "icon": "html",
       "suffix": "html",
       "language": "html",
-      "code": "<div id='hello'>Hello world!</div>"
+      "code": "<div id='hello'>点我试试吧!</div>"
     },
     {
       "id": 2,
@@ -139,7 +154,7 @@ function hello() {
       "icon": "javascript",
       "suffix": "javascript",
       "language": "javascript",
-      "code": "function hello() {  alert('Hello world!');}const ele = document.getElementById('hello');ele.addEventListener('click', hello);"
+      "code": "function hello() {\n  alert('Hello world!');\n}\n\nconst ele = document.getElementById('hello');\n\nele.addEventListener('click', hello);"
     }
   ]
 }

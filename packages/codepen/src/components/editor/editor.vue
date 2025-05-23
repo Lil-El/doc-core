@@ -109,6 +109,8 @@ onMounted(() => {
     theme: "monokai",
     // theme: "vs-dark",
     // fontFamily: "MapleMono",
+    lineNumbersMinChars: 3,
+    tabSize: 2,
     fontLigatures: true,
     automaticLayout: true, // 自动布局
     wordWrap: "on", // 自动换行

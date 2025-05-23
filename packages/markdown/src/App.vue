@@ -5,18 +5,17 @@
   </select>
 
   <div>
-    <m-markdown :editable="false" :text="mdStr"></m-markdown>
+    <m-markdown :editable="!false" :text="mdStr"></m-markdown>
   </div>
 </template>
 
 <script setup>
 /*
 部落格
-左右同步滚动
-首页使用termino.js，界面参考floating-ui.com
-Termino.js
-以后打包的时候，应该直接把对应docs下的md转成html文件，然后直接引入
-包放在-D 和没有-D尝试
+md 导出；左右同步滚动；Monaco 主题冲突；
+首页使用termino.js，界面参考floating-ui.com Termino.js
+包放在-D 和没有-D尝试 preview
+codepen 打包拆分
 app 读取目录生成左侧目录，点击目录跳转对应md文件，左侧目录做面包屑，添加目录层级进入、退出的切换动画效果
 */
 import MMarkdown from "./components/markdown/index.vue";

@@ -27,9 +27,9 @@ const height = ref(0);
 
 watch(theme, () => {
   if (theme.mode === "dark") {
-    monaco.editor.setTheme("vs-dark");
+    editor.updateOptions({ theme: "vs-dark" });
   } else {
-    monaco.editor.setTheme("vs");
+    editor.updateOptions({ theme: "vs" });
   }
 });
 
@@ -70,6 +70,9 @@ function createEditor() {
     value: props.modelValue,
   });
 
+  console.log(editor.getTopForLineNumber(6));
+
+
   editor.getAction("editor.action.formatDocument").run();
 
   editor.onDidChangeModelContent(() => {
@@ -109,6 +112,5 @@ function getLineNumberAt(scrollTop) {
   return Math.floor(top / lineHeight);
 }
 
-function getContentAt(lineNumber) {
-}
+function getContentAt(lineNumber) {}
 </script>

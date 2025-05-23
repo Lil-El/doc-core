@@ -56,6 +56,10 @@ const processor = unified()
   })
   .use(rehypeVue)
   .use(rehypeTip)
+  // .use(() => (ast) => {
+  //   console.log(ast);
+  //   debugger;
+  // })
   .use(rehypePrettyCode, {
     bypassInlineCode: !true,
     transformers: [
