@@ -43,6 +43,13 @@ const content = ref("");
 
 const toc = ref([]);
 
+const scrollTopCtrl = reactive({
+  ctrl: null,
+  top: 0,
+  timer: null
+});
+provide("scrollTopCtrl", scrollTopCtrl);
+
 const processor = unified()
   .data("settings", { fragment: true })
   .use(remarkParse)
@@ -56,10 +63,6 @@ const processor = unified()
   })
   .use(rehypeVue)
   .use(rehypeTip)
-  // .use(() => (ast) => {
-  //   console.log(ast);
-  //   debugger;
-  // })
   .use(rehypePrettyCode, {
     bypassInlineCode: !true,
     transformers: [

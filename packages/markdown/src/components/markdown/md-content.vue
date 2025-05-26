@@ -25,6 +25,8 @@
 </template>
 
 <script setup>
+import useSyncScroll from "@/hooks/useSyncScroll.js";
+
 defineProps({
   content: String,
 });
@@ -44,6 +46,8 @@ const active = ref(decodeURIComponent(hash));
 provide("active-toc", active);
 
 provide("handleTOCClick", handleTOCClick);
+
+useSyncScroll(scrollRef, "md-content");
 
 const cssColorVar = computed(() => {
   return theme.mode === "dark" && theme.name === "stone" ? "#ffffff" : theme.color;

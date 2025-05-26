@@ -1,11 +1,12 @@
 <template>
-  <div ref="scrollRef" class="flex-1/2 border-r border-gray-300 py-10 overflow-y-auto">
+  <div ref="scrollRef" class="flex-1/2 border-r border-gray-300 overflow-y-auto">
     <div id="md-editor" :style="{ height: height + 'px' }"></div>
   </div>
 </template>
 
 <script setup>
 import * as monaco from "monaco-editor";
+import useSyncScroll from "@/hooks/useSyncScroll.js";
 
 const props = defineProps({
   modelValue: String,
@@ -25,6 +26,8 @@ let timer = null;
 
 const height = ref(0);
 
+useSyncScroll(scrollRef, "md-editor");
+
 watch(theme, () => {
   if (theme.mode === "dark") {
     editor.updateOptions({ theme: "vs-dark" });
@@ -35,16 +38,22 @@ watch(theme, () => {
 
 onMounted(() => {
   editor = createEditor();
-
-  // TODO: 同步滚动
-  // scrollRef.value.addEventListener("scroll", (e) => {
-  //   const line = getLineNumberAt(scrollRef.value.scrollTop);
-  //   console.log(line);
-  // });
 });
 
 function createEditor() {
-  const editor = monaco.editor.create(document.getElementById("md-editor"), {
+  const container = document.getElementById("md-editor");
+  container.attachShadow({ mode: "open" });
+  const inner = document.createElement("div");
+  inner.style.height = "100%";
+  container.shadowRoot.appendChild(inner);
+
+  const link = document.createElement("link");
+  link.rel = "stylesheet";
+  link.href = "https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.52.2/min/vs/editor/editor.main.min.css";
+  container.shadowRoot.appendChild(link);
+
+  const editor = monaco.editor.create(inner, {
+    useShadowDOM: true,
     language: "markdown",
     theme: "vs",
     fontSize: 16,
@@ -58,6 +67,10 @@ function createEditor() {
     lineHeight,
     lineNumbers: "off",
     wordWrap: "on",
+    padding: {
+      top: 40,
+      bottom: 40,
+    },
     scrollbar: {
       vertical: "hidden",
       horizontal: "hidden",
@@ -69,9 +82,6 @@ function createEditor() {
     },
     value: props.modelValue,
   });
-
-  console.log(editor.getTopForLineNumber(6));
-
 
   editor.getAction("editor.action.formatDocument").run();
 
@@ -106,11 +116,4 @@ onUnmounted(() => {
   clearTimeout(timer);
   editor.dispose();
 });
-
-function getLineNumberAt(scrollTop) {
-  const top = scrollTop < 40 ? 0 : scrollTop - 40;
-  return Math.floor(top / lineHeight);
-}
-
-function getContentAt(lineNumber) {}
 </script>

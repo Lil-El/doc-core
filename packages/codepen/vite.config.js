@@ -72,11 +72,14 @@ export default defineConfig({
         drop_console: true,
       },
     },
+    chunkSizeWarningLimit: 3000,  // 提高块大小警告阈值（默认 500KB）
+    sourcemap: false,             // 关闭 sourcemap 可减少内存占用
     rollupOptions: {
       external: ["vue"],
       output: {
         manualChunks: {
           "@lil-el/ui": ["@lil-el/ui"],
+          "monaco": ['monaco-editor']
         },
         entryFileNames: "[name].js",
         chunkFileNames(assetInfo) {

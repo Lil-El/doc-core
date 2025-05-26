@@ -12,10 +12,9 @@
 <script setup>
 /*
 部落格
-md 导出；左右同步滚动；Monaco 主题冲突；
 首页使用termino.js，界面参考floating-ui.com Termino.js
 包放在-D 和没有-D尝试 preview
-codepen 打包拆分
+codepen 打包拆分; 打包检查；
 app 读取目录生成左侧目录，点击目录跳转对应md文件，左侧目录做面包屑，添加目录层级进入、退出的切换动画效果
 */
 import MMarkdown from "./components/markdown/index.vue";
