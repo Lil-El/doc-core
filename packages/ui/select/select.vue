@@ -24,6 +24,7 @@
 </template>
 
 <script setup>
+import { ref, onMounted, onUnmounted, nextTick, watch, provide } from "vue";
 import { getSVG } from "../utils";
 
 const props = defineProps({

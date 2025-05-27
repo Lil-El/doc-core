@@ -25,6 +25,7 @@
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.16",
+    "vite-plugin-cdn-import": "^1.0.1",
     "vite-plugin-monaco-editor": "^1.1.0"
   },
   "peerDependencies": {

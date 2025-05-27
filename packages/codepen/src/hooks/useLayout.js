@@ -1,3 +1,5 @@
+import { ref, readonly, onMounted, onUnmounted } from "vue";
+
 function getDeviceType() {
   const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
   return isMobile;

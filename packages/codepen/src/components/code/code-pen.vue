@@ -1,8 +1,8 @@
 <template>
   <div
-    class="code-pen size-full flex flex-col bg-[#1e1f1c] select-none overflow-hidden"
+    class="code-pen w-full flex flex-col bg-[#1e1f1c] select-none overflow-hidden"
     :style="{
-      height: pure ? '430px' : 'initial',
+      height: pure ? '430px' : '100%',
       borderRadius: pure ? '8px' : '0',
     }"
   >
@@ -85,6 +85,8 @@
 </template>
 
 <script setup>
+import { computed, toRef, nextTick } from "vue";
+
 import { Splitpanes, Pane } from "splitpanes";
 import "splitpanes/dist/splitpanes.css";
 

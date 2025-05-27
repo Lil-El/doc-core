@@ -5,6 +5,7 @@
 </template>
 
 <script setup>
+import { inject, readonly, ref, watch, onMounted, onUnmounted } from "vue";
 import * as monaco from "monaco-editor";
 import useSyncScroll from "@/hooks/useSyncScroll.js";
 
@@ -41,6 +42,7 @@ onMounted(() => {
 });
 
 function createEditor() {
+  // TODO: 解决主题冲突
   const container = document.getElementById("md-editor");
   container.attachShadow({ mode: "open" });
   const inner = document.createElement("div");

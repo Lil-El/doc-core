@@ -11,6 +11,7 @@
 </template>
 
 <script setup>
+import { ref, reactive, provide, watchEffect } from "vue";
 import MdEditor from "./md-editor.vue";
 import MdContent from "./md-content.vue";
 import mdToc from "./md-toc.vue";

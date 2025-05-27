@@ -1,3 +1,5 @@
+import { ref, watch } from "vue";
+
 export default function useTitle(data, pure) {
   const title = ref(data.title || "codepen");
   const author = ref(data.author || "-");

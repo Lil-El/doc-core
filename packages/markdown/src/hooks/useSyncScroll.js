@@ -1,3 +1,5 @@
+import { inject, onMounted, onBeforeUnmount, watch } from "vue";
+
 export default function useSyncScroll(eleRef, name) {
   const scrollTopCtrl = inject("scrollTopCtrl");
 

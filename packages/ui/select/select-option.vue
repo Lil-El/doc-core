@@ -5,6 +5,7 @@
 </template>
 
 <script setup>
+import { inject } from "vue";
 const props = defineProps({
   value: {
     type: [String, Number, Boolean],

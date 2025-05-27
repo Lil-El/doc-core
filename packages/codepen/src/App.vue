@@ -5,12 +5,13 @@
       '--tw-prose-custom-color': 'white',
     }"
   >
-    <code-pen />
+    <codepen />
   </div>
 </template>
 
 <script setup>
-import CodePen from "@/components/code/code-pen.vue";
+import { reactive } from "vue";
+import codepen from "@/components/code/code-pen.vue";
 
 const editors = reactive([
   {

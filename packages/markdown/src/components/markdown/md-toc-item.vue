@@ -21,6 +21,7 @@
 </template>
 
 <script setup>
+import { toRef, inject } from "vue";
 const props = defineProps({ data: Object, level: Number });
 
 const data = toRef(props, "data");

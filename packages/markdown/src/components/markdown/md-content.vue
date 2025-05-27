@@ -25,6 +25,7 @@
 </template>
 
 <script setup>
+import { ref, provide, onMounted, computed, onBeforeUnmount, inject } from "vue";
 import useSyncScroll from "@/hooks/useSyncScroll.js";
 
 defineProps({

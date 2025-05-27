@@ -28,18 +28,22 @@
 </template>
 
 <script setup>
+import { ref, useAttrs, reactive, onMounted, onUnmounted } from "vue";
+
 import { getSVG } from "@lil-el/ui";
+import cloneDeep from "lodash/cloneDeep"; // 按需引入 lodash 的 cloneDeep 函数，防止全量打包
 
-import { cloneDeep } from "lodash";
-import * as monaco from "monaco-editor";
-
-const attrs = useAttrs();
+import useMonaco from "@/hooks/useMonaco";
 
 const props = defineProps({
   data: Object,
 });
 
 const emit = defineEmits(["run"]);
+
+const attrs = useAttrs();
+
+const monacoLoaded = useMonaco();
 
 const cache = ref(false);
 
@@ -52,7 +56,9 @@ let editor = null;
 
 const editorRef = ref(null);
 
-onMounted(() => {
+onMounted(async () => {
+  await monacoLoaded;
+
   updateCache();
 
   // #region 自定义代码补全
@@ -167,10 +173,11 @@ function save(key, value) {
   updateCache();
 }
 
-function getData() {
+async function getData() {
+  await monacoLoaded;
   return {
     ...state,
-    code: editor.getValue(),
+    code: editor?.getValue() || "",
   };
 }
 

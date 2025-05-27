@@ -477,6 +477,7 @@ html, body, #viewDiv {
     ],
   },
 ];
+import { ref, watch } from "vue";
 
 export default function useCode(init, callback = () => {}) {
   const code = ref(init ? templates[0].title : null);

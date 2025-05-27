@@ -1,3 +1,5 @@
+import { ref, onMounted, nextTick } from "vue";
+
 import { parseVue3, parseReact, btoaUtf8 } from "@/core/parse";
 import { register, putCache } from "@/core/service";
 
@@ -116,6 +118,15 @@ function generateHTML(htmlStr, cssStr) {
   `;
 }
 
+async function getEditorCode(editors, name) {
+  for (const editor of editors) {
+    const ins = await editor.getData();
+    if (ins.suffix === name) {
+      return ins.code;
+    }
+  }
+}
+
 export default function useEditors(previewID, pure) {
   const editorRef = ref(null);
 
@@ -153,23 +164,17 @@ export default function useEditors(previewID, pure) {
     };
   });
 
-  function run() {
+  async function run() {
     const editors = editorRef.value;
     if (!editors) return void 0;
 
     loading.value = true;
 
-    const htmlEditor = editors.find((e) => e.getData().suffix === "html");
-    const cssEditor = editors.find((e) => e.getData().suffix === "css");
-    const jsEditor = editors.find((e) => e.getData().suffix === "javascript");
-    const vueEditor = editors.find((e) => e.getData().suffix === "vue");
-    const reactEditor = editors.find((e) => e.getData().suffix === "react");
-
-    const htmlCode = htmlEditor ? htmlEditor.getData().code : "";
-    const cssCode = cssEditor ? cssEditor.getData().code : "";
-    const jsCode = jsEditor ? jsEditor.getData().code : "";
-    const vueCode = vueEditor ? vueEditor.getData().code : "";
-    const reactCode = reactEditor ? reactEditor.getData().code : "";
+    const htmlCode = await getEditorCode(editors, "html");
+    const cssCode = await getEditorCode(editors, "css");
+    const jsCode = await getEditorCode(editors, "javascript");
+    const vueCode = await getEditorCode(editors, "vue");
+    const reactCode = await getEditorCode(editors, "react");
 
     let srcdoc;
 

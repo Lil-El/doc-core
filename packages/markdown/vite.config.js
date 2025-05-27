@@ -1,7 +1,7 @@
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 import tailwindcss from "@tailwindcss/vite";
-import autoImport from "unplugin-auto-import/vite";
+import importToCDN from "vite-plugin-cdn-import";
 
 import { createRequire } from "node:module";
 const require = createRequire(import.meta.url);
@@ -16,10 +16,27 @@ export default defineConfig({
   },
   plugins: [
     vue(),
-    autoImport({
-      imports: ["vue"],
-    }),
     tailwindcss(),
-    monacoEditorPlugin({}),
+    ...(process.env.NODE_ENV === "development" ? [monacoEditorPlugin({})] : []),
+    importToCDN({
+      modules: [
+        {
+          name: "@babel/standalone",
+          var: "Babel",
+          path: "https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.26.5/babel.min.js",
+        },
+        {
+          name: "loader",
+          var: "loader",
+          path: "https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.52.2/min/vs/loader.min.js",
+        },
+        {
+          name: "vue",
+          var: "Vue",
+          path: "https://cdnjs.cloudflare.com/ajax/libs/vue/3.5.13/vue.global.prod.min.js",
+        },
+      ],
+      enableInDevMode: true,
+    }),
   ],
 });
