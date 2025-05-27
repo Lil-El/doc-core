@@ -6,8 +6,8 @@
 
 <script setup>
 import { inject, readonly, ref, watch, onMounted, onUnmounted } from "vue";
-import * as monaco from "monaco-editor";
 import useSyncScroll from "@/hooks/useSyncScroll.js";
+import useMonaco from "@/hooks/useMonaco";
 
 const props = defineProps({
   modelValue: String,
@@ -16,6 +16,8 @@ const props = defineProps({
 const emit = defineEmits(["update:modelValue"]);
 
 const theme = inject("color-theme");
+
+const monacoLoaded = useMonaco();
 
 const lineHeight = readonly(24);
 
@@ -37,25 +39,14 @@ watch(theme, () => {
   }
 });
 
-onMounted(() => {
+onMounted(async () => {
+  await monacoLoaded;
   editor = createEditor();
 });
 
 function createEditor() {
-  // TODO: 解决主题冲突
   const container = document.getElementById("md-editor");
-  container.attachShadow({ mode: "open" });
-  const inner = document.createElement("div");
-  inner.style.height = "100%";
-  container.shadowRoot.appendChild(inner);
-
-  const link = document.createElement("link");
-  link.rel = "stylesheet";
-  link.href = "https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.52.2/min/vs/editor/editor.main.min.css";
-  container.shadowRoot.appendChild(link);
-
-  const editor = monaco.editor.create(inner, {
-    useShadowDOM: true,
+  const editor = monaco.editor.create(container, {
     language: "markdown",
     theme: "vs",
     fontSize: 16,
