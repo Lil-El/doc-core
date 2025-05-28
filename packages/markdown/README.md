@@ -1,5 +1,9 @@
 # @lil-el/markdown
 
+![npm version](https://img.shields.io/npm/v/@lil-el/markdown?color=green)
+[![Pages](https://img.shields.io/badge/GitHub%20Pages-lil--el.github.io-00bcff?logo=github)](https://lil-el.github.io)
+[![CSDN](https://img.shields.io/badge/CSDN-Mino吖-f00?logo=csdn&logoColor=f2522f)](https://blog.csdn.net/qq_36157085)
+
 ## Guide
 
 ### features

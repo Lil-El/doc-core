@@ -1,7 +1,7 @@
 {
   "name": "Lil-El.github.io",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "codepen": "cd packages/codepen & pnpm run dev --filter @lil-el/codepen",
@@ -14,7 +14,6 @@
     "@changesets/cli": "^2.29.2",
     "@tailwindcss/vite": "^4.1.6",
     "@vitejs/plugin-vue": "^5.2.2",
-    "gh-pages": "^6.3.0",
     "tailwindcss": "^4.1.6",
     "vite": "^6.3.1"
   },
