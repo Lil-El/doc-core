@@ -1,7 +1,6 @@
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 import tailwindcss from "@tailwindcss/vite";
-import importToCDN from "vite-plugin-cdn-import";
 import { analyzer } from "vite-bundle-analyzer";
 import { resolve } from "path";
 
@@ -23,26 +22,6 @@ export default defineConfig({
     vue(),
     tailwindcss(),
     ...(process.env.NODE_ENV === "development" ? [monacoEditorPlugin({})] : []),
-    importToCDN({
-      modules: [
-        {
-          name: "@babel/standalone",
-          var: "Babel",
-          path: "https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.26.5/babel.min.js",
-        },
-        {
-          name: "loader",
-          var: "loader",
-          path: "https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.52.2/min/vs/loader.min.js",
-        },
-        {
-          name: "vue",
-          var: "Vue",
-          path: "https://cdnjs.cloudflare.com/ajax/libs/vue/3.5.13/vue.global.prod.min.js",
-        },
-      ],
-      enableInDevMode: true,
-    }),
     // analyzer(),
   ],
   build: {
@@ -60,7 +39,12 @@ export default defineConfig({
     chunkSizeWarningLimit: 500, // 提高块大小警告阈值（默认 500KB）
     sourcemap: false, // 关闭 sourcemap 可减少内存占用
     rollupOptions: {
+      // 作为库打包时，排除以下依赖；如果是应用打包，则不需要排除这些依赖
+      external: ["vue", "monaco-editor"],
       output: {
+        globals: {
+          vue: "Vue",
+        },
         manualChunks: {},
         entryFileNames: "[name].js",
         chunkFileNames(assetInfo) {

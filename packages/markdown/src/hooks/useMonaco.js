@@ -2,6 +2,15 @@ const { promise, resolve } = Promise.withResolvers();
 
 let isLoad = false;
 
+function initLocalEditor() {
+  if (!window.monaco)
+    import("monaco-editor").then((monaco) => {
+      window.monaco = monaco;
+      resolve();
+    });
+  else resolve();
+}
+
 function initCDNEditor() {
   if (window.monaco) {
     resolve();
@@ -19,7 +28,13 @@ function initCDNEditor() {
 
   if (window.require) {
     loadMonaco();
+  } else {
+    const script = document.createElement("script");
+    script.src = __MONACO_CDN__ + "/loader.min.js";
+    script.onload = loadMonaco;
+    document.body.appendChild(script);
   }
+
   return promise;
 }
 
@@ -28,7 +43,11 @@ export default function useMonaco() {
 
   isLoad = true;
 
-  initCDNEditor();
+  if (import.meta.env.DEV) {
+    initLocalEditor();
+  } else {
+    initCDNEditor();
+  }
 
   return promise;
 }

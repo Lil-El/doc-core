@@ -139,7 +139,7 @@ importers:
     devDependencies:
       '@tailwindcss/typography':
         specifier: ^0.5.16
-        version: 0.5.16(tailwindcss@4.1.6)
+        version: 0.5.16
       monaco-editor:
         specifier: ^0.52.2
         version: 0.52.2
@@ -149,9 +149,6 @@ importers:
       vite-bundle-analyzer:
         specifier: ^0.21.0
         version: 0.21.0
-      vite-plugin-cdn-import:
-        specifier: ^1.0.1
-        version: 1.0.1(rollup@4.40.1)(vite@6.3.4(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.1))
       vite-plugin-monaco-editor:
         specifier: ^1.1.0
         version: 1.1.0(monaco-editor@0.52.2)
@@ -921,15 +918,6 @@ packages:
     resolution: {integrity: sha512-p2ciQSwqy5Ip8aNUa9q6rdS/hJZXrxHYYfDVOHvKOsBu3t9HDmQ65YX6r9Qbl19vi160OAxmGF7MIoCRDJrRhg==}
     engines: {node: '>=18'}
 
-  '@rollup/pluginutils@5.1.4':
-    resolution: {integrity: sha512-USm05zrsFxYLPdWWq+K3STlWiT/3ELn3RcV5hJMghpeAIhxfsUIg6mt12CBJBInWMV4VneoV7SfGv8xIwo2qNQ==}
-    engines: {node: '>=14.0.0'}
-    peerDependencies:
-      rollup: ^1.20.0||^2.0.0||^3.0.0||^4.0.0
-    peerDependenciesMeta:
-      rollup:
-        optional: true
-
   '@rollup/rollup-android-arm-eabi@4.40.1':
     resolution: {integrity: sha512-kxz0YeeCrRUHz3zyqvd7n+TVRlNyTifBsmnmNPtk3hQURUyG9eAB+usz6DAwagMusjx/zb3AjvDUvhFGDAexGw==}
     cpu: [arm]
@@ -1391,9 +1379,6 @@ packages:
     resolution: {integrity: sha512-aKstq2TDOndCn4diEyp9Uq/Flu2i1GlLkc6XIDQSDMuaFE3OPW5OphLCyQ5SpSJZTb4reN+kTcYru5yIfXoRPw==}
     engines: {node: '>=0.12'}
 
-  es-module-lexer@0.4.1:
-    resolution: {integrity: sha512-ooYciCUtfw6/d2w56UVeqHPcoCFAiJdz5XOkYpv/Txl1HMUozpXjz/2RIQgqwKdXNDPSF1W7mJCFse3G+HDyAA==}
-
   esbuild@0.25.3:
     resolution: {integrity: sha512-qKA6Pvai73+M2FtftpNKRxJ78GIjmFXFxd/1DVBqGo/qNhLSfv+G12n9pNoWdytJC8U00TrViOwpjT0zgqQS8Q==}
     engines: {node: '>=18'}
@@ -1473,10 +1458,6 @@ packages:
   find-up@4.1.0:
     resolution: {integrity: sha512-PpOwAdQ/YlXQ2vj8a3h8IipDuYRi3wceVQQGYWxNINccq40Anw7BlsEXCMbt1Zt+OLA6Fq9suIpIWD0OsnISlw==}
     engines: {node: '>=8'}
-
-  fs-extra@10.1.0:
-    resolution: {integrity: sha512-oRXApq54ETRj4eMiFzGnHWGy+zo5raudjuxN0b8H7s/RU2oW0Wvsx9O0ACRN/kRq9E8Vu/ReskGB5o3ji+FzHQ==}
-    engines: {node: '>=12'}
 
   fs-extra@11.3.0:
     resolution: {integrity: sha512-Z4XaCL6dUDHfP/jT25jJKMmtxvuwbkrD1vNSMFlo9lNLY2c5FHYSQgHPRZUjAB26TpDEoW9HCOgplrdbaPV/ew==}
@@ -1593,9 +1574,6 @@ packages:
   is-plain-obj@4.1.0:
     resolution: {integrity: sha512-+Pgi+vMuUNkJyExiMBt5IlFoMyKnr5zhJ4Uspz58WOhBF5QoIZkFyNHIbBAtHwzVAgk5RtndVNsDRN61/mmDqg==}
     engines: {node: '>=12'}
-
-  is-reference@3.0.3:
-    resolution: {integrity: sha512-ixkJoqQvAP88E6wLydLGGqCJsrFUnqoH6HnaczB8XmDH1oaWU+xxdptvikTgaEhtZ53Ky6YXiBuUI2WXLMCwjw==}
 
   is-subdir@1.2.0:
     resolution: {integrity: sha512-2AT6j+gXe/1ueqbW6fLZJiIw3F8iXGJtt0yDrZaBhAZEG1raiTxKWU+IPqMCzQAXOUCKdA4UDMgacKH25XG2Cw==}
@@ -1738,9 +1716,6 @@ packages:
 
   lru-cache@5.1.1:
     resolution: {integrity: sha512-KpNARQA3Iwv+jTA0utUVVbrh+Jlrr1Fv0e56GGzAFOXN7dk/FviaDW8LHmK52DlcH4WP2n6gI8vN1aesBFgo9w==}
-
-  magic-string@0.25.9:
-    resolution: {integrity: sha512-RmF0AsMzgt25qzqqLc1+MbHmhdx0ojF2Fvs4XnOqz2ZOBXzzkEwc/dJQZCYHAn7v1jbVOjAZfK8msRn4BxO4VQ==}
 
   magic-string@0.30.17:
     resolution: {integrity: sha512-sNPKHvyjVf7gyjwS4xGTaW/mCnF8wnjtifKBEhxfZ7E/S8tQ0rssrwGNn6q8JH/ohItJfSQp9mBtQYuTlH5QnA==}
@@ -2095,11 +2070,6 @@ packages:
     resolution: {integrity: sha512-g6QUff04oZpHs0eG5p83rFLhHeV00ug/Yf9nZM6fLeUrPguBTkTQOdpAWWspMh55TZfVQDPaN3NQJfbVRAxdIw==}
     engines: {iojs: '>=1.0.0', node: '>=0.10.0'}
 
-  rollup-plugin-external-globals@0.10.0:
-    resolution: {integrity: sha512-RXlupZrmn97AaaS5dWnktkjM+Iy+od0E+8L0mUkMIs3iuoUXNJebueQocQKV7Ircd54fSGGmkBaXwNzY05J1yQ==}
-    peerDependencies:
-      rollup: ^2.25.0 || ^3.3.0 || ^4.1.4
-
   rollup@4.40.1:
     resolution: {integrity: sha512-C5VvvgCCyfyotVITIAv+4efVytl5F7wt+/I2i9q9GZcEXW9BP52YYOXC58igUi+LFZVHukErIIqQSWwv/M3WRw==}
     engines: {node: '>=18.0.0', npm: '>=8.0.0'}
@@ -2152,10 +2122,6 @@ packages:
   source-map@0.6.1:
     resolution: {integrity: sha512-UjgapumWlbMhkBgzT7Ykc5YXUT46F0iKu8SGXq0bcwP5dz/h0Plj6enJqjz1Zbq2l5WaqYnrVbwWOWMyF3F47g==}
     engines: {node: '>=0.10.0'}
-
-  sourcemap-codec@1.4.8:
-    resolution: {integrity: sha512-9NykojV5Uih4lgo5So5dtw+f0JgJX30KCNI8gwhz2J9A15wD0Ml6tjHKwf6fTSa6fAdVBdZeNOs9eJ71qCk8vA==}
-    deprecated: Please use @jridgewell/sourcemap-codec instead
 
   space-separated-tokens@2.0.2:
     resolution: {integrity: sha512-PEGlAwrG8yXGXRjW32fGbg66JAlOAwbObuqVoJpv/mRgoWDQfgH1wDPvtzWyUSNAXBGSk8h755YDbbcEy3SH2Q==}
@@ -2325,15 +2291,6 @@ packages:
   vite-bundle-analyzer@0.21.0:
     resolution: {integrity: sha512-xi3/0EiLkbgeJmAApT8HT085twER9vAD7Dx9RW3pIeCKJVYqFKE/wL2jL9uFDeRlUmCvcsxFOHk8k0z+O0VFlA==}
     hasBin: true
-
-  vite-plugin-cdn-import@1.0.1:
-    resolution: {integrity: sha512-lgjLxgwFSKvJLbqjVBirUZ0rQo00GpUGJzRpgQu8RyBw9LA7jaqG6fUMQzBC9qWmTGabPC3iOzwCcoi7PseRAQ==}
-
-  vite-plugin-externals@0.6.2:
-    resolution: {integrity: sha512-R5oVY8xDJjLXLTs2XDYzvYbc/RTZuIwOx2xcFbYf+/VXB6eJuatDgt8jzQ7kZ+IrgwQhe6tU8U2fTyy72C25CQ==}
-    engines: {node: ^14.18.0 || >=16.0.0}
-    peerDependencies:
-      vite: '>=2.0.0'
 
   vite-plugin-monaco-editor@1.1.0:
     resolution: {integrity: sha512-IvtUqZotrRoVqwT0PBBDIZPNraya3BxN/bfcNfnxZ5rkJiGcNtO5eAOWWSgT7zullIAEqQwxMU83yL9J5k7gww==}
@@ -3339,14 +3296,6 @@ snapshots:
 
   '@rehype-pretty/transformers@0.13.2': {}
 
-  '@rollup/pluginutils@5.1.4(rollup@4.40.1)':
-    dependencies:
-      '@types/estree': 1.0.7
-      estree-walker: 2.0.2
-      picomatch: 4.0.2
-    optionalDependencies:
-      rollup: 4.40.1
-
   '@rollup/rollup-android-arm-eabi@4.40.1':
     optional: true
 
@@ -3504,13 +3453,12 @@ snapshots:
       '@tailwindcss/oxide-win32-arm64-msvc': 4.1.6
       '@tailwindcss/oxide-win32-x64-msvc': 4.1.6
 
-  '@tailwindcss/typography@0.5.16(tailwindcss@4.1.6)':
+  '@tailwindcss/typography@0.5.16':
     dependencies:
       lodash.castarray: 4.4.0
       lodash.isplainobject: 4.0.6
       lodash.merge: 4.6.2
       postcss-selector-parser: 6.0.10
-      tailwindcss: 4.1.6
 
   '@tailwindcss/vite@4.1.6(vite@6.3.4(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.1))':
     dependencies:
@@ -3766,8 +3714,6 @@ snapshots:
 
   entities@6.0.0: {}
 
-  es-module-lexer@0.4.1: {}
-
   esbuild@0.25.3:
     optionalDependencies:
       '@esbuild/aix-ppc64': 0.25.3
@@ -3862,12 +3808,6 @@ snapshots:
     dependencies:
       locate-path: 5.0.0
       path-exists: 4.0.0
-
-  fs-extra@10.1.0:
-    dependencies:
-      graceful-fs: 4.2.11
-      jsonfile: 6.1.0
-      universalify: 2.0.1
 
   fs-extra@11.3.0:
     dependencies:
@@ -4018,10 +3958,6 @@ snapshots:
 
   is-plain-obj@4.1.0: {}
 
-  is-reference@3.0.3:
-    dependencies:
-      '@types/estree': 1.0.7
-
   is-subdir@1.2.0:
     dependencies:
       better-path-resolve: 1.0.0
@@ -4129,10 +4065,6 @@ snapshots:
   lru-cache@5.1.1:
     dependencies:
       yallist: 3.1.1
-
-  magic-string@0.25.9:
-    dependencies:
-      sourcemap-codec: 1.4.8
 
   magic-string@0.30.17:
     dependencies:
@@ -4693,14 +4625,6 @@ snapshots:
 
   reusify@1.1.0: {}
 
-  rollup-plugin-external-globals@0.10.0(rollup@4.40.1):
-    dependencies:
-      '@rollup/pluginutils': 5.1.4(rollup@4.40.1)
-      estree-walker: 3.0.3
-      is-reference: 3.0.3
-      magic-string: 0.30.17
-      rollup: 4.40.1
-
   rollup@4.40.1:
     dependencies:
       '@types/estree': 1.0.7
@@ -4768,8 +4692,6 @@ snapshots:
       source-map: 0.6.1
 
   source-map@0.6.1: {}
-
-  sourcemap-codec@1.4.8: {}
 
   space-separated-tokens@2.0.2: {}
 
@@ -4961,22 +4883,6 @@ snapshots:
       vfile-message: 4.0.2
 
   vite-bundle-analyzer@0.21.0: {}
-
-  vite-plugin-cdn-import@1.0.1(rollup@4.40.1)(vite@6.3.4(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.1)):
-    dependencies:
-      rollup-plugin-external-globals: 0.10.0(rollup@4.40.1)
-      vite-plugin-externals: 0.6.2(vite@6.3.4(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.1))
-    transitivePeerDependencies:
-      - rollup
-      - vite
-
-  vite-plugin-externals@0.6.2(vite@6.3.4(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.1)):
-    dependencies:
-      acorn: 8.14.1
-      es-module-lexer: 0.4.1
-      fs-extra: 10.1.0
-      magic-string: 0.25.9
-      vite: 6.3.4(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.1)
 
   vite-plugin-monaco-editor@1.1.0(monaco-editor@0.52.2):
     dependencies:
