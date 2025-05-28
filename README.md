@@ -1,5 +1,20 @@
-# Vue 3 + Vite
+# doc-core
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+动态徽章
 
-Learn more about IDE Support for Vue in the [Vue Docs Scaling up Guide](https://vuejs.org/guide/scaling-up/tooling.html#ide-support).
+## Packages
+
+- [@lil-el/codepen][1]: 代码编辑器
+- [@lil-el/markdown][2]: markdown 解析器, 内置 codepen 组件
+- [@lil-el/ui][3]: 组件库
+
+## 技术栈
+
+- Vue 3
+- Vite
+- tailwindcss
+- unified
+
+[1]: /packages/codepen/README.md
+[2]: /packages/markdown/README.md
+[3]: /packages/ui/README.md

@@ -12,6 +12,7 @@
 <script setup>
 /*
 部落格
+导出md文档
 首页使用termino.js，界面参考floating-ui.com Termino.js
 app 读取目录生成左侧目录，点击目录跳转对应md文件，左侧目录做面包屑，添加目录层级进入、退出的切换动画效果
 */
