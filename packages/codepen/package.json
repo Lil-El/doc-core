@@ -27,7 +27,7 @@
     "@babel/preset-env": "^7.27.2",
     "@babel/standalone": "^7.27.2",
     "monaco-editor": "^0.52.2",
-    "terser": "^5.39.1",
+    "terser": "^5.40.0",
     "vite-bundle-analyzer": "^0.21.0",
     "vite-plugin-monaco-editor": "^1.1.0"
   },

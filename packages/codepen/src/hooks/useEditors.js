@@ -4,7 +4,7 @@ import { parseVue3, parseReact, btoaUtf8 } from "@/core/parse";
 import { register, putCache } from "@/core/service";
 
 // 是否使用 ServiceWorker，否则使用 srcdoc 方式
-const enableSW = false; // import.meta.env.MODE === "development" ? false : "serviceWorker" in navigator;
+let enableSW = import.meta.env.MODE === "development" ? false : "serviceWorker" in navigator;
 const urlsToCache = {
   preview: "/preview?v=0",
   main: "/main.js?v=0",
@@ -133,7 +133,12 @@ export default function useEditors(previewID, pure) {
   const loading = ref(false);
 
   onMounted(() => {
-    if (enableSW) register();
+    if (enableSW) {
+      register().catch(() => {
+        console.log("service worker 注册失败, 降级为普通模式");
+        enableSW = false;
+      });
+    }
 
     // #region
     // setTimeout(() => {

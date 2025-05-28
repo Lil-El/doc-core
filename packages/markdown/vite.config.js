@@ -7,6 +7,10 @@ import { resolve } from "path";
 import { createRequire } from "node:module";
 const require = createRequire(import.meta.url);
 const monacoEditorPlugin = require("vite-plugin-monaco-editor").default;
+import copySw from "./vite-copy-sw";
+
+// 写入 sw.js
+copySw();
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -30,12 +34,7 @@ export default defineConfig({
       formats: ["es"],
     },
     outDir: "dist",
-    minify: "terser",
-    terserOptions: {
-      compress: {
-        drop_console: true,
-      },
-    },
+    minify: "esbuild",
     chunkSizeWarningLimit: 500, // 提高块大小警告阈值（默认 500KB）
     sourcemap: false, // 关闭 sourcemap 可减少内存占用
     rollupOptions: {

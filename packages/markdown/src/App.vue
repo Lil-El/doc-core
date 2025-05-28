@@ -5,7 +5,7 @@
   </select>
 
   <div>
-    <m-markdown  :text="mdStr"></m-markdown>
+    <m-markdown :text="mdStr"></m-markdown>
   </div>
 </template>
 
@@ -18,6 +18,7 @@ codepen 的 sw问题处理
 app 读取目录生成左侧目录，点击目录跳转对应md文件，左侧目录做面包屑，添加目录层级进入、退出的切换动画效果
 */
 import { readonly, reactive, provide } from "vue";
+import MMarkdown from "@/components/markdown/index.vue";
 import colors from "./utils/color.js";
 
 const colorsProxy = readonly(Object.entries(colors).map((i) => ({ name: i[0], color: i[1] })));

@@ -1,12 +1,18 @@
 const CACHE_NAME = "iframe-preview-cache";
 
 export function register() {
-  const swUrl = new URL("/sw.js", import.meta.url).href;
+  const swUrl = new URL(location.origin + "/sw.js", import.meta.url).href;
+
+  // 监听控制权变化
+  navigator.serviceWorker.addEventListener("controllerchange", () => {
+    // ​​后台静默更新可以不刷新页面，如果是静态资源变化就要刷新页面了
+    // window.location.reload();
+  });
 
   // 是否已经注册；多 sw 时使用 getRegistrations 详细判断；
   if (!navigator.serviceWorker.controller) {
     // 如果 sw.js 没有变化，重复注册时，registration是同一个引用对象；
-    navigator.serviceWorker.register(swUrl, { scope: "/" }).then((registration) => {
+    return navigator.serviceWorker.register(swUrl, { scope: "/" }).then((registration) => {
       registration.addEventListener("updatefound", () => {
         /**
          * 初次安装状态变化：installed => activating => activated
@@ -22,11 +28,11 @@ export function register() {
          *           - redundant：进入冗余状态
          *           - activating：重新激活
          *           - activated： 激活完成
-        */
+         */
 
-       // 最终 installing 会变为 null，所以要设置 newWorker，可以一直拿到 sw 实例对象；
-       const newWorker = registration.installing;
-       newWorker.addEventListener("statechange", (e) => {
+        // 最终 installing 会变为 null，所以要设置 newWorker，可以一直拿到 sw 实例对象；
+        const newWorker = registration.installing;
+        newWorker.addEventListener("statechange", (e) => {
           if (newWorker.state === "installed") {
             // 初次安装waiting和active不会同时存在
             if (registration.waiting && registration.active) {
@@ -40,7 +46,7 @@ export function register() {
       });
     });
   } else {
-    navigator.serviceWorker.getRegistration().then((registration) => {
+    return navigator.serviceWorker.getRegistration().then((registration) => {
       if (registration) {
         // 页面刷新发现新的sw时，会自动触发检查更新事件
         registration.addEventListener("updatefound", () => {
@@ -67,12 +73,6 @@ export function register() {
       }
     });
   }
-
-  // 监听控制权变化
-  navigator.serviceWorker.addEventListener("controllerchange", () => {
-    // ​​后台静默更新可以不刷新页面，如果是静态资源变化就要刷新页面了
-    // window.location.reload();
-  });
 }
 
 export function putCache(req, res) {

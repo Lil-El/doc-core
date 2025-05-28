@@ -37,12 +37,7 @@ export default defineConfig(async () => {
         formats: ["es"],
       },
       outDir: "dist",
-      minify: "terser",
-      terserOptions: {
-        compress: {
-          drop_console: true,
-        },
-      },
+      minify: "esbuild",
       chunkSizeWarningLimit: 500, // 提高块大小警告阈值（默认 500KB）
       sourcemap: false, // 关闭 sourcemap 可减少内存占用
       rollupOptions: {

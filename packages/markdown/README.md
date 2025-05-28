@@ -52,6 +52,22 @@
 pnpm i @lil-el/markdown
 ```
 
+### Vite Config
+
+需要将 `codepen` 的 `sw.js` 文件拷贝到 `public` 目录下
+
+```javascript
+import { resolve } from "path";
+import { readFileSync, writeFileSync } from "node:fs";
+
+export default function viteCopySw() {
+  const swPath = resolve(__dirname, "node_modules/@lil-el/codepen/dist/sw.js");
+  const swCode = readFileSync(swPath, "utf-8");
+  const targetPath = resolve(__dirname, "public/sw.js");
+  writeFileSync(targetPath, swCode);
+}
+```
+
 ### Import
 
 **main.js:**

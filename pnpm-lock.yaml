@@ -17,16 +17,16 @@ importers:
         version: 2.29.2
       '@tailwindcss/vite':
         specifier: ^4.1.6
-        version: 4.1.6(vite@6.3.4(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.1))
+        version: 4.1.6(vite@6.3.4(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.40.0))
       '@vitejs/plugin-vue':
         specifier: ^5.2.2
-        version: 5.2.3(vite@6.3.4(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.1))(vue@3.5.13)
+        version: 5.2.3(vite@6.3.4(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.40.0))(vue@3.5.13)
       tailwindcss:
         specifier: ^4.1.6
         version: 4.1.6
       vite:
         specifier: ^6.3.1
-        version: 6.3.4(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.1)
+        version: 6.3.4(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.40.0)
 
   packages/codepen:
     dependencies:
@@ -35,10 +35,10 @@ importers:
         version: link:../ui
       '@tailwindcss/vite':
         specifier: ^4.1.6
-        version: 4.1.6(vite@6.3.4(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.1))
+        version: 4.1.6(vite@6.3.4(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.40.0))
       '@vitejs/plugin-vue':
         specifier: ^5.2.2
-        version: 5.2.3(vite@6.3.4(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.1))(vue@3.5.13)
+        version: 5.2.3(vite@6.3.4(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.40.0))(vue@3.5.13)
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
@@ -50,7 +50,7 @@ importers:
         version: 4.1.6
       vite:
         specifier: ^6.3.1
-        version: 6.3.4(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.1)
+        version: 6.3.4(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.40.0)
       vue:
         specifier: ^3.5.13
         version: 3.5.13
@@ -68,8 +68,8 @@ importers:
         specifier: ^0.52.2
         version: 0.52.2
       terser:
-        specifier: ^5.39.1
-        version: 5.39.1
+        specifier: ^5.40.0
+        version: 5.40.0
       vite-bundle-analyzer:
         specifier: ^0.21.0
         version: 0.21.0
@@ -87,10 +87,10 @@ importers:
         version: 0.13.2
       '@tailwindcss/vite':
         specifier: ^4.1.6
-        version: 4.1.6(vite@6.3.4(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.1))
+        version: 4.1.6(vite@6.3.4(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.40.0))
       '@vitejs/plugin-vue':
         specifier: ^5.2.2
-        version: 5.2.3(vite@6.3.4(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.1))(vue@3.5.13)
+        version: 5.2.3(vite@6.3.4(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.40.0))(vue@3.5.13)
       hast-util-heading:
         specifier: ^3.0.0
         version: 3.0.0
@@ -129,20 +129,20 @@ importers:
         version: 19.1.2(@vueuse/core@9.13.0(vue@3.5.13))
       vite:
         specifier: ^6.3.1
-        version: 6.3.4(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.1)
+        version: 6.3.4(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.40.0)
       vue:
         specifier: ^3.5.13
         version: 3.5.13
     devDependencies:
       '@tailwindcss/typography':
         specifier: ^0.5.16
-        version: 0.5.16
+        version: 0.5.16(tailwindcss@4.1.6)
       monaco-editor:
         specifier: ^0.52.2
         version: 0.52.2
       terser:
-        specifier: ^5.39.1
-        version: 5.39.1
+        specifier: ^5.40.0
+        version: 5.40.0
       vite-bundle-analyzer:
         specifier: ^0.21.0
         version: 0.21.0
@@ -154,16 +154,16 @@ importers:
     dependencies:
       '@tailwindcss/vite':
         specifier: ^4.1.6
-        version: 4.1.6(vite@6.3.4(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.1))
+        version: 4.1.6(vite@6.3.4(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.40.0))
       '@vitejs/plugin-vue':
         specifier: ^5.2.2
-        version: 5.2.3(vite@6.3.4(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.1))(vue@3.5.13)
+        version: 5.2.3(vite@6.3.4(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.40.0))(vue@3.5.13)
       tailwindcss:
         specifier: ^4.1.6
         version: 4.1.6
       vite:
         specifier: ^6.3.1
-        version: 6.3.4(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.1)
+        version: 6.3.4(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.40.0)
       vue:
         specifier: ^3.5.13
         version: 3.5.13
@@ -2137,8 +2137,8 @@ packages:
     resolution: {integrity: sha512-wK0Ri4fOGjv/XPy8SBHZChl8CM7uMc5VML7SqiQ0zG7+J5Vr+RMQDoHa2CNT6KHUnTGIXH34UDMkPzAUyapBZg==}
     engines: {node: '>=8'}
 
-  terser@5.39.1:
-    resolution: {integrity: sha512-Mm6+uad0ZuDtcV8/4uOZQDQ8RuiC5Pu+iZRedJtF7yA/27sPL7d++In/AJKpWZlU3SYMPPkVfwetn6sgZ66pUA==}
+  terser@5.40.0:
+    resolution: {integrity: sha512-cfeKl/jjwSR5ar7d0FGmave9hFGJT8obyo0z+CrQOylLDbk7X81nPU6vq9VORa5jU30SkDnT2FXjLbR8HLP+xA==}
     engines: {node: '>=10'}
     hasBin: true
 
@@ -3408,19 +3408,20 @@ snapshots:
       '@tailwindcss/oxide-win32-arm64-msvc': 4.1.6
       '@tailwindcss/oxide-win32-x64-msvc': 4.1.6
 
-  '@tailwindcss/typography@0.5.16':
+  '@tailwindcss/typography@0.5.16(tailwindcss@4.1.6)':
     dependencies:
       lodash.castarray: 4.4.0
       lodash.isplainobject: 4.0.6
       lodash.merge: 4.6.2
       postcss-selector-parser: 6.0.10
+      tailwindcss: 4.1.6
 
-  '@tailwindcss/vite@4.1.6(vite@6.3.4(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.1))':
+  '@tailwindcss/vite@4.1.6(vite@6.3.4(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.40.0))':
     dependencies:
       '@tailwindcss/node': 4.1.6
       '@tailwindcss/oxide': 4.1.6
       tailwindcss: 4.1.6
-      vite: 6.3.4(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.1)
+      vite: 6.3.4(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.40.0)
 
   '@types/debug@4.1.12':
     dependencies:
@@ -3447,9 +3448,9 @@ snapshots:
 
   '@ungap/structured-clone@1.3.0': {}
 
-  '@vitejs/plugin-vue@5.2.3(vite@6.3.4(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.1))(vue@3.5.13)':
+  '@vitejs/plugin-vue@5.2.3(vite@6.3.4(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.40.0))(vue@3.5.13)':
     dependencies:
-      vite: 6.3.4(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.1)
+      vite: 6.3.4(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.40.0)
       vue: 3.5.13
 
   '@vue/compiler-core@3.5.13':
@@ -4639,7 +4640,7 @@ snapshots:
 
   term-size@2.2.1: {}
 
-  terser@5.39.1:
+  terser@5.40.0:
     dependencies:
       '@jridgewell/source-map': 0.3.6
       acorn: 8.14.1
@@ -4779,7 +4780,7 @@ snapshots:
     dependencies:
       monaco-editor: 0.52.2
 
-  vite@6.3.4(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.1):
+  vite@6.3.4(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.40.0):
     dependencies:
       esbuild: 0.25.3
       fdir: 6.4.4(picomatch@4.0.2)
@@ -4791,7 +4792,7 @@ snapshots:
       fsevents: 2.3.3
       jiti: 2.4.2
       lightningcss: 1.29.2
-      terser: 5.39.1
+      terser: 5.40.0
 
   vue-demi@0.14.10(vue@3.5.13):
     dependencies:
