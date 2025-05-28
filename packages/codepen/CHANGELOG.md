@@ -1,5 +1,11 @@
 # @lil-el/codepen
 
+## 1.1.0
+
+### Minor Changes
+
+- support ServiceWorker
+
 ## 1.0.0
 
 ### Major Changes
