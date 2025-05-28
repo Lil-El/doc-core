@@ -28,14 +28,12 @@ function initCDNEditor() {
 
   if (window.require) {
     loadMonaco();
+  } else {
+    const script = document.createElement("script");
+    script.src = __MONACO_CDN__ + "/loader.min.js";
+    script.onload = loadMonaco;
+    document.body.appendChild(script);
   }
-  // else {
-  //   const script = document.createElement("script");
-  //   script.src = __MONACO_CDN__ + "/loader.min.js";
-  //   script.onload = loadMonaco;
-  //   document.body.appendChild(script);
-  // }
-  // 在 vite 中配置了 CDN，这里不需要再添加 script 标签
 
   return promise;
 }

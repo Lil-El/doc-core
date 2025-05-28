@@ -29,8 +29,8 @@ function handleJS(htmlCode, cssCode, jsCode, sw) {
   };
 }
 
-function handleVue3(code, mainJS, sw) {
-  const { __filename, __scopeId, App, render, styles } = parseVue3(code);
+async function handleVue3(code, mainJS, sw) {
+  const { __filename, __scopeId, App, render, styles } = await parseVue3(code);
 
   const jsStr = mainJS.replace(
     /import\s+App\s+from\s+(["'])(App\.vue)\1\s*?(?=[\r\n;]|$)/g,
@@ -68,15 +68,15 @@ ${sw ? `<script type="module" src="${urlsToCache.main}"></script>` : `<script ty
     cssStr: styles.map((style) => `<style>${style}</style>`).join("\n"),
   };
 }
-function handleReact(appJS, mainJS, sw) {
-  const app = parseReact(appJS, "app.js");
+async function handleReact(appJS, mainJS, sw) {
+  const app = await parseReact(appJS, "app.js");
 
   const jsStr = mainJS.replace(
     /import\s+App\s+from\s+(["'])(app\.js)\1\s*?(?=[\r\n;]|$)/g,
     `import App from "${sw ? urlsToCache.app : `data:text/javascript;base64,${btoaUtf8(app)}`}";`
   );
 
-  const main = parseReact(jsStr, "main.js");
+  const main = await parseReact(jsStr, "main.js");
 
   const htmlStr = `<div id="app"></div>
   <script type="importmap">
@@ -179,10 +179,10 @@ export default function useEditors(previewID, pure) {
     let srcdoc;
 
     if (vueCode) {
-      const { htmlStr, cssStr } = handleVue3(vueCode, jsCode, enableSW);
+      const { htmlStr, cssStr } = await handleVue3(vueCode, jsCode, enableSW);
       srcdoc = generateHTML(htmlStr, cssStr);
     } else if (reactCode) {
-      const { htmlStr, cssStr } = handleReact(reactCode, jsCode, enableSW);
+      const { htmlStr, cssStr } = await handleReact(reactCode, jsCode, enableSW);
       srcdoc = generateHTML(htmlStr, cssStr);
     } else if (jsCode) {
       const { htmlStr, cssStr } = handleJS(htmlCode, cssCode, jsCode, enableSW);

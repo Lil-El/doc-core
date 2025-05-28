@@ -100,7 +100,7 @@ app.mount("#app");`,
 </template>
 
 <script setup>
-  import { delay } from "https://unpkg.com/lodash-es@4.17.21/lodash.js";
+  import delay from "https://unpkg.com/lodash-es@4.17.21/delay.js";
   import { ref, getCurrentInstance } from 'vue';
 
   const { proxy } = getCurrentInstance();

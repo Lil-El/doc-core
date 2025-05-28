@@ -76,9 +76,6 @@ importers:
       vite-bundle-analyzer:
         specifier: ^0.21.0
         version: 0.21.0
-      vite-plugin-cdn-import:
-        specifier: ^1.0.1
-        version: 1.0.1(rollup@4.40.1)(vite@6.3.4(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.1))
       vite-plugin-monaco-editor:
         specifier: ^1.1.0
         version: 1.1.0(monaco-editor@0.52.2)
