@@ -2,7 +2,11 @@
 
 ## Guide
 
-默认采用 esm 方式
+### features
+
+- 运行效果区域，默认采用 esm 方式加载；
+- 支持主题配色，继承主题配色 `--tw-prose-custom-color`；
+- 默认使用 `ServiceWorker` 方式缓存编译后的资源；
 
 ### support
 

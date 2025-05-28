@@ -1,10 +1,10 @@
 <template>
   <div class="flex h-screen overflow-hidden">
-    <md-editor v-if="editable" v-model="copyText" />
+    <md-editor v-if="isEdit" v-model="copyText" />
 
-    <md-content :content="content">
+    <md-content :content="content" :edit="isEdit" @export="handleExport">
       <template v-slot="{ scrollToTop }">
-        <md-toc v-if="!editable" class="hidden @4xl:flex" :toc="toc" :scrollToTop="scrollToTop" />
+        <md-toc v-if="!isEdit" class="hidden @4xl:flex" :toc="toc" :scrollToTop="scrollToTop" />
       </template>
     </md-content>
   </div>
@@ -29,16 +29,27 @@ import rehypeToc from "@/utils/rehype-toc";
 import rehypeVue from "@/utils/rehype-vue";
 import rehypeTip from "@/utils/rehype-tip";
 import rehypePatchFootnote from "@/utils/rehype-patch-footnote";
+import demoMdText from "@/doc/demo.md?raw";
 
-const { text: markdownText } = defineProps({
+const {
+  text: markdownText,
+  about,
+  editable,
+} = defineProps({
   editable: {
+    type: Boolean,
+    default: false,
+  },
+  about: {
     type: Boolean,
     default: false,
   },
   text: String,
 });
 
-const copyText = ref(markdownText);
+const isEdit = ref(editable);
+
+const copyText = ref(about ? demoMdText : markdownText);
 
 const content = ref("");
 
@@ -47,7 +58,7 @@ const toc = ref([]);
 const scrollTopCtrl = reactive({
   ctrl: null,
   top: 0,
-  timer: null
+  timer: null,
 });
 provide("scrollTopCtrl", scrollTopCtrl);
 
@@ -84,4 +95,18 @@ watchEffect(() => {
     content.value = value;
   });
 });
+
+function handleExport() {
+  exportFile(copyText.value, "markdown.md");
+}
+
+function exportFile(text, name) {
+  const blob = new Blob([text], { type: "text/plain" });
+  const a = document.createElement("a");
+  a.download = name;
+  a.href = URL.createObjectURL(blob);
+  a.click();
+  URL.revokeObjectURL(a.href);
+  a.remove();
+}
 </script>

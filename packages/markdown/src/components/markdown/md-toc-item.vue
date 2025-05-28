@@ -22,13 +22,15 @@
 
 <script setup>
 import { toRef, inject } from "vue";
+import useTheme from "@/hooks/useTheme.js";
+
 const props = defineProps({ data: Object, level: Number });
 
 const data = toRef(props, "data");
 
 const level = toRef(props, "level");
 
-const theme = inject("color-theme");
+const theme = useTheme();
 
 const active = inject("active-toc");
 

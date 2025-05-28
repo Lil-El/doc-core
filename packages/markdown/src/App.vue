@@ -5,20 +5,19 @@
   </select>
 
   <div>
-    <m-markdown :editable="!false" :text="mdStr"></m-markdown>
+    <m-markdown  :text="mdStr"></m-markdown>
   </div>
 </template>
 
 <script setup>
 /*
 部落格
-导出md文档
+主题配色迁移app
+codepen 的 sw问题处理
 首页使用termino.js，界面参考floating-ui.com Termino.js
 app 读取目录生成左侧目录，点击目录跳转对应md文件，左侧目录做面包屑，添加目录层级进入、退出的切换动画效果
 */
 import { readonly, reactive, provide } from "vue";
-import MMarkdown from "./components/markdown/index.vue";
-import demoMdText from "./doc/demo.md?raw";
 import colors from "./utils/color.js";
 
 const colorsProxy = readonly(Object.entries(colors).map((i) => ({ name: i[0], color: i[1] })));
@@ -30,7 +29,7 @@ const theme = reactive({
 });
 provide("color-theme", theme);
 
-const mdStr = demoMdText;
+const mdStr = "# Hello World";
 
 function toggle() {
   theme.mode = theme.mode === "light" ? "dark" : "light";
