@@ -115,13 +115,13 @@ const curLayout = ref(props.layout);
 :deep() {
   .select-option:hover {
     .arco-icon .normal {
-      fill: var(--tw-prose-custom-color) !important;
+      fill: var(--codepen-color) !important;
     }
   }
 
   .select-option.active {
     .arco-icon {
-      fill: var(--tw-prose-custom-color);
+      fill: var(--codepen-color);
 
       .normal {
         fill: transparent !important;

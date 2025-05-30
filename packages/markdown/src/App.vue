@@ -1,37 +1,29 @@
 <template>
-  <button @click="toggle" class="absolute bg-amber-200">toggle</button>
-  <select class="absolute left-16 bg-amber-200" @change="change">
+  <button @click="toggle" class="absolute z-10 bg-amber-200">toggle</button>
+  <select class="absolute z-10 left-16 bg-amber-200" @change="change">
     <option v-for="theme in colorsProxy" :key="theme.name" :value="theme.color">{{ theme.name }}</option>
   </select>
 
   <div>
-    <m-markdown :text="mdStr"></m-markdown>
+    <m-markdown style="--markdown-color: var(--data-theme-color)" :text="mdStr"></m-markdown>
   </div>
 </template>
 
 <script setup>
-import { readonly, reactive, provide } from "vue";
+import { readonly } from "vue";
 import MMarkdown from "@/components/markdown/index.vue";
 import colors from "./utils/color.js";
 
 const colorsProxy = readonly(Object.entries(colors).map((i) => ({ name: i[0], color: i[1] })));
 
-const theme = reactive({
-  mode: "light",
-  name: colorsProxy[0].name,
-  color: colorsProxy[0].color,
-});
-provide("color-theme", theme);
-
 const mdStr = "# Hello World";
 
 function toggle() {
-  theme.mode = theme.mode === "light" ? "dark" : "light";
-  document.documentElement.setAttribute("data-theme", theme.mode);
+  const mode = document.documentElement.getAttribute("data-theme") === "light" ? "dark" : "light";
+  document.documentElement.setAttribute("data-theme", mode);
 }
 
 function change(e) {
-  theme.name = colorsProxy.find((c) => c.color === e.target.value).name;
-  theme.color = e.target.value;
+  document.documentElement.style.setProperty("--data-theme-color", e.target.value);
 }
 </script>

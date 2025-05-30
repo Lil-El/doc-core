@@ -132,7 +132,7 @@ onUnmounted(() => {
     }
 
     &.active {
-      color: var(--tw-prose-custom-color);
+      color: var(--data-theme-color);
       background-color: #1e1f1c;
     }
   }

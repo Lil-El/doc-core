@@ -108,26 +108,26 @@
   }
 
   figure.tip {
-    @apply px-4 relative border border-transparent transition-all rounded-md bg-gray-100 dark:bg-stone-900;
+    @apply px-4 relative border border-transparent transition-all rounded-md bg-gray-100 dark:bg-stone-900 dark:border-2;
 
     &.tip-warning {
-      @apply hover:border-amber-500 bg-[#f6e1ac80] dark:bg-[#755e2d];
+      @apply hover:border-amber-500 bg-[#f6e1ac80] dark:border-amber-500;
     }
 
     &.tip-success {
-      @apply hover:border-green-500 bg-[#c7f0df80] dark:bg-[#328d3e];
+      @apply hover:border-green-500 bg-[#c7f0df80] dark:border-green-500;
     }
 
     &.tip-danger {
-      @apply hover:border-red-500 bg-[#f8ced380] dark:bg-[#a33b3b];
+      @apply hover:border-red-500 bg-[#f8ced380] dark:border-red-500;
     }
 
     &.tip-primary {
-      @apply hover:border-cyan-500 bg-[#b5eff280] dark:bg-[#3b88a0];
+      @apply hover:border-cyan-500 bg-[#b5eff280] dark:border-cyan-500;
     }
 
     &.tip-info {
-      @apply hover:border-gray-500 bg-[#eff0f0] dark:bg-[#383838];
+      @apply hover:border-gray-500 bg-[#eff0f0] dark:border-gray-500;
     }
   }
 

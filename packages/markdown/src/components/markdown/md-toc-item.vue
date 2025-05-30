@@ -4,8 +4,8 @@
       class="md-toc-item shrink-0 w-72.5 h-max py-0.5 border-[transparent] text-gray-500 dark:text-gray-300 border-l-3 line-clamp-1 -translate-x-[3px] cursor-pointer hover:bg-(--toc-bg-color)"
       :class="{ 'md-toc-item__active': active === data.id }"
       :style="{
-        '--toc-color': theme.color,
-        '--toc-bg-color': theme.color + '30',
+        '--toc-color': `var(--markdown-color, #6f94f4)`,
+        '--toc-bg-color': `color-mix(in srgb, var(--markdown-color, #6f94f4) 30%, transparent)`,
         'padding-left': `${level * 0.75}rem`,
       }"
       :title="data.title"
@@ -22,15 +22,11 @@
 
 <script setup>
 import { toRef, inject } from "vue";
-import useTheme from "@/hooks/useTheme.js";
-
 const props = defineProps({ data: Object, level: Number });
 
 const data = toRef(props, "data");
 
 const level = toRef(props, "level");
-
-const theme = useTheme();
 
 const active = inject("active-toc");
 

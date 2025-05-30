@@ -15,7 +15,7 @@ const props = defineProps({
 
 const emit = defineEmits(["update:modelValue"]);
 
-const theme = inject("color-theme");
+const theme = inject("theme");
 
 const monacoLoaded = useMonaco();
 

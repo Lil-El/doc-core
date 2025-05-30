@@ -33,14 +33,14 @@ import demoMdText from "@/doc/demo.md?raw";
 
 const {
   text: markdownText,
-  about,
+  tutorial,
   editable,
 } = defineProps({
   editable: {
     type: Boolean,
     default: false,
   },
-  about: {
+  tutorial: {
     type: Boolean,
     default: false,
   },
@@ -49,7 +49,7 @@ const {
 
 const isEdit = ref(editable);
 
-const copyText = ref(about ? demoMdText : markdownText);
+const copyText = ref(tutorial ? demoMdText : markdownText);
 
 const content = ref("");
 

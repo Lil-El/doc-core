@@ -19,14 +19,14 @@
         <article
           class="prose dark:prose-invert max-w-full"
           :style="{
-            '--tw-prose-custom-color': cssColorVar,
-            '--tw-prose-bullets': cssColorVar,
-            '--tw-prose-blockquote-bg-color': `${cssColorVar}30`,
-            '--tw-prose-code': theme.color,
-            '--tw-prose-headings': cssColorVar,
-            '--tw-prose-hr': cssColorVar,
-            '--tw-prose-links': cssColorVar,
-            '--tw-prose-quote-borders': cssColorVar,
+            '--codepen-color': `var(--markdown-color, #6f94f4)`,
+            '--tw-prose-bullets': `var(--markdown-color, #6f94f4)`,
+            '--tw-prose-blockquote-bg-color': `color-mix(in srgb, var(--markdown-color, #6f94f4) 10%, transparent)`,
+            '--tw-prose-code': `var(--markdown-color, #6f94f4)`,
+            '--tw-prose-headings': `var(--markdown-color, #6f94f4)`,
+            '--tw-prose-hr': `var(--markdown-color, #6f94f4)`,
+            '--tw-prose-links': `var(--markdown-color, #6f94f4)`,
+            '--tw-prose-quote-borders': `var(--markdown-color, #6f94f4)`,
           }"
           v-html="content"
         ></article>
@@ -38,9 +38,8 @@
 </template>
 
 <script setup>
-import { ref, provide, onMounted, computed, onBeforeUnmount, inject, reactive } from "vue";
+import { ref, provide, onMounted, onBeforeUnmount } from "vue";
 import useSyncScroll from "@/hooks/useSyncScroll.js";
-import useTheme from "@/hooks/useTheme.js";
 
 defineProps({
   content: String,
@@ -48,8 +47,6 @@ defineProps({
 });
 
 const emits = defineEmits(["export"]);
-
-const theme = useTheme();
 
 const scrollRef = ref(null);
 
@@ -66,10 +63,6 @@ provide("active-toc", active);
 provide("handleTOCClick", handleTOCClick);
 
 useSyncScroll(scrollRef, "md-content");
-
-const cssColorVar = computed(() => {
-  return theme.mode === "dark" && theme.name === "stone" ? "#ffffff" : theme.color;
-});
 
 onMounted(() => {
   if (active.value) {

@@ -11,29 +11,29 @@
 - 自动生成 `toc`，内置了 `codepen` 组件，以及自定义 tip 解析等；
 - 基于 `unified` 实现 `Markdown` 解析，并基于 `shiki` 实现代码高亮；
 - 支持编辑、导出功能；
-- 支持 `light/dark` 主题，以及不同的主题配色 `color-theme`;
+- 支持 `light/dark` 主题，以及不同的主题配色 `--markdown-color`;
 
   ```html
-  <markdown />
+  <markdown style="--markdown-color: var(--data-theme-color);" />
 
   <script setup>
-    const theme = reactive({
-      mode: "light",
-      name: colorsProxy[0].name,
-      color: colorsProxy[0].color,
-    });
-    provide("color-theme", theme);
+    const colors = {
+      purple: "#a948ff",
+      cyan: "#00d0ff",
+      "yellow-green": "#99cd32",
+      amber: "#ffb300",
+      pink: "#ff00c6",
+    };
 
-    // 切换主题
+    const colorsProxy = readonly(Object.entries(colors).map((i) => ({ name: i[0], color: i[1] })));
+
     function toggle() {
-      theme.mode = theme.mode === "light" ? "dark" : "light";
-      document.documentElement.setAttribute("data-theme", theme.mode);
+      const mode = document.documentElement.getAttribute("data-theme") === "light" ? "dark" : "light";
+      document.documentElement.setAttribute("data-theme", mode);
     }
 
-    // 切换配色
     function change(e) {
-      theme.name = colorsProxy.find((c) => c.color === e.target.value).name;
-      theme.color = e.target.value;
+      document.documentElement.style.setProperty("--data-theme-color", color);
     }
   </script>
   ```
@@ -79,7 +79,7 @@ import "@lil-el/markdown/css";
 **your vue file:**
 
 ```html
-<markdown editable :text="mdContent" />
+<markdown editable :tutorial="false" :text="mdContent" />
 
 <script setup>
   import { markdown } from "@lil-el/markdown";
@@ -92,6 +92,6 @@ import "@lil-el/markdown/css";
 
 ## props
 
-- editable: Boolean 是否可编辑
-- about: Boolean 查看示例文档
-- text: String 文本内容
+- editable: Boolean 是否可编辑，默认为 `false`
+- tutorial: Boolean 查看示例文档，默认为 `false`
+- text: String `Markdown` 文本内容

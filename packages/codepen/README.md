@@ -8,8 +8,8 @@
 
 ### features
 
-- 运行效果区域，默认采用 esm 方式加载；
-- 支持主题配色，继承主题配色 `--tw-prose-custom-color`；
+- 代码运行效果页面的 `iframe` 默认采用 `esm` 方式加载脚本；
+- 支持主题配色，设置主题配色 `--codepen-color`；
 - 默认使用 `ServiceWorker` 方式缓存编译后的资源；
 
 ### support
@@ -32,7 +32,9 @@ pnpm i @lil-el/codepen
 
 ### Vite Config
 
-需要将 `codepen` 的 `sw.js` 文件拷贝到 `public` 目录下
+将 `codepen` 的 `sw.js` 文件拷贝到 `public` 目录下
+
+需要在 `vite.config.js` 中配置如下代码：
 
 ```javascript
 import { resolve } from "path";
@@ -54,16 +56,57 @@ export default function viteCopySw() {
 import "@lil-el/codepen/css";
 ```
 
-**your vue file:**
+**在线编辑器 App**
 
 ```html
 <codepen />
 
 <script setup>
   import { codepen } from "@lil-el/codepen";
+</script>
+```
 
-  // 传入 editors 参数，展示对应的代码
-  // 反之，是一个在线的任意的代码编辑器
+**单个代码片段 App**
+
+```html
+<codepen title="Hello" author="Mino" date="2025-05-30" :editors="editors" />
+
+<script setup>
+  import { codepen } from "@lil-el/codepen";
+
+  const editors = reactive([
+    {
+      id: 1,
+      name: "HTML",
+      icon: "html",
+      suffix: "html",
+      language: "html",
+      code: "<div id='hello'>Hello world!</div>",
+    },
+    {
+      id: 2,
+      name: "CSS",
+      icon: "css",
+      suffix: "css",
+      language: "css",
+      code: "#hello { color: red; }",
+    },
+    {
+      id: 3,
+      name: "JS",
+      icon: "javascript",
+      suffix: "javascript",
+      language: "javascript",
+      code: `
+        function hello() {
+          alert('Hello world!');
+        }
+
+        const ele = document.getElementById('hello');
+        ele.addEventListener('click', hello);
+      `,
+    },
+  ]);
 </script>
 ```
 

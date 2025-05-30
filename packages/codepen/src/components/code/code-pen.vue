@@ -53,7 +53,7 @@
                           v-for="(h, j) in configs"
                           :key="h.name"
                           :style="{
-                            color: name === h.name ? `var(--tw-prose-custom-color)` : 'white',
+                            color: name === h.name ? `var(--codepen-color)` : 'white',
                             cursor: 'pointer',
                           }"
                           @click="top = j"
@@ -71,7 +71,7 @@
               class="size-full bg-white relative"
               :class="[
                 loading
-                  ? `after:flex after:items-center after:justify-center after:text-(--tw-prose-custom-color) after:content-['加载中...'] after:size-full after:bg-neutral-700 after:absolute after:z-10 after:top-0 after:left-0`
+                  ? `after:flex after:items-center after:justify-center after:text-(--codepen-color) after:content-['加载中...'] after:size-full after:bg-neutral-700 after:absolute after:z-10 after:top-0 after:left-0`
                   : '',
               ]"
             >
