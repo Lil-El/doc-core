@@ -1,11 +1,6 @@
 <template>
-  <div
-    class="w-screen h-screen flex justify-center items-center"
-    :style="{
-      '--codepen-color': 'white',
-    }"
-  >
-    <codepen />
+  <div class="w-screen h-screen flex justify-center items-center">
+    <codepen style="--codepen-color: red" />
   </div>
 </template>
 

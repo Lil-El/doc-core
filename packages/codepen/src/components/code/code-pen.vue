@@ -53,7 +53,7 @@
                           v-for="(h, j) in configs"
                           :key="h.name"
                           :style="{
-                            color: name === h.name ? `var(--codepen-color)` : 'white',
+                            color: name === h.name ? `var(--codepen-color, #ffffff)` : 'white',
                             cursor: 'pointer',
                           }"
                           @click="top = j"

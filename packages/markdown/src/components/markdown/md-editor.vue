@@ -5,7 +5,7 @@
 </template>
 
 <script setup>
-import { inject, readonly, ref, watch, onMounted, onUnmounted } from "vue";
+import { readonly, ref, onMounted, onUnmounted } from "vue";
 import useSyncScroll from "@/hooks/useSyncScroll.js";
 import useMonaco from "@/hooks/useMonaco";
 
@@ -14,8 +14,6 @@ const props = defineProps({
 });
 
 const emit = defineEmits(["update:modelValue"]);
-
-const theme = inject("theme");
 
 const monacoLoaded = useMonaco();
 
@@ -31,14 +29,6 @@ const height = ref(0);
 
 useSyncScroll(scrollRef, "md-editor");
 
-watch(theme, () => {
-  if (theme.mode === "dark") {
-    editor.updateOptions({ theme: "vs-dark" });
-  } else {
-    editor.updateOptions({ theme: "vs" });
-  }
-});
-
 onMounted(async () => {
   await monacoLoaded;
   editor = createEditor();
@@ -48,7 +38,7 @@ function createEditor() {
   const container = document.getElementById("md-editor");
   const editor = monaco.editor.create(container, {
     language: "markdown",
-    theme: "vs",
+    theme: "vs-dark",
     fontSize: 16,
     contextmenu: false,
     quickSuggestions: false,

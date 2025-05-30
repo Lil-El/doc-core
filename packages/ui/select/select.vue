@@ -132,7 +132,6 @@ onUnmounted(() => {
     }
 
     &.active {
-      color: var(--data-theme-color);
       background-color: #1e1f1c;
     }
   }
