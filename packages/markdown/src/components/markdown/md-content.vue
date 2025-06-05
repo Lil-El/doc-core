@@ -52,19 +52,19 @@ const scrollRef = ref(null);
 
 let timer = null;
 
-const hash = location.hash.match(/^#(.*?)$/)?.[1] || "";
+const isHashRouter = location.href.includes("#/");
 
-const disable = ref(!!hash);
+const anchor = getHash(isHashRouter);
 
-const active = ref(decodeURIComponent(hash));
+const disable = ref(!!anchor);
+
+const active = ref(decodeURIComponent(anchor));
 
 provide("active-toc", active);
 
 provide("handleTOCClick", handleTOCClick);
 
 useSyncScroll(scrollRef, "md-content");
-
-const isHashRouter = location.href.includes("#/");
 
 onMounted(() => {
   if (active.value) {
@@ -93,17 +93,17 @@ function handleTOCClick(ID) {
     behavior: "smooth",
   });
 
-  const anchor = `#${ID}`;
+  const newAnchor = `#${ID}`;
 
   if (isHashRouter) {
     const res = location.hash.match(/^(#[^#]+)(#.+)$/);
     if (!res) {
-      location.hash += anchor;
+      location.hash += newAnchor;
     } else {
-      location.hash = res[1] + anchor;
+      location.hash = res[1] + newAnchor;
     }
   } else {
-    history.pushState(null, "", anchor);
+    history.pushState(null, "", newAnchor);
   }
 }
 
@@ -131,6 +131,11 @@ function scrollToTop() {
     top: 0,
     behavior: "smooth",
   });
+}
+
+function getHash(isHashRouter) {
+  const hash = isHashRouter ? location.hash.match(/^(#[^#]+)(#.+)$/)?.[2] : location.hash;
+  return hash ? hash.replace(/^#/, "") : "";
 }
 
 function handleExport() {

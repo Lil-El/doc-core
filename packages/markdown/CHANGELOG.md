@@ -1,5 +1,11 @@
 # @lil-el/markdown
 
+## 1.3.1
+
+### Patch Changes
+
+- hash router auto scroll to anchor.
+
 ## 1.3.0
 
 ### Minor Changes
