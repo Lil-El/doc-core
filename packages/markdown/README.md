@@ -8,6 +8,10 @@
 
 ## Guide
 
+`peerDependencies: vue 3.5.0+`;
+
+使用时，需要在`markdown`组件父节点设置高度；
+
 ### features
 
 - 自动生成 `toc`，内置了 `codepen` 组件，以及自定义 tip 解析等；
@@ -16,7 +20,9 @@
 - 支持 `light/dark` 主题，以及不同的主题配色 `--markdown-color`;
 
   ```html
-  <markdown style="--markdown-color: var(--data-theme-color);" />
+  <div class="h-[900px]">
+    <markdown style="--markdown-color: var(--data-theme-color);" />
+  </div>
 
   <script setup>
     const colors = {
@@ -81,7 +87,9 @@ import "@lil-el/markdown/css";
 **your vue file:**
 
 ```html
-<markdown editable :tutorial="false" :text="mdContent" />
+<div class="h-screen">
+  <markdown editable :tutorial="false" :text="mdContent" />
+</div>
 
 <script setup>
   import { markdown } from "@lil-el/markdown";

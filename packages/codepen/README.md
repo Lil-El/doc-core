@@ -8,6 +8,8 @@
 
 ## Guide
 
+`peerDependencies: vue 3.5.0+`;
+
 ### features
 
 - 代码运行效果页面的 `iframe` 默认采用 `esm` 方式加载脚本；

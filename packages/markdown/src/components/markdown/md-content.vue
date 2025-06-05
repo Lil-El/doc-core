@@ -64,6 +64,8 @@ provide("handleTOCClick", handleTOCClick);
 
 useSyncScroll(scrollRef, "md-content");
 
+const isHashRouter = location.href.includes("#/");
+
 onMounted(() => {
   if (active.value) {
     let tmpTimer = setInterval(() => {
@@ -91,7 +93,18 @@ function handleTOCClick(ID) {
     behavior: "smooth",
   });
 
-  history.pushState(null, "", `#${ID}`);
+  const anchor = `#${ID}`;
+
+  if (isHashRouter) {
+    const res = location.hash.match(/^(#[^#]+)(#.+)$/);
+    if (!res) {
+      location.hash += anchor;
+    } else {
+      location.hash = res[1] + anchor;
+    }
+  } else {
+    history.pushState(null, "", anchor);
+  }
 }
 
 function handleScroll() {

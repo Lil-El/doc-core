@@ -1,5 +1,5 @@
 <template>
-  <div class="flex h-screen overflow-hidden">
+  <div class="flex h-full overflow-hidden">
     <md-editor v-if="isEdit" v-model="copyText" />
 
     <md-content :content="content" :edit="isEdit" @export="handleExport">

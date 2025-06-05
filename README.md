@@ -23,3 +23,12 @@
 [1]: /packages/codepen/README.md
 [2]: /packages/markdown/README.md
 [3]: /packages/ui/README.md
+
+> pnpm run build
+> pnpm changeset
+> pnpm changeset version
+> pnpm changeset publish
+> git add .
+> git commit -m ""
+> git push
+> git push origin --tags

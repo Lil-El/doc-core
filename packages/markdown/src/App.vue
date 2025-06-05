@@ -4,8 +4,8 @@
     <option v-for="theme in colorsProxy" :key="theme.name" :value="theme.color">{{ theme.name }}</option>
   </select>
 
-  <div>
-    <m-markdown style="--markdown-color: var(--data-theme-color)" :text="mdStr"></m-markdown>
+  <div class="h-screen">
+    <m-markdown style="--markdown-color: var(--data-theme-color)" tutorial :text="mdStr"></m-markdown>
   </div>
 </template>
 

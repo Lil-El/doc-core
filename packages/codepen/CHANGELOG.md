@@ -1,5 +1,11 @@
 # @lil-el/codepen
 
+## 1.3.0
+
+### Minor Changes
+
+- peer dependencies change, fix markdown height.
+
 ## 1.2.1
 
 ### Patch Changes
