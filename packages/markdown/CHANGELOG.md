@@ -1,5 +1,11 @@
 # @lil-el/markdown
 
+## 1.3.2
+
+### Patch Changes
+
+- toc hide and heading remove href in hashRouter.
+
 ## 1.3.1
 
 ### Patch Changes

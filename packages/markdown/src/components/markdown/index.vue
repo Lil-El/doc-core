@@ -55,6 +55,8 @@ const content = ref("");
 
 const toc = ref([]);
 
+const isHashRouter = location.href.includes("#/");
+
 const scrollTopCtrl = reactive({
   ctrl: null,
   top: 0,
@@ -68,7 +70,7 @@ const processor = unified()
   .use(remarkGfm)
   .use(remarkRehype, { allowDangerousHtml: true })
   .use(rehypeSlug)
-  .use(rehypeAutolinkHeadings, { behavior: "wrap" })
+  .use(isHashRouter ? () => () => {} : rehypeAutolinkHeadings, { behavior: "wrap" })
   .use(rehypePatchFootnote)
   .use(rehypeToc, (result) => {
     toc.value = result;
