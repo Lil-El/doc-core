@@ -1,5 +1,16 @@
 # @lil-el/codepen
 
+## 1.4.0
+
+### Minor Changes
+
+- @lil-el packages not build tailwindcss.
+
+### Patch Changes
+
+- Updated dependencies
+  - @lil-el/ui@1.2.0
+
 ## 1.3.0
 
 ### Minor Changes

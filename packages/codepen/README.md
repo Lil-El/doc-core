@@ -8,27 +8,25 @@
 
 ## Guide
 
-`peerDependencies: vue 3.5.0+`;
+基于 `vue3` 的 `代码编辑器` 组件。
 
 ### features
 
 - 代码运行效果页面的 `iframe` 默认采用 `esm` 方式加载脚本；
 - 支持主题配色，设置主题配色 `--codepen-color`；
-- 默认使用 `ServiceWorker` 方式缓存编译后的资源；
-
-### support
-
-- javascript
-- vue3
-- react
-
-### export
-
-- codepen
+- 默认使用 `Service Worker` 缓存编译后的资源，当 `Service Worker` 失败时会降级为 `srcdoc` 方式；
 
 ## Usage
 
+**为避免 `tailwindcss` 样式覆盖问题，在你的项目/应用中安装 `tailwindcss` 并配置；**
+
+需要安装 `@tailwindcss/vite`, `tailwindcss`;
+
 ### Install
+
+```bash
+pnpm i @tailwindcss/vite tailwindcss -D
+```
 
 ```bash
 pnpm i @lil-el/codepen
@@ -36,28 +34,46 @@ pnpm i @lil-el/codepen
 
 ### Vite Config
 
-将 `codepen` 的 `sw.js` 文件拷贝到 `public` 目录下
+需要配置 `tailwindcss` 插件。
 
-需要在 `vite.config.js` 中配置如下代码：
+同时由于该组件默认使用 `Service Worker` 缓存编译后的资源，所以需要在 `vite.config.js` 中配置如下代码来拷贝 `sw.js` 文件：
 
 ```javascript
-import { resolve } from "path";
-import { readFileSync, writeFileSync } from "node:fs";
+import tailwindcss from "@tailwindcss/vite";
+import viteCopySw from "@lil-el/codepen/vite-copy-sw";
 
-export default function viteCopySw() {
-  const swPath = resolve(__dirname, "node_modules/@lil-el/codepen/dist/sw.js");
-  const swCode = readFileSync(swPath, "utf-8");
-  const targetPath = resolve(__dirname, "public/sw.js");
-  writeFileSync(targetPath, swCode);
-}
+export default defineConfig({
+  plugins: [viteCopySw(), tailwindcss()],
+});
+```
+
+### Tailwind Config
+
+`tailwind.config.js` 中的 content 需要配置依赖包的路径。
+
+**tailwind.config.js**
+
+```js
+export default {
+  content: [
+    "./node_modules/@lil-el/codepen/dist/**/*.{js}",
+    "./node_modules/@lil-el/ui/dist/**/*.{js}"
+  ],
+};
 ```
 
 ### Import
 
-**main.js:**
+在入口的样式文件中，引入 `@lil-el/code/css` 样式。
+
+> 不应该在 main.js 中引入 `@lil-el/code/css` 样式；
+
+**style.css:**
 
 ```javascript
-import "@lil-el/codepen/css";
+@import "tailwindcss";
+@import "@lil-el/codepen/css";
+@config "../tailwind.config.js";
 ```
 
 **在线编辑器 App**

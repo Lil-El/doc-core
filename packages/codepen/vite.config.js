@@ -4,6 +4,7 @@ import tailwindcss from "@tailwindcss/vite";
 import viteBundleSw from "./plugins/vite-bundle-sw";
 import { resolve } from "path";
 import { analyzer } from "vite-bundle-analyzer";
+import { viteStaticCopy } from "vite-plugin-static-copy";
 
 // 当 package.json 设置为 type module 时，无法下面引入，该插件只允许使用 commonjs 规范引入；
 // import monacoEditorPlugin from "vite-plugin-monaco-editor";
@@ -27,9 +28,16 @@ export default defineConfig(async () => {
     },
     plugins: [
       vue(),
-      tailwindcss(),
-      ...(process.env.NODE_ENV === "development" ? [monacoEditorPlugin({})] : [viteBundleSw()]),
+      ...(process.env.NODE_ENV === "development" ? [tailwindcss(), monacoEditorPlugin({})] : [viteBundleSw()]),
       // analyzer(),
+      viteStaticCopy({
+        targets: [
+          {
+            src: "vite-copy-sw.js",
+            dest: "",
+          },
+        ],
+      }),
     ],
     build: {
       lib: {

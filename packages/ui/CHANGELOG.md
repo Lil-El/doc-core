@@ -1,5 +1,11 @@
 # @lil-el/ui
 
+## 1.2.0
+
+### Minor Changes
+
+- @lil-el packages not build tailwindcss.
+
 ## 1.1.1
 
 ### Patch Changes

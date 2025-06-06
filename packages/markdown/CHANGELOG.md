@@ -1,5 +1,22 @@
 # @lil-el/markdown
 
+## 1.4.1
+
+### Patch Changes
+
+- typography options.
+
+## 1.4.0
+
+### Minor Changes
+
+- @lil-el packages not build tailwindcss.
+
+### Patch Changes
+
+- Updated dependencies
+  - @lil-el/codepen@1.4.0
+
 ## 1.3.2
 
 ### Patch Changes

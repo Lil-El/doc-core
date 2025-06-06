@@ -8,80 +8,93 @@
 
 ## Guide
 
-`peerDependencies: vue 3.5.0+`;
-
-使用时，需要在`markdown`组件父节点设置高度；
+基于 `vue3`，`@lil-el/codepen` 的 `Markdown解析` 组件。
 
 ### features
 
 - 自动生成 `toc`，内置了 `codepen` 组件，以及自定义 tip 解析等；
 - 基于 `unified` 实现 `Markdown` 解析，并基于 `shiki` 实现代码高亮；
 - 支持编辑、导出功能；
-- 支持 `light/dark` 主题，以及不同的主题配色 `--markdown-color`;
+- 支持 `tailwindcss` 的 `dark` 主题（.drak, [data-theme="dark"]），以及不同的主题配色 `--markdown-color`;
 
   ```html
   <div class="h-[900px]">
-    <markdown style="--markdown-color: var(--data-theme-color);" />
+    <markdown style="--markdown-color: pink;" />
   </div>
-
-  <script setup>
-    const colors = {
-      purple: "#a948ff",
-      cyan: "#00d0ff",
-      "yellow-green": "#99cd32",
-      amber: "#ffb300",
-      pink: "#ff00c6",
-    };
-
-    const colorsProxy = readonly(Object.entries(colors).map((i) => ({ name: i[0], color: i[1] })));
-
-    function toggle() {
-      const mode = document.documentElement.getAttribute("data-theme") === "light" ? "dark" : "light";
-      document.documentElement.setAttribute("data-theme", mode);
-    }
-
-    function change(e) {
-      document.documentElement.style.setProperty("--data-theme-color", color);
-    }
-  </script>
   ```
 
 [更多查看](./src/doc/demo.md)
 
-### export
-
-- markdown
-
 ## Usage
+
+**为避免 `tailwindcss` 样式覆盖问题，在你的项目/应用中安装 `tailwindcss` 并配置；**
+
+需要安装 `@lil-el/codepen`，`@tailwindcss/typography`, `@tailwindcss/vite`, `tailwindcss`;
 
 ### Install
 
 ```bash
-pnpm i @lil-el/markdown
+pnpm i @tailwindcss/typography @tailwindcss/vite tailwindcss -D
+```
+
+```bash
+pnpm i @lil-el/codepen @lil-el/markdown
 ```
 
 ### Vite Config
 
-需要将 `codepen` 的 `sw.js` 文件拷贝到 `public` 目录下
+需要配置 `tailwindcss` 插件。
+
+同时由于该组件内置依赖 [`@lil-el/codepen`](https://www.npmjs.com/package/@lil-el/codepen)，需要配置 `viteCopySw` 插件：
+
 
 ```javascript
-import { resolve } from "path";
-import { readFileSync, writeFileSync } from "node:fs";
+import tailwindcss from "@tailwindcss/vite";
+import viteCopySw from "@lil-el/codepen/vite-copy-sw";
 
-export default function viteCopySw() {
-  const swPath = resolve(__dirname, "node_modules/@lil-el/codepen/dist/sw.js");
-  const swCode = readFileSync(swPath, "utf-8");
-  const targetPath = resolve(__dirname, "public/sw.js");
-  writeFileSync(targetPath, swCode);
-}
+export default defineConfig({
+  plugins: [viteCopySw(), tailwindcss()],
+});
+```
+
+### Tailwind Config
+
+`tailwind.config.js` 中的 content 需要配置依赖包的路径。
+
+`tailwind.config.js` 中的 theme 需要配置 `typography-options`。
+
+**tailwind.config.js**
+
+```js
+import typographyOptions from "@lil-el/markdown/typography-options";
+
+export default {
+  content: [
+    "./node_modules/@lil-el/markdown/dist/**/*.{js}",
+    "./node_modules/@lil-el/codepen/dist/**/*.{js}",
+    "./node_modules/@lil-el/ui/dist/**/*.{js}",
+  ],
+  theme: {
+    extend: {
+      typography: () => typographyOptions,
+    },
+  },
+};
+
 ```
 
 ### Import
 
-**main.js:**
+在入口的样式文件中，引入 `@lil-el/markdown/css` 样式。
+
+> 不应该在 main.js 中引入 `@lil-el/markdown/css` 样式；
+
+**style.css:**
 
 ```javascript
-import "@lil-el/markdown/css";
+@import "tailwindcss";
+@import "@lil-el/markdown/css";
+@config "../tailwind.config.js";
 ```
 
 **your vue file:**
@@ -94,7 +107,7 @@ import "@lil-el/markdown/css";
 <script setup>
   import { markdown } from "@lil-el/markdown";
 
-  const mdContent = ref(`# Hello World`);
+  const mdContent = `# Hello World`;
 </script>
 ```
 

@@ -3,14 +3,12 @@ import vue from "@vitejs/plugin-vue";
 import tailwindcss from "@tailwindcss/vite";
 import { analyzer } from "vite-bundle-analyzer";
 import { resolve } from "path";
+import { viteStaticCopy } from "vite-plugin-static-copy";
 
 import { createRequire } from "node:module";
 const require = createRequire(import.meta.url);
 const monacoEditorPlugin = require("vite-plugin-monaco-editor").default;
-import copySw from "./vite-copy-sw";
-
-// 写入 sw.js
-copySw();
+import viteCopySw from "@lil-el/codepen/vite-copy-sw";
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -23,9 +21,17 @@ export default defineConfig({
     },
   },
   plugins: [
+    viteCopySw(),
     vue(),
-    tailwindcss(),
-    ...(process.env.NODE_ENV === "development" ? [monacoEditorPlugin({})] : []),
+    ...(process.env.NODE_ENV === "development" ? [tailwindcss(), monacoEditorPlugin({})] : []),
+    viteStaticCopy({
+      targets: [
+        {
+          src: "typography-options.js",
+          dest: "",
+        },
+      ],
+    }),
     // analyzer(),
   ],
   build: {

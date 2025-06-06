@@ -6,9 +6,7 @@ import { resolve } from "path";
 export default defineConfig({
   plugins: [
     vue(),
-    tailwindcss({
-      config: "../../tailwind.config.js",
-    }),
+    ...(process.env.NODE_ENV === "development" ? [tailwindcss()] : []),
   ],
   build: {
     assetsInlineLimit: 0,

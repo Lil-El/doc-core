@@ -8,6 +8,7 @@
 
 ## Guide
 
+- `vue3`
 - `--data-theme-color` 配色
 
 ### export
@@ -21,18 +22,57 @@
 
 ## Usage
 
+**为避免 `tailwindcss` 样式覆盖问题，在你的项目/应用中安装 `tailwindcss` 并配置；**
+
+需要安装 `@tailwindcss/vite`, `tailwindcss`;
+
 ### Install
+
+```bash
+pnpm i @tailwindcss/vite tailwindcss -D
+```
 
 ```bash
 pnpm i @lil-el/ui
 ```
 
-### Import
+### Vite Config
 
-**main.js:**
+需要配置 `tailwindcss` 插件。
 
 ```javascript
-import "@lil-el/ui/css";
+import tailwindcss from "@tailwindcss/vite";
+
+export default defineConfig({
+  plugins: [tailwindcss()],
+});
+```
+
+### Tailwind Config
+
+`tailwind.config.js` 中的 content 需要配置依赖包的路径。
+
+**tailwind.config.js**
+
+```js
+export default {
+  content: ["./node_modules/@lil-el/ui/dist/**/*.{js}"],
+  plugins: [],
+};
+```
+
+### Import
+
+在入口的样式文件中，引入 `@lil-el/ui/css` 样式。
+
+> 不应该在 main.js 中引入 `@lil-el/ui/css` 样式；
+
+**style.css:**
+
+```javascript
+@import "tailwindcss";
+@import "@lil-el/ui/css";
+@config "../tailwind.config.js";
 ```
 
 **your vue file:**
