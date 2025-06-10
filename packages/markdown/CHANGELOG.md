@@ -1,5 +1,22 @@
 # @lil-el/markdown
 
+## 1.5.0
+
+### Minor Changes
+
+- style and codepen iframe.
+
+### Patch Changes
+
+- Updated dependencies
+  - @lil-el/codepen@1.4.0
+
+## 1.4.2
+
+### Patch Changes
+
+- markdown watch text props, fix hast router mode title click listener.
+
 ## 1.4.1
 
 ### Patch Changes

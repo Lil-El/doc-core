@@ -1,11 +1,11 @@
 <template>
-  <div ref="scrollRef" class="flex-1/2 border-r border-gray-300 overflow-y-auto">
+  <div ref="scrollRef" class="flex-1/2 border-r border-gray-300 overflow-y-auto md-scrollbar">
     <div id="md-editor" :style="{ height: height + 'px' }"></div>
   </div>
 </template>
 
 <script setup>
-import { readonly, ref, onMounted, onUnmounted } from "vue";
+import { readonly, ref, onMounted, onUnmounted, inject, watch } from "vue";
 import useSyncScroll from "@/hooks/useSyncScroll.js";
 import useMonaco from "@/hooks/useMonaco";
 
@@ -27,6 +27,19 @@ let timer = null;
 
 const height = ref(0);
 
+const theme = inject("theme");
+
+if (theme) {
+  watch(
+    () => theme.isDark,
+    (dark) => {
+      editor.updateOptions({
+        theme: dark ? "vs-dark" : "vs",
+      });
+    }
+  );
+}
+
 useSyncScroll(scrollRef, "md-editor");
 
 onMounted(async () => {
@@ -38,7 +51,7 @@ function createEditor() {
   const container = document.getElementById("md-editor");
   const editor = monaco.editor.create(container, {
     language: "markdown",
-    theme: "vs-dark",
+    theme: theme.isDark ? "vs-dark" : "vs",
     fontSize: 16,
     contextmenu: false,
     quickSuggestions: false,

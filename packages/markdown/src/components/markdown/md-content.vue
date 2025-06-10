@@ -1,5 +1,8 @@
 <template>
-  <div ref="scrollRef" class="@container flex flex-1/2 size-full py-10 overflow-y-auto">
+  <div
+    ref="scrollRef"
+    class="@container flex flex-1/2 size-full py-10 overflow-y-auto dark:scrollbar-thumb-gray-700 md-scrollbar"
+  >
     <div class="@container relative h-max flex-1/2 break-words px-10">
       <div class="absolute flex items-center top-2.5 right-2.5 dark:text-white dark:fill-white">
         <span v-show="edit" class="cursor-pointer" title="导出" @click="handleExport">
@@ -17,6 +20,7 @@
       <div class="m-auto @3xl:w-[756px]">
         <!-- 静态class: prose-yellow-green -->
         <article
+          id="md-content-article"
           class="prose dark:prose-invert max-w-full"
           :style="{
             '--codepen-color': `var(--markdown-color, #6f94f4)`,
@@ -141,4 +145,8 @@ function getHash(isHashRouter) {
 function handleExport() {
   emits("export");
 }
+
+defineExpose({
+  handleTOCClick,
+});
 </script>

@@ -4,11 +4,11 @@ import { h, render } from "vue";
 const reg = /^\[!vue:.*\]$/;
 const compNameReg = /\[!vue:(\w+)(?::(\d+))?\]/;
 
-export default function (options) {
+export default function (options = {}) {
   return function (ast, file) {
     const codeNodes = getAllRunningCodeNode(ast);
 
-    codeNodes.forEach((node) => {
+    codeNodes.forEach(async (node) => {
       const scopeId = Math.random().toString(36).substring(2, 10);
 
       node.tagName = "figure";
@@ -19,24 +19,40 @@ export default function (options) {
       delete node.properties.compName;
       delete node.properties.height;
 
-      node.children = [
-        {
-          type: "element",
-          tagName: "div",
-          properties: { "data-scope-id": scopeId, style: height ? `height: ${height}px` : "" },
-          children: [],
-        },
-      ];
+      if (options.iframe && compName === "codepen") {
+        const srcdoc = codepenHTML(JSON.stringify(params));
 
-      let tmpTimer = setInterval(() => {
-        if (document.querySelector(`[data-scope-id="${scopeId}"]`)) {
-          handleCompile(document.querySelector(`[data-scope-id="${scopeId}"]`), {
-            params,
-            name: compName,
-          });
-          clearInterval(tmpTimer);
-        }
-      }, 50);
+        node.children = [
+          {
+            type: "element",
+            tagName: "iframe",
+            properties: {
+              style: height ? `height: ${height}px; width: 100%;` : "width: 100%;",
+              srcdoc,
+            },
+            children: [],
+          },
+        ];
+      } else {
+        node.children = [
+          {
+            type: "element",
+            tagName: "div",
+            properties: { "data-scope-id": scopeId, style: height ? `height: ${height}px` : "" },
+            children: [],
+          },
+        ];
+
+        let tmpTimer = setInterval(() => {
+          if (document.querySelector(`[data-scope-id="${scopeId}"]`)) {
+            handleCompile(document.querySelector(`[data-scope-id="${scopeId}"]`), {
+              params,
+              name: compName,
+            });
+            clearInterval(tmpTimer);
+          }
+        }, 50);
+      }
     });
   };
 }
@@ -62,4 +78,43 @@ function getAllRunningCodeNode(ast) {
   });
 
   return nodes;
+}
+
+function codepenHTML(props) {
+  const ele = document.querySelector("#md-content-article");
+  const color = getComputedStyle(ele).getPropertyValue("--codepen-color");
+
+  return `
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <title>Code Pen</title>
+      <style>
+        @import url("https://unpkg.com/@lil-el/codepen@latest/css");
+      </style>
+    </head>
+    <body>
+      <div id="app" style="--codepen-color: ${color};"></div>
+
+      <script type="importmap">
+        {
+          "imports": {
+            "vue": "https://unpkg.com/vue@3.5.13/dist/vue.esm-browser.js",
+            "@lil-el/codepen": "https://unpkg.com/@lil-el/codepen@latest/dist/index.js"
+          }
+        }
+      </script>
+      <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+      <script type="module">
+        import { createApp, h } from "vue";
+        import { codepen } from "@lil-el/codepen";
+
+        const App = h(codepen, ${props});
+
+        createApp(App).mount("#app");
+      </script>
+    </body>
+    </html>
+  `.replaceAll(/\n\s+/g, "");
 }

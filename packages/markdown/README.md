@@ -21,7 +21,16 @@
   <div class="h-[900px]">
     <markdown style="--markdown-color: pink;" />
   </div>
+
+  <script setup>
+    const theme = reactive({
+      isDark: false
+    })
+
+    provide("theme", theme);
+  </script>
   ```
+  > 在 editable 状态下，需要提供 theme.isDark
 
 [更多查看](./src/doc/demo.md)
 

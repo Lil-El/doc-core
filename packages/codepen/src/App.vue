@@ -1,6 +1,6 @@
 <template>
   <div class="w-screen h-screen flex justify-center items-center">
-    <codepen style="--codepen-color: red" />
+    <codepen :editors="editors" style="--codepen-color: red" />
   </div>
 </template>
 

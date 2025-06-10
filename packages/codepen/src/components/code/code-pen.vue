@@ -30,7 +30,7 @@
       <code-sidebar v-if="!pure" :init="!editors?.length" @change="handleCodeChange" />
       <div class="flex flex-col bg-[#333] p-2" :class="[pure ? 'w-full' : 'w-[calc(100%-48px)]']" id="code-pen-main">
         <splitpanes class="default-theme" :horizontal="layout" :vertical="!layout">
-          <pane :key="layout" min-size="3">
+          <pane min-size="3">
             <splitpanes :key="configs[0]?.id" class="default-theme" :horizontal="!layout" :vertical="layout">
               <template v-if="configs.length === 1 || !single">
                 <pane v-for="e in configs" :key="e.id" min-size="3">
@@ -53,7 +53,7 @@
                           v-for="(h, j) in configs"
                           :key="h.name"
                           :style="{
-                            color: name === h.name ? `var(--codepen-color, #ffffff)` : 'white',
+                            color: name === h.name ? `var(--codepen-color, #6f94fe)` : 'white',
                             cursor: 'pointer',
                           }"
                           @click="top = j"

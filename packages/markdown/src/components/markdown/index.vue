@@ -1,8 +1,8 @@
 <template>
-  <div class="flex h-full overflow-hidden">
+  <div class="flex h-full overflow-hidden max-sm:flex-col">
     <md-editor v-if="isEdit" v-model="copyText" />
 
-    <md-content :content="content" :edit="isEdit" @export="handleExport">
+    <md-content ref="mdContentRef" :content="content" :edit="isEdit" @export="handleExport">
       <template v-slot="{ scrollToTop }">
         <md-toc v-if="!isEdit" class="hidden @4xl:flex" :toc="toc" :scrollToTop="scrollToTop" />
       </template>
@@ -11,7 +11,7 @@
 </template>
 
 <script setup>
-import { ref, reactive, provide, watchEffect } from "vue";
+import { ref, reactive, provide, watchEffect, toRef, watch, onMounted, shallowRef } from "vue";
 import MdEditor from "./md-editor.vue";
 import MdContent from "./md-content.vue";
 import mdToc from "./md-toc.vue";
@@ -29,13 +29,10 @@ import rehypeToc from "@/utils/rehype-toc";
 import rehypeVue from "@/utils/rehype-vue";
 import rehypeTip from "@/utils/rehype-tip";
 import rehypePatchFootnote from "@/utils/rehype-patch-footnote";
+import { visit } from "unist-util-visit";
 import demoMdText from "@/doc/demo.md?raw";
 
-const {
-  text: markdownText,
-  tutorial,
-  editable,
-} = defineProps({
+const props = defineProps({
   editable: {
     type: Boolean,
     default: false,
@@ -47,13 +44,19 @@ const {
   text: String,
 });
 
+const { tutorial, editable } = props;
+
+const markdownText = toRef(props, "text");
+
 const isEdit = ref(editable);
 
-const copyText = ref(tutorial ? demoMdText : markdownText);
+const copyText = ref(tutorial ? demoMdText : markdownText.value);
 
 const content = ref("");
 
 const toc = ref([]);
+
+const mdContentRef = ref(null);
 
 const isHashRouter = location.href.includes("#/");
 
@@ -64,38 +67,61 @@ const scrollTopCtrl = reactive({
 });
 provide("scrollTopCtrl", scrollTopCtrl);
 
-const processor = unified()
-  .data("settings", { fragment: true })
-  .use(remarkParse)
-  .use(remarkGfm)
-  .use(remarkRehype, { allowDangerousHtml: true })
-  .use(rehypeSlug)
-  .use(isHashRouter ? () => () => {} : rehypeAutolinkHeadings, { behavior: "wrap" })
-  .use(rehypePatchFootnote)
-  .use(rehypeToc, (result) => {
-    toc.value = result;
-  })
-  .use(rehypeVue)
-  .use(rehypeTip)
-  .use(rehypePrettyCode, {
-    bypassInlineCode: !true,
-    transformers: [
-      transformerCopyButton({
-        visibility: "hover",
-        feedbackDuration: 3_000,
-      }),
-    ],
-    theme: {
-      light: "snazzy-light",
-      dark: "monokai",
-    },
-  })
-  .use(rehypeStringify, { allowDangerousHtml: true });
+watch(markdownText, (text) => {
+  copyText.value = text;
+});
+
+const processor = shallowRef(null);
+
+onMounted(() => {
+  processor.value = unified()
+    .data("settings", { fragment: true })
+    .use(remarkParse)
+    .use(remarkGfm)
+    .use(remarkRehype, { allowDangerousHtml: true })
+    .use(rehypeSlug)
+    .use(isHashRouter ? () => () => {} : rehypeAutolinkHeadings, { behavior: "wrap" })
+    .use(rehypePatchFootnote)
+    .use(rehypeToc, (result) => {
+      toc.value = result;
+    })
+    .use(rehypeVue, { iframe: isEdit.value })
+    .use(rehypeTip)
+    .use(rehypePrettyCode, {
+      bypassInlineCode: !true,
+      transformers: [
+        transformerCopyButton({
+          visibility: "hover",
+          feedbackDuration: 3_000,
+        }),
+      ],
+      theme: {
+        light: "snazzy-light",
+        dark: "monokai",
+      },
+    })
+    .use(rehypeStringify, { allowDangerousHtml: true });
+});
 
 watchEffect(() => {
-  processor.process(copyText.value).then(({ value }) => {
-    content.value = value;
-  });
+  processor.value
+    ?.process(copyText.value)
+    .then(({ value }) => {
+      content.value = value;
+    })
+    .then(() => {
+      if (isHashRouter) {
+        visit({ children: toc.value }, (node) => {
+          if (node.id) {
+            const el = document.getElementById(node.id);
+            el.style.cursor = "pointer";
+            el.addEventListener("click", () => {
+              mdContentRef.value.handleTOCClick(node.id);
+            });
+          }
+        });
+      }
+    });
 });
 
 function handleExport() {

@@ -5,22 +5,28 @@
   </select>
 
   <div class="h-screen">
-    <m-markdown style="--markdown-color: var(--data-theme-color)" tutorial :text="mdStr"></m-markdown>
+    <m-markdown style="--markdown-color: var(--data-theme-color)" editable tutorial :text="mdStr"></m-markdown>
   </div>
 </template>
 
 <script setup>
-import { readonly } from "vue";
+import { provide, reactive, readonly, ref } from "vue";
 import MMarkdown from "@/components/markdown/index.vue";
 import colors from "./utils/color.js";
 
 const colorsProxy = readonly(Object.entries(colors).map((i) => ({ name: i[0], color: i[1] })));
 
-const mdStr = "# Hello World";
+const mdStr = ref("# Hello World");
+
+const theme = reactive({
+  isDark: false,
+});
+provide("theme", theme);
 
 function toggle() {
   const mode = document.documentElement.getAttribute("data-theme") === "light" ? "dark" : "light";
   document.documentElement.setAttribute("data-theme", mode);
+  theme.isDark = mode === "dark";
 }
 
 function change(e) {
