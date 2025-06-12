@@ -66,7 +66,9 @@
 
 2. `tip` 提示块：使用 `[!tip:type]` 创建提示块；
 
-3. `vue` 组件：使用 `[!vue:name:height]` 调用内置组件；目前的内置组件有：
+3. `title` 代码块：使用 `[!title:name]` 创建标题代码块；
+
+4. `vue` 组件：使用 `[!vue:name:height]` 调用内置组件；目前的内置组件有：
 
    - helloworld：示例组件
    - codepen：在线代码编辑器
@@ -82,9 +84,7 @@
 
 ### 1. helloworld
 
-**代码**
-
-```vue
+```vue [!title:helloworld.vue]
 <template>
   <div @click="hello">{{ msg }}</div>
 </template>
@@ -131,32 +131,21 @@ function hello() {
   "title": "Hello Codepen",
   "author": "Mino",
   "date": "2025/5/23",
-  "editors": [
-    {
+  "project": "html",
+  "editors": {
+    "html": {
       "id": 1,
-      "name": "HTML",
-      "icon": "html",
-      "suffix": "html",
-      "language": "html",
       "code": "<div id='hello'>点我试试吧!</div>"
     },
-    {
+    "css": {
       "id": 2,
-      "name": "CSS",
-      "icon": "css",
-      "suffix": "css",
-      "language": "css",
       "code": "#hello { color: red; }"
     },
-    {
+    "javascript": {
       "id": 3,
-      "name": "JS",
-      "icon": "javascript",
-      "suffix": "javascript",
-      "language": "javascript",
       "code": "function hello() {\n  alert('Hello world!');\n}\n\nconst ele = document.getElementById('hello');\n\nele.addEventListener('click', hello);"
     }
-  ]
+  }
 }
 ```
 
@@ -180,6 +169,26 @@ function hello() {
 这是一个 `tip` 提示块
 
 [百度一下](https://www.baidu.com)
+```
+
+## `title` 代码块
+
+**使用**
+
+````markdown
+```javascript [!title:main.js]
+function hello() {
+  console.log('Hello World');
+}
+```
+````
+
+**运行效果**
+
+```javascript [!title:main.js]
+function hello() {
+  console.log('Hello World');
+}
 ```
 
 [^1]: By Mino

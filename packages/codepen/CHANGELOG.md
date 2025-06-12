@@ -1,5 +1,17 @@
 # @lil-el/codepen
 
+## 1.6.0
+
+### Minor Changes
+
+- codepen refactor editors param, markdown add title code block.
+
+## 1.5.1
+
+### Patch Changes
+
+- codepen babel cdn variable change and markdown css.
+
 ## 1.5.0
 
 ### Minor Changes

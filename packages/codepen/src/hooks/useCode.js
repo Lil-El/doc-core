@@ -1,16 +1,13 @@
 const templates = [
   {
-    title: "JavaScript",
+    title: "HTML",
     author: "Mino",
     date: "2025-05-03",
     icon: "javascript",
-    editors: [
-      {
+    project: "html",
+    editors: {
+      html: {
         id: "0c5fb22f-e174-4fb3-be97-c4a0dd366ba5",
-        name: "HTML",
-        icon: "html",
-        suffix: "html",
-        language: "html",
         code: `<script src="//unpkg.com/vue@2/dist/vue.js"></script>
 <script src="//unpkg.com/element-ui@2.15.14/lib/index.js"></script>
 <script src="//unpkg.com/jquery@3.7.1/dist/jquery.js"></script>
@@ -27,20 +24,12 @@ const templates = [
   </template>
 </div>`,
       },
-      {
+      css: {
         id: "8b50fb1e-c840-41a4-9f99-38820d642852",
-        name: "CSS",
-        icon: "css",
-        suffix: "css",
-        language: "css",
         code: `@import url("//unpkg.com/element-ui@2.15.14/lib/theme-chalk/index.css");`,
       },
-      {
+      javascript: {
         id: "a0f1b8c4-3d2e-4c5b-9f7d-6a0e1f8b2c3d",
-        name: "JavaScript",
-        icon: "javascript",
-        suffix: "javascript",
-        language: "javascript",
         code: `const Main = {
   data() {
     return {};
@@ -61,20 +50,17 @@ const templates = [
 const Ctor = Vue.extend(Main);
 new Ctor().$mount("#app");`,
       },
-    ],
+    },
   },
   {
     title: "Vue3",
     author: "Mino",
     date: "2025-05-03",
     icon: "vue",
-    editors: [
-      {
+    project: "vue3",
+    editors: {
+      mainJs: {
         id: "a01397c4-3d2e-4c5b-9f7d-6a0e1f8b2c3d",
-        name: "main.js",
-        icon: "javascript",
-        suffix: "javascript",
-        language: "javascript",
         code: `import { createApp } from "vue";
 import App from "App.vue";
 
@@ -87,147 +73,136 @@ app.config.globalProperties.$message = ElMessage;
 app.use(ElementPlus);
 app.mount("#app");`,
       },
-      {
+      appVue: {
         id: "ea1b6d0f-80d2-4256-b466-756cf5622ad2",
-        name: "App.vue",
-        icon: "vue",
-        suffix: "vue",
-        language: "html",
         code: `<template>
-  <div id="hello" @click="hello">
-    <el-button type="primary">{{ msg }}</el-button>
-  </div>
-</template>
+        <div id="hello" @click="hello">
+          <el-button type="primary">{{ msg }}</el-button>
+        </div>
+      </template>
 
-<script setup>
-  import delay from "https://unpkg.com/lodash-es@4.17.21/delay.js";
-  import { ref, getCurrentInstance } from 'vue';
+      <script setup>
+        import delay from "https://unpkg.com/lodash-es@4.17.21/delay.js";
+        import { ref, getCurrentInstance } from 'vue';
 
-  const { proxy } = getCurrentInstance();
-  const msg = ref('Hello Vue3!');
+        const { proxy } = getCurrentInstance();
+        const msg = ref('Hello Vue3!');
 
-  function hello() {
-    delay(()=>{
-      proxy.$message.success("这是一条延时提示.");
-    }, 500);
-  }
-</script>
+        function hello() {
+          delay(()=>{
+            proxy.$message.success("这是一条延时提示.");
+          }, 500);
+        }
+      </script>
 
-<style scoped>
-  #hello {
-    color: green;
-    font-weight: bold;
-  }
-</style>
-<style>
-  @import url("https://unpkg.com/element-plus@2.9.9/dist/index.css");
+      <style scoped>
+        #hello {
+          color: green;
+          font-weight: bold;
+        }
+      </style>
+      <style>
+        @import url("https://unpkg.com/element-plus@2.9.9/dist/index.css");
 
-  body {
-    background: #9dcdff33;
-  }
-</style>`,
+        body {
+          background: #9dcdff33;
+        }
+      </style>`,
       },
-    ],
+    },
   },
   {
     title: "React",
     author: "Mino",
     date: "2025-05-12",
     icon: "javascript",
-    editors: [
-      {
-        id: 'f11b9121-5834-45b8-b45b-4b5f633ab1bb',
-        name: "main.js",
-        icon: "javascript",
-        suffix: "javascript",
-        language: "javascript",
+    project: "react",
+    editors: {
+      mainJs: {
+        id: "f11b9121-5834-45b8-b45b-4b5f633ab1bb",
         code: `import React from "react"
-import { createRoot } from "react-dom/client"
-import App from "app.js"
+        import { createRoot } from "react-dom/client"
+        import App from "app.js"
 
-const root = createRoot(document.getElementById("app"))
-root.render(<App />)
-`,
+        const root = createRoot(document.getElementById("app"))
+        root.render(<App />)
+        `,
       },
-      {
-        id: '209626f0-8078-4c46-a090-2be73d081016',
-        name: "app.js",
-        icon: "javascript",
-        suffix: "react",
-        language: "javascript",
+      appJs: {
+        id: "209626f0-8078-4c46-a090-2be73d081016",
         code: `import React, { useEffect } from 'react';
-import confetti from "https://esm.sh/canvas-confetti@1.6.0"
+        import confetti from "https://esm.sh/canvas-confetti@1.6.0"
 
-const App = () => {
-  const style = {
-    textAlign: "center"
-  };
+        const App = () => {
+          const style = {
+            textAlign: "center"
+          };
 
-  function onMouseMove(e) {
-    confetti({
-      particleCount: 1,
-      origin: {
-        x: e.pageX / window.innerWidth,
-        y: (e.pageY + 20) / window.innerHeight,
-      }
-    })
-  }
+          function onMouseMove(e) {
+            confetti({
+              particleCount: 1,
+              origin: {
+                x: e.pageX / window.innerWidth,
+                y: (e.pageY + 20) / window.innerHeight,
+              }
+            })
+          }
 
-  return (
-    <>
-      <GlobalStyles />
-      <div style={style} onMouseMove={onMouseMove}>
-        <h1>Hello React! ⚛️</h1>
-        <p>Building user interfaces.</p>
-      </div>
-    </>
-  )
-}
+          return (
+            <>
+              <GlobalStyles />
+              <div style={style} onMouseMove={onMouseMove}>
+                <h1>Hello React! ⚛️</h1>
+                <p>Building user interfaces.</p>
+              </div>
+            </>
+          )
+        }
 
-export default App
+        export default App
 
-function GlobalStyles() {
-  useEffect(() => {
-    const style = document.createElement('style');
-    style.textContent = \`
-      * {
-        padding: 0;
-        margin: 0;
-        line-height: 1.5;
-      }
+        function GlobalStyles() {
+          useEffect(() => {
+            const style = document.createElement('style');
+            style.textContent = \`
+              * {
+                padding: 0;
+                margin: 0;
+                line-height: 1.5;
+              }
 
-      div {
-        width: 100vw;
-        height: 100vh;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-      }
+              div {
+                width: 100vw;
+                height: 100vh;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+              }
 
-      h1 {
-        font-size: 32px;
-        font-family: Inter, sans-serif;
-      }
+              h1 {
+                font-size: 32px;
+                font-family: Inter, sans-serif;
+              }
 
-      p {
-        font-size: 16px;
-        font-style: italic;
-      }
-    \`;
-    document.head.appendChild(style);
+              p {
+                font-size: 16px;
+                font-style: italic;
+              }
+            \`;
+            document.head.appendChild(style);
 
-    return () => {
-      document.head.removeChild(style);
-    };
-  }, []);
+            return () => {
+              document.head.removeChild(style);
+            };
+          }, []);
 
-  return null;
-}
-`,
+          return null;
+        }
+        `,
       },
-    ],
+    },
   },
 ];
 
@@ -237,21 +212,14 @@ const demos = [
     author: "Mino",
     date: "2025-05-04",
     icon: "javascript",
-    editors: [
-      {
+    project: "html",
+    editors: {
+      html: {
         id: "f0b49720-6fd6-441b-878f-2195fbe0d776",
-        name: "HTML",
-        icon: "html",
-        suffix: "html",
-        language: "html",
         code: `<div id="app"></div>`,
       },
-      {
+      css: {
         id: "4351879b-0ac0-4960-84b0-44a1bdd23bb8",
-        name: "CSS",
-        icon: "css",
-        suffix: "css",
-        language: "css",
         code: `* {
   margin: 0;
   padding: 0;
@@ -267,12 +235,8 @@ canvas {
 }
 `,
       },
-      {
+      javascript: {
         id: "005908e4-bb7d-4b93-ac99-a6546b042780",
-        name: "JavaScript",
-        icon: "javascript",
-        suffix: "javascript",
-        language: "javascript",
         code: `import * as THREE from "https://esm.sh/three";
 import { OrbitControls } from "https://esm.sh/three/examples/jsm/controls/OrbitControls";
 
@@ -397,29 +361,22 @@ function resize() {
 
 window.addEventListener("resize", resize);`,
       },
-    ],
+    },
   },
   {
     title: "AcrGIS",
     author: "Mino",
     date: "2025-05-10",
     icon: "javascript",
-    editors: [
-      {
+    project: "html",
+    editors: {
+      html: {
         id: "e72a026e-2912-438b-bfd8-f17202c2828a",
-        name: "HTML",
-        icon: "html",
-        suffix: "html",
-        language: "html",
         code: `<div id="viewDiv"></div>
 <script src="https://js.arcgis.com/4.28/"></script>`,
       },
-      {
+      css: {
         id: "f2e5b8aa-758d-481b-8471-d2ee20ee8e61",
-        name: "CSS",
-        icon: "css",
-        suffix: "css",
-        language: "css",
         code: `@import "https://js.arcgis.com/4.28/esri/themes/dark/main.css";
 
 html, body, #viewDiv {
@@ -430,12 +387,8 @@ html, body, #viewDiv {
 }
 `,
       },
-      {
+      javascript: {
         id: "07f9c03b-8516-4f08-81c0-5a5fe0ae241a",
-        name: "JavaScript",
-        icon: "javascript",
-        suffix: "javascript",
-        language: "javascript",
         code: `require([
   "esri/Map",
   "esri/views/SceneView",
@@ -474,7 +427,7 @@ html, body, #viewDiv {
   });
 });`,
       },
-    ],
+    },
   },
 ];
 import { ref, watch } from "vue";

@@ -64,9 +64,21 @@
 }
 
 .prose {
+  figure:has(pre) {
+    position: relative;
+  }
+
   figure>pre {
+    &:has(code) {
+      position: initial;
+
+      .ready {
+        @apply cursor-pointer;
+      }
+    }
+
     &::before {
-      @apply content-none absolute block top-0 right-0 font-black px-1 py-0.5 text-[11px] leading-[11px] rounded-bl-md;
+      @apply content-none absolute block top-0 right-0 font-black px-1 py-0.5 text-[11px] leading-[11px] rounded-bl-md rounded-tr-md;
     }
 
     &:where([data-language='javascript'], [data-language='js'])::before {
@@ -119,6 +131,18 @@
 
     &.tip-info {
       @apply hover:border-gray-500 bg-[#eff0f0] dark:border-gray-500;
+    }
+  }
+
+  figure.code-with-title {
+    @apply p-1.5 rounded-md bg-gray-200 dark:bg-stone-700;
+
+    &>div {
+      @apply text-sm mb-1 ml-1.5 font-semibold text-gray-700 dark:text-gray-100;
+    }
+
+    &>pre::before {
+      @apply top-[30px] right-1.5;
     }
   }
 

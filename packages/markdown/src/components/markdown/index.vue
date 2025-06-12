@@ -28,6 +28,7 @@ import { transformerCopyButton } from "@rehype-pretty/transformers";
 import rehypeToc from "@/utils/rehype-toc";
 import rehypeVue from "@/utils/rehype-vue";
 import rehypeTip from "@/utils/rehype-tip";
+import rehypeTitle from "@/utils/rehype-title";
 import rehypePatchFootnote from "@/utils/rehype-patch-footnote";
 import { visit } from "unist-util-visit";
 import demoMdText from "@/doc/demo.md?raw";
@@ -100,6 +101,7 @@ onMounted(() => {
         dark: "monokai",
       },
     })
+    .use(rehypeTitle)
     .use(rehypeStringify, { allowDangerousHtml: true });
 });
 

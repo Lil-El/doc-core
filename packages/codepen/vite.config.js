@@ -49,7 +49,11 @@ export default defineConfig(async () => {
       chunkSizeWarningLimit: 500, // 提高块大小警告阈值（默认 500KB）
       sourcemap: false, // 关闭 sourcemap 可减少内存占用
       rollupOptions: {
-        // 作为库打包时，排除以下依赖；如果是应用打包，则不需要排除这些依赖
+        /**
+         * 作为库打包时，排除以下依赖；
+         *    monaco 和 babel 是通过 CDN 引入的，而 vue 是通过 peer Dependency 引入的；
+         * 如果是应用打包，则不需要排除这些依赖
+         */
         external: ["vue", "monaco-editor", "@babel/standalone"],
         output: {
           globals: {

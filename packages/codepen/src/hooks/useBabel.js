@@ -13,10 +13,18 @@ export default function useBabel() {
   }
 
   function initCDN() {
-    const script = document.createElement("script");
-    script.src = __Babel_CDN__;
-    script.onload = () => resolve(window.Babel);
-    document.body.appendChild(script);
+    if (window.require) {
+      require.config({ paths: { babel: __BABEL_CDN__ } });
+
+      require(["babel"], function (Babel) {
+        resolve((window.Babel = Babel));
+      });
+    } else {
+      const script = document.createElement("script");
+      script.src = __BABEL_CDN__;
+      script.onload = () => resolve(window.Babel);
+      document.body.appendChild(script);
+    }
   }
 
   if (import.meta.env.DEV) {

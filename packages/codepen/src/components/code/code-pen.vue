@@ -103,19 +103,20 @@ const props = defineProps({
   title: String,
   author: String,
   date: String,
+  project: String, // html vue3 react
   editors: Array,
 });
 
-const pure = computed(() => !!props.editors?.length);
+const pure = computed(() => !!props.editors);
 
-const configs = toRef(props.editors || []);
+const configs = toRef(withProjectType(props.project, props.editors) || []);
 
 // single: 是否合并编辑器；pure 时必须合并；
 const { layout, single, top, mobile } = useLayout("code-pen-main", pure.value);
 
 const { title, author, date, setData } = useTitle(props, pure.value);
 
-const { editorRef, reset, run, loading } = useEditors("preview", pure.value);
+const { editorRef, reset, run, loading, setProjectType } = useEditors("preview", pure.value, props.project);
 
 function handleCodeChange(data) {
   if (!data) data = props;
@@ -123,10 +124,109 @@ function handleCodeChange(data) {
   const { editors, ...info } = data;
 
   setData(info);
-  configs.value = editors;
+  setProjectType(info.project);
+  configs.value = withProjectType(info.project, editors);
   nextTick(run);
 
   top.value = 0;
+}
+
+function withProjectType(projectType, editors) {
+  if (!["html", "vue3", "react"].includes(projectType)) {
+    return void console.error("暂不支持类型：", projectType);
+  }
+
+  const files = Object.keys(editors);
+
+  let results = [];
+
+  if (projectType === "html") {
+    if (!files.includes("html")) {
+      return void console.error(`html 类型必须包含 html`);
+    }
+
+    if (files.some((f) => !["html", "css", "javascript"].includes(f))) {
+      return void console.error(`html 类型只允许: html, css, javascript`);
+    }
+    results = [
+      {
+        id: editors.html.id,
+        name: "HTML",
+        icon: "html",
+        type: "html",
+        language: "html",
+        code: editors.html.code,
+      },
+    ];
+    if (editors.css) {
+      results.push({
+        id: editors.css.id,
+        name: "CSS",
+        icon: "css",
+        type: "css",
+        language: "css",
+        code: editors.css.code,
+      });
+    }
+    if (editors.javascript) {
+      results.push({
+        id: editors.javascript.id,
+        name: "JavaScript",
+        icon: "javascript",
+        type: "javascript",
+        language: "javascript",
+        code: editors.javascript.code,
+      });
+    }
+  } else if (projectType === "vue3") {
+    if (files.some((f) => !["mainJs", "appVue"].includes(f))) {
+      return void console.error("vue3 类型只允许 mainJs 和 appVue, 接收的是:", files.join(","));
+    }
+
+    results = [
+      {
+        id: editors.mainJs.id,
+        name: "main.js",
+        icon: "javascript",
+        type: "mainJs",
+        language: "javascript",
+        code: editors.mainJs.code,
+      },
+      {
+        id: editors.appVue.id,
+        name: "App.vue",
+        icon: "vue",
+        type: "appVue",
+        language: "html",
+        code: editors.appVue.code,
+      },
+    ];
+  } else if (projectType === "react") {
+    if (files.some((f) => !["mainJs", "appJs"].includes(f))) {
+      return void console.error("vue3 类型只允许 mainJs 和 appJs, 接收的是:", files.join(","));
+    }
+
+    results = [
+      {
+        id: editors.mainJs.id,
+        name: "main.js",
+        icon: "javascript",
+        type: "mainJs",
+        language: "javascript",
+        code: editors.mainJs.code,
+      },
+      {
+        id: editors.appJs.id,
+        name: "app.js",
+        icon: "javascript",
+        type: "appJs",
+        language: "javascript",
+        code: editors.appJs.code,
+      },
+    ];
+  }
+
+  return results;
 }
 </script>
 

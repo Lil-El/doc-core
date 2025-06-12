@@ -47,7 +47,7 @@ const monacoLoaded = useMonaco();
 
 const cache = ref(false);
 
-// id, name, icon, suffix, language, code
+// id, name(文件名), language(monaco), code   |  icon, type
 const state = reactive({
   ...(localStorage.getItem(props.data.id) ? JSON.parse(localStorage.getItem(props.data.id)) : cloneDeep(props.data)),
 });

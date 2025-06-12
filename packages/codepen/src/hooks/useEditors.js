@@ -118,16 +118,18 @@ function generateHTML(htmlStr, cssStr) {
   `;
 }
 
-async function getEditorCode(editors, name) {
+async function getEditorCode(editors, type) {
   for (const editor of editors) {
     const ins = await editor.getData();
-    if (ins.suffix === name) {
+    if (ins.type === type) {
       return ins.code;
     }
   }
 }
 
-export default function useEditors(previewID, pure) {
+export default function useEditors(previewID, pure, t) {
+  let projectType = t;
+
   const editorRef = ref(null);
 
   const loading = ref(false);
@@ -175,22 +177,23 @@ export default function useEditors(previewID, pure) {
 
     loading.value = true;
 
-    const htmlCode = await getEditorCode(editors, "html");
-    const cssCode = await getEditorCode(editors, "css");
-    const jsCode = await getEditorCode(editors, "javascript");
-    const vueCode = await getEditorCode(editors, "vue");
-    const reactCode = await getEditorCode(editors, "react");
-
     let srcdoc;
 
-    if (vueCode) {
+    if (projectType === "html") {
+      const htmlCode = await getEditorCode(editors, "html");
+      const cssCode = await getEditorCode(editors, "css");
+      const jsCode = await getEditorCode(editors, "javascript");
+      const { htmlStr, cssStr } = handleJS(htmlCode, cssCode, jsCode, enableSW);
+      srcdoc = generateHTML(htmlStr, cssStr);
+    } else if (projectType === "vue3") {
+      const jsCode = await getEditorCode(editors, "mainJs");
+      const vueCode = await getEditorCode(editors, "appVue");
       const { htmlStr, cssStr } = await handleVue3(vueCode, jsCode, enableSW);
       srcdoc = generateHTML(htmlStr, cssStr);
-    } else if (reactCode) {
+    } else if (projectType === "react") {
+      const jsCode = await getEditorCode(editors, "mainJs");
+      const reactCode = await getEditorCode(editors, "appJs");
       const { htmlStr, cssStr } = await handleReact(reactCode, jsCode, enableSW);
-      srcdoc = generateHTML(htmlStr, cssStr);
-    } else if (jsCode) {
-      const { htmlStr, cssStr } = handleJS(htmlCode, cssCode, jsCode, enableSW);
       srcdoc = generateHTML(htmlStr, cssStr);
     }
 
@@ -211,10 +214,15 @@ export default function useEditors(previewID, pure) {
     });
   }
 
+  function setProjectType(type) {
+    projectType = type;
+  }
+
   return {
     editorRef,
     reset,
     run,
     loading,
+    setProjectType,
   };
 }

@@ -55,10 +55,7 @@ export default defineConfig({
 
 ```js
 export default {
-  content: [
-    "./node_modules/@lil-el/codepen/dist/**/*.{js}",
-    "./node_modules/@lil-el/ui/dist/**/*.{js}"
-  ],
+  content: ["./node_modules/@lil-el/codepen/dist/**/*.{js}", "./node_modules/@lil-el/ui/dist/**/*.{js}"],
 };
 ```
 
@@ -89,44 +86,32 @@ export default {
 **单个代码片段 App**
 
 ```html
-<codepen title="Hello" author="Mino" date="2025-05-30" :editors="editors" />
+<codepen title="Hello" author="Mino" date="2025-05-30" project="html" :editors="editors" />
 
 <script setup>
   import { codepen } from "@lil-el/codepen";
 
-  const editors = reactive([
-    {
+  const editors = reactive({
+    html: {
       id: 1,
-      name: "HTML",
-      icon: "html",
-      suffix: "html",
-      language: "html",
       code: "<div id='hello'>Hello world!</div>",
     },
-    {
+    css: {
       id: 2,
-      name: "CSS",
-      icon: "css",
-      suffix: "css",
-      language: "css",
       code: "#hello { color: red; }",
     },
-    {
+    javascript: {
       id: 3,
-      name: "JS",
-      icon: "javascript",
-      suffix: "javascript",
-      language: "javascript",
       code: `
-        function hello() {
-          alert('Hello world!');
-        }
+      function hello() {
+        alert('Hello world!');
+      }
 
-        const ele = document.getElementById('hello');
-        ele.addEventListener('click', hello);
-      `,
+      const ele = document.getElementById('hello');
+      ele.addEventListener('click', hello);
+    `,
     },
-  ]);
+  });
 </script>
 ```
 
@@ -137,17 +122,27 @@ export default {
 - title: String
 - author: String
 - date: String
-- editors: Array
-
-**editor format:**
-
-```json
-{
-  "id": "unique-id",
-  "name": "HTML",
-  "icon": "html",
-  "suffix": "html",
-  "language": "html",
-  "code": "<div>Hello World</div>"
-}
-```
+- project: "html" | "vue3" | "react"
+- editors: Object
+  - project: html
+    ```typescript
+    type htmlEditors = {
+      html: { id: number; code: string };
+      css?: { id: number; code: string };
+      javascript?: { id: number; code: string };
+    };
+    ```
+  - project: vue3
+    ```typescript
+    type vue3Editors = {
+      mainJs: { id: number; code: string };
+      appVue: { id: number; code: string };
+    };
+    ```
+  - project: react
+    ```typescript
+    type reactEditors = {
+      mainJs: { id: number; code: string };
+      appJs: { id: number; code: string };
+    };
+    ```
