@@ -43,15 +43,16 @@ export default function (options = {}) {
           },
         ];
 
-        let tmpTimer = setInterval(() => {
-          if (document.querySelector(`[data-scope-id="${scopeId}"]`)) {
+        if (!options.mounted) {
+          console.error("[rehype-vue] options.mounted is not defined")
+        } else {
+          options.mounted(() => {
             handleCompile(document.querySelector(`[data-scope-id="${scopeId}"]`), {
               params,
               name: compName,
             });
-            clearInterval(tmpTimer);
-          }
-        }, 50);
+          });
+        }
       }
     });
   };

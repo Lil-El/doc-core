@@ -78,6 +78,13 @@
    > - `[!vue:helloworld:300]`
    > - `[!vue:HelloWorld]`
 
+5. `notation` 标注：使用 `[text](!notation:type:color)` 创建标注；
+
+   > 颜色不是必须的。例如：
+   >
+   > - `[text](!notation:box)`
+   > - `[text](!notation:underline:red)`
+
 # 演示
 
 ## `vue` 组件
@@ -151,7 +158,7 @@ function hello() {
 
 ## `tip` 提示块
 
-**类型：info、warning、danger、success、primary**
+**type 类型：[info、warning、danger、success、primary](!notation:highlight:yellow)**
 
 **使用**
 
@@ -178,7 +185,7 @@ function hello() {
 ````markdown
 ```javascript [!title:main.js]
 function hello() {
-  console.log('Hello World');
+  console.log("Hello World");
 }
 ```
 ````
@@ -187,9 +194,40 @@ function hello() {
 
 ```javascript [!title:main.js]
 function hello() {
-  console.log('Hello World');
+  console.log("Hello World");
 }
 ```
+
+## `notation` 标注
+
+**type 类型：[underline、box、circle、highlight、strike-through、crossed-off](!notation:underline:yellowgreen)**
+
+**color 颜色：默认黑色，[非必填](!notation:circle:red)**
+
+**使用**
+
+````markdown
+Hello, [This is a notation demo](!notation:underline)!
+Hello, [This is a notation demo](!notation:box:cyan)!
+Hello, [This is a notation demo](!notation:circle:green)!
+Hello, [This is a notation demo](!notation:highlight:yellow)!
+Hello, [This is a notation demo](!notation:strike-through:red)!
+Hello, [This is a notation demo](!notation:crossed-off:red)!
+````
+
+**运行效果**
+
+Hello, [This is a notation demo](!notation:underline)!
+
+Hello, [This is a notation demo](!notation:box:cyan)!
+
+Hello, [This is a notation demo](!notation:circle:green)!
+
+Hello, [This is a notation demo](!notation:highlight:yellow)!
+
+Hello, [This is a notation demo](!notation:strike-through:red)!
+
+Hello, [This is a notation demo](!notation:crossed-off:red)!
 
 [^1]: By Mino
 

@@ -29,6 +29,7 @@ import rehypeToc from "@/utils/rehype-toc";
 import rehypeVue from "@/utils/rehype-vue";
 import rehypeTip from "@/utils/rehype-tip";
 import rehypeTitle from "@/utils/rehype-title";
+import rehypeNotation from "@/utils/rehype-notation";
 import rehypePatchFootnote from "@/utils/rehype-patch-footnote";
 import { visit } from "unist-util-visit";
 import demoMdText from "@/doc/demo.md?raw";
@@ -86,7 +87,7 @@ onMounted(() => {
     .use(rehypeToc, (result) => {
       toc.value = result;
     })
-    .use(rehypeVue, { iframe: isEdit.value })
+    .use(rehypeVue, { iframe: isEdit.value, mounted: mdContentRef.value.subscribe }) // 编辑时使用 iframe 方式加载 codepen，避免 monaco 编辑器主题冲突
     .use(rehypeTip)
     .use(rehypePrettyCode, {
       bypassInlineCode: !true,
@@ -102,6 +103,11 @@ onMounted(() => {
       },
     })
     .use(rehypeTitle)
+    .use(rehypeNotation, { mounted: mdContentRef.value.subscribe })
+    // .use(() => (ast) => {
+    //   console.log(ast);
+    //   debugger;
+    // })
     .use(rehypeStringify, { allowDangerousHtml: true });
 });
 

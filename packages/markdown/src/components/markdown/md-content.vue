@@ -42,7 +42,7 @@
 </template>
 
 <script setup>
-import { ref, provide, onMounted, onBeforeUnmount } from "vue";
+import { ref, provide, onMounted, onBeforeUnmount, nextTick } from "vue";
 import useSyncScroll from "@/hooks/useSyncScroll.js";
 
 defineProps({
@@ -64,6 +64,8 @@ const disable = ref(!!anchor);
 
 const active = ref(decodeURIComponent(anchor));
 
+const loadedCallbacks = [];
+
 provide("active-toc", active);
 
 provide("handleTOCClick", handleTOCClick);
@@ -71,14 +73,11 @@ provide("handleTOCClick", handleTOCClick);
 useSyncScroll(scrollRef, "md-content");
 
 onMounted(() => {
-  if (active.value) {
-    let tmpTimer = setInterval(() => {
-      if (document.getElementById(`${active.value}`)) {
-        handleTOCClick(active.value);
-        clearInterval(tmpTimer);
-      }
-    }, 50);
-  }
+  subscribe(() => {
+    if (active.value) handleTOCClick(active.value);
+  });
+
+  setupMutationObserver();
 
   scrollRef.value.addEventListener("scroll", handleScroll);
 });
@@ -87,6 +86,25 @@ onBeforeUnmount(() => {
   clearTimeout(timer);
   scrollRef.value.removeEventListener("scroll", handleScroll);
 });
+
+function setupMutationObserver() {
+  nextTick(() => {
+    const container = document.getElementById("md-content-article");
+
+    if (!container) return void setupMutationObserver();
+
+    const observer = new MutationObserver(() => {
+      loadedCallbacks.forEach((callback) => callback());
+
+      observer.disconnect();
+    });
+
+    observer.observe(container, {
+      childList: true, // 监听子节点变化
+      characterData: true, // 监听文本内容变化
+    });
+  });
+}
 
 function handleTOCClick(ID) {
   disable.value = true;
@@ -146,7 +164,16 @@ function handleExport() {
   emits("export");
 }
 
+function subscribe(callback) {
+  loadedCallbacks.push(callback);
+}
+function unsubscribeAll() {
+  loadedCallbacks.splice(0, loadedCallbacks.length);
+}
+
 defineExpose({
   handleTOCClick,
+  subscribe,
+  unsubscribeAll,
 });
 </script>
