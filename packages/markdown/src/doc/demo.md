@@ -40,7 +40,6 @@
   - 粗体：使用 `**text**` 或 `__text__`；例如：**text**
   - 斜体：使用 `*text*` 或 `_text_`；例如：_text_
 - 删除线：使用 `~~text~~`; 例如：~~text~~
-- 脚注：使用 `[^id]: text` 创建脚注[^1];
 - 任务列表
   - 使用 `- [ ]` 创建任务列表；
   - 使用 `- [x]` 创建已完成任务列表；
@@ -206,14 +205,14 @@ function hello() {
 
 **使用**
 
-````markdown
+```markdown
 Hello, [This is a notation demo](!notation:underline)!
 Hello, [This is a notation demo](!notation:box:cyan)!
 Hello, [This is a notation demo](!notation:circle:green)!
 Hello, [This is a notation demo](!notation:highlight:yellow)!
 Hello, [This is a notation demo](!notation:strike-through:red)!
 Hello, [This is a notation demo](!notation:crossed-off:red)!
-````
+```
 
 **运行效果**
 
@@ -228,7 +227,5 @@ Hello, [This is a notation demo](!notation:highlight:yellow)!
 Hello, [This is a notation demo](!notation:strike-through:red)!
 
 Hello, [This is a notation demo](!notation:crossed-off:red)!
-
-[^1]: By Mino
 
 [marxi]: https://marxi.co

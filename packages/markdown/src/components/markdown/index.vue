@@ -30,7 +30,6 @@ import rehypeVue from "@/utils/rehype-vue";
 import rehypeTip from "@/utils/rehype-tip";
 import rehypeTitle from "@/utils/rehype-title";
 import rehypeNotation from "@/utils/rehype-notation";
-import rehypePatchFootnote from "@/utils/rehype-patch-footnote";
 import { visit } from "unist-util-visit";
 import demoMdText from "@/doc/demo.md?raw";
 
@@ -83,7 +82,6 @@ onMounted(() => {
     .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypeSlug)
     .use(isHashRouter ? () => () => {} : rehypeAutolinkHeadings, { behavior: "wrap" })
-    .use(rehypePatchFootnote)
     .use(rehypeToc, (result) => {
       toc.value = result;
     })
