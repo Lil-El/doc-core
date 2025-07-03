@@ -84,6 +84,7 @@ onMounted(() => {
 
 onBeforeUnmount(() => {
   clearTimeout(timer);
+  unsubscribeAll();
   scrollRef.value.removeEventListener("scroll", handleScroll);
 });
 

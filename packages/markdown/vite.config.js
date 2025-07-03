@@ -8,7 +8,6 @@ import { viteStaticCopy } from "vite-plugin-static-copy";
 import { createRequire } from "node:module";
 const require = createRequire(import.meta.url);
 const monacoEditorPlugin = require("vite-plugin-monaco-editor").default;
-import viteCopySw from "@lil-el/codepen/vite-copy-sw";
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -21,7 +20,6 @@ export default defineConfig({
     },
   },
   plugins: [
-    viteCopySw(),
     vue(),
     ...(process.env.NODE_ENV === "development" ? [tailwindcss(), monacoEditorPlugin({})] : []),
     viteStaticCopy({

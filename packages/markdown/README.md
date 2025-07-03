@@ -12,7 +12,7 @@
 
 ### features
 
-- 自动生成 `toc`，内置了 `codepen` 组件，以及自定义 tip 解析等；
+- 自动生成 `toc`，自定义 tip 解析等；
 - 基于 `unified` 实现 `Markdown` 解析，并基于 `shiki` 实现代码高亮；
 - 支持编辑、导出功能；
 - 支持 `tailwindcss` 的 `dark` 主题（.drak, [data-theme="dark"]），以及不同的主题配色 `--markdown-color`;
@@ -24,12 +24,13 @@
 
   <script setup>
     const theme = reactive({
-      isDark: false
-    })
+      isDark: false,
+    });
 
     provide("theme", theme);
   </script>
   ```
+
   > 在 editable 状态下，需要提供 theme.isDark
 
 [更多查看](./src/doc/demo.md)
@@ -38,7 +39,7 @@
 
 **为避免 `tailwindcss` 样式覆盖问题，在你的项目/应用中安装 `tailwindcss` 并配置；**
 
-需要安装 `@lil-el/codepen`，`@tailwindcss/typography`, `@tailwindcss/vite`, `tailwindcss`;
+需要安装 `@tailwindcss/typography`, `@tailwindcss/vite`, `tailwindcss`;
 
 ### Install
 
@@ -46,23 +47,15 @@
 pnpm i @tailwindcss/typography @tailwindcss/vite tailwindcss -D
 ```
 
-```bash
-pnpm i @lil-el/codepen @lil-el/markdown
-```
-
 ### Vite Config
 
 需要配置 `tailwindcss` 插件。
 
-同时由于该组件内置依赖 [`@lil-el/codepen`](https://www.npmjs.com/package/@lil-el/codepen)，需要配置 `viteCopySw` 插件：
-
-
 ```javascript
 import tailwindcss from "@tailwindcss/vite";
-import viteCopySw from "@lil-el/codepen/vite-copy-sw";
 
 export default defineConfig({
-  plugins: [viteCopySw(), tailwindcss()],
+  plugins: [tailwindcss()],
 });
 ```
 
@@ -89,7 +82,6 @@ export default {
     },
   },
 };
-
 ```
 
 ### Import
@@ -108,22 +100,36 @@ export default {
 
 **your vue file:**
 
-```html
+````html
 <div class="h-screen">
-  <markdown editable :tutorial="false" :text="mdContent" />
+  <markdown editable :tutorial="false" :text="mdContent" :components="components" />
 </div>
 
 <script setup>
   import { markdown } from "@lil-el/markdown";
 
-  const mdContent = `# Hello World`;
+  const mdContent = `
+  # Hello World
+
+  ```json [!vue:helloworld]
+  {
+    "msg": "点我试试...",
+    "style": "color: red; cursor: pointer;"
+  }
+  ```
+
+`;
+
+  const components = {
+    helloworld: () => import("component path"), // 需要具名到处 helloworld
+  };
 </script>
-```
+````
 
 # markdown
 
 ## props
 
 - editable: Boolean 是否可编辑，默认为 `false`
-- tutorial: Boolean 查看示例文档，默认为 `false`
 - text: String `Markdown` 文本内容
+- components: `Markdown` 内部引用的组件 (具名到处，name 与 key 保持一致)

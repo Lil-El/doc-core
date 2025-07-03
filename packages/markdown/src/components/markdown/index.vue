@@ -31,27 +31,29 @@ import rehypeTip from "@/utils/rehype-tip";
 import rehypeTitle from "@/utils/rehype-title";
 import rehypeNotation from "@/utils/rehype-notation";
 import { visit } from "unist-util-visit";
-import demoMdText from "@/doc/demo.md?raw";
 
 const props = defineProps({
   editable: {
     type: Boolean,
     default: false,
   },
-  tutorial: {
-    type: Boolean,
-    default: false,
+  text: {
+    type: String,
+    default: "",
   },
-  text: String,
+  components: {
+    type: Object,
+    default: () => ({}),
+  },
 });
 
-const { tutorial, editable } = props;
+const { editable } = props;
 
 const markdownText = toRef(props, "text");
 
 const isEdit = ref(editable);
 
-const copyText = ref(tutorial ? demoMdText : markdownText.value);
+const copyText = ref(markdownText.value);
 
 const content = ref("");
 
@@ -85,7 +87,7 @@ onMounted(() => {
     .use(rehypeToc, (result) => {
       toc.value = result;
     })
-    .use(rehypeVue, { iframe: isEdit.value, mounted: mdContentRef.value.subscribe }) // 编辑时使用 iframe 方式加载 codepen，避免 monaco 编辑器主题冲突
+    .use(rehypeVue, { components: props.components, mounted: mdContentRef.value.subscribe })
     .use(rehypeTip)
     .use(rehypePrettyCode, {
       bypassInlineCode: !true,

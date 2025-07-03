@@ -19,38 +19,32 @@ export default function (options = {}) {
       delete node.properties.compName;
       delete node.properties.height;
 
-      if (options.iframe && compName === "codepen") {
-        const srcdoc = codepenHTML(JSON.stringify(params));
+      node.children = [
+        {
+          type: "element",
+          tagName: "div",
+          properties: { "data-scope-id": scopeId, style: height ? `height: ${height}px` : "" },
+          children: [],
+        },
+      ];
 
-        node.children = [
-          {
-            type: "element",
-            tagName: "iframe",
-            properties: {
-              style: height ? `height: ${height}px; width: 100%;` : "width: 100%;",
-              srcdoc,
-            },
-            children: [],
-          },
-        ];
+      if (!options.mounted) {
+        console.error("[rehype-vue] options.mounted is not defined");
       } else {
-        node.children = [
-          {
-            type: "element",
-            tagName: "div",
-            properties: { "data-scope-id": scopeId, style: height ? `height: ${height}px` : "" },
-            children: [],
-          },
-        ];
-
-        if (!options.mounted) {
-          console.error("[rehype-vue] options.mounted is not defined")
-        } else {
+        if (options.components[compName]) {
           options.mounted(() => {
-            handleCompile(document.querySelector(`[data-scope-id="${scopeId}"]`), {
-              params,
-              name: compName,
-            });
+            handleCompile(
+              document.querySelector(`[data-scope-id="${scopeId}"]`),
+              options.components[compName],
+              compName,
+              params
+            );
+          });
+        } else {
+          node.children[0].properties.className = ["component-404"];
+          node.children[0].children.push({
+            type: "text",
+            value: `组件 ${compName} 不存在`,
           });
         }
       }
@@ -58,9 +52,9 @@ export default function (options = {}) {
   };
 }
 
-function handleCompile(root, component) {
-  import(`/src/components/index.js`).then((module) => {
-    render(h(module[component.name], component.params), root);
+function handleCompile(root, component, name, params) {
+  component().then((module) => {
+    render(h(module[name], params), root);
   });
 }
 

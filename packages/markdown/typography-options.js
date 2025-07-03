@@ -26,7 +26,7 @@ export default {
             padding: "0.2rem 0.5rem",
             "background-color": "#ffffff",
             "border-radius": "0.5rem",
-            "font-style": "italic",
+            // "font-style": "italic",
             "box-shadow": "0 1px 3px rgb(0 0 0 / 0.15)",
           },
         },

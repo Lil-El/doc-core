@@ -67,12 +67,9 @@
 
 3. `title` 代码块：使用 `[!title:name]` 创建标题代码块；
 
-4. `vue` 组件：使用 `[!vue:name:height]` 调用内置组件；目前的内置组件有：
+4. `vue` 组件：使用 `[!vue:name:height]` 调用组件；
 
-   - helloworld：示例组件
-   - codepen：在线代码编辑器
-
-   > 组件名称不区分大小写，高度不是必须的。例如：
+   > 高度不是必须的。例如：
    >
    > - `[!vue:helloworld:300]`
    > - `[!vue:HelloWorld]`
@@ -110,10 +107,8 @@ function hello() {
 
 **使用**
 
-组件名称不区分大小写
-
 ````markdown
-```json [!vue:HelloWorld]
+```json [!vue:helloworld]
 {
   "msg": "点我试试...",
   "style": "color: red; cursor: pointer;"
@@ -123,7 +118,7 @@ function hello() {
 
 **运行效果**
 
-```json [!vue:HelloWorld]
+```json [!vue:helloworld]
 {
   "msg": "点我试试...",
   "style": "color: red; cursor: pointer;"

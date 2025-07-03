@@ -1,5 +1,3 @@
-@import "@lil-el/codepen/css";
-
 @plugin "@tailwindcss/typography";
 
 @layer base {
@@ -10,7 +8,7 @@
    */
   @font-face {
     font-family: 'MapleMono';
-    src: url('assets/MapleMono-Italic.woff2') format('woff2');
+    src: url('./MapleMono-Italic.woff2') format('woff2');
   }
 }
 
@@ -188,4 +186,13 @@
 
 .md-toc-item__active {
   @apply border-(--toc-color) text-(--toc-color) font-bold;
+}
+
+.component-404 {
+  border: 1px solid red;
+  background-color: rgba(255, 0, 0, 0.1);
+  color: red;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

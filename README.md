@@ -27,7 +27,7 @@
 > pnpm run build
 > pnpm changeset
 > pnpm changeset version
-> pnpm changeset publish
+> pnpm changeset publish | pnpm changeset publish --tag beta
 > git add .
 > git commit -m ""
 > git push

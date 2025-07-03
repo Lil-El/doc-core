@@ -5,7 +5,7 @@
   </select>
 
   <div class="h-screen">
-    <m-markdown style="--markdown-color: var(--data-theme-color)"  tutorial :text="mdStr"></m-markdown>
+    <m-markdown style="--markdown-color: var(--data-theme-color)" :text="mdStr"></m-markdown>
   </div>
 </template>
 
