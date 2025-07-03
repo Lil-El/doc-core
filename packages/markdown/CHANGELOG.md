@@ -1,5 +1,11 @@
 # @lil-el/markdown
 
+## 2.0.0
+
+### Major Changes
+
+- codepen editors props change. markdown remove inner components.
+
 ## 1.6.0
 
 ### Minor Changes
